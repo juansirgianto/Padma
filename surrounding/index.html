@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Padma - Surrounding</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS Photo Sphere Viewer v5 -->
+  <link rel="stylesheet" href="https://unpkg.com/@photo-sphere-viewer/core/index.css">
+  <link rel="stylesheet" href="https://unpkg.com/@photo-sphere-viewer/markers-plugin/index.css">
+  <link rel="stylesheet" href="vtour.css">
+
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #viewer { width: 100vw; height: 100vh; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="viewer"></div>
+  <div id="sidebar" class="absolute flex flex-col top-2 left-2 w-[200px] bg-[#10523C]/70 backdrop-blur-sm p-4 rounded-lg transition-all duration-300">
+  <!-- Logo + Arrow -->
+  <div class="flex flex-col items-center justify-between">
+    <img src="https://designedbypelago.com/wp-content/uploads/2025/09/Padma_LogoFinal-White-e1758596993545.png" alt="" class="w-[150px]">
+  </div>
+  <div id="menu"
+       class="mt-5 space-y-2 overflow-hidden max-h-0 transition-[max-height,opacity] duration-300 ease-in-out opacity-0">
+    <a href="/" class="hover:bg-[#97864E]/70 rounded-xl block">
+      <div class="flex text-white text-xl p-2 font-semibold gap-2 items-center">
+        <i data-lucide="home"></i>
+        <span>Home</span>
+      </div>
+    </a>
+    <a id="amenitiesLink" href="/" class="hover:bg-[#97864E]/70 rounded-xl block">
+      <div class="flex text-white text-xl p-2 font-semibold gap-2 items-center">
+        <i data-lucide="building"></i>
+        <span>Amenities</span>
+      </div>
+    </a>
+    <a href="/surrounding/" class="bg-white rounded-xl block">
+      <div class="flex text-[#10523C] text-xl p-2 font-semibold gap-2 items-center mb-2">
+        <i data-lucide="map"></i>
+        <span>Surrounding</span>
+    </div>
+    </a>
+  </div>
+  <button id="toggleBtn" type="button" class="text-white w-full hover:bg-white hover:text-[#10523C] rounded-xl">
+    <i id="chev" data-lucide="chevron-down" class="mx-auto transition-transform duration-300"></i>
+  </button>  
+</div>
+
+<!-- Info Card Overlay -->
+<div id="sceneCard"
+     class="fixed right-2 top-2 max-w-sm bg-[#10523C]/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-black/5
+            opacity-0 translate-y-3 pointer-events-none transition-all duration-300">
+  <img id="sceneCardImg" src="" alt="" class="w-full h-36 object-cover hidden">
+  <div class="p-4">
+    <div class="text-xs tracking-widest text-white uppercase" id="sceneCardTag"></div>
+    <h3 id="sceneCardTitle" class="text-xl font-bold text-white mt-1"></h3>
+    <p id="sceneCardDesc" class="text-gray-200 mt-2"></p>
+    <ul id="sceneCardBullets" class="mt-3 space-y-1 text-sm text-gray-200"></ul>
+    <a id="sceneCardCta"
+       class="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-lg bg-[#97864E] text-white hover:bg-[#97864E]/90 transition hidden cursor-pointer">
+      See Gallery
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M7 17L17 7M7 7h10v10"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Close -->
+  <button id="sceneCardClose" type="button"
+          class="absolute top-2 right-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-black/60 text-white hover:bg-black/80">
+    <i data-lucide="x"></i>
+  </button>
+</div>
+
+<!-- Tombol Open (default hidden, muncul setelah close) -->
+<button id="openCardBtn"
+        class="fixed right-2 top-2 px-3 py-1.5 bg-[#97864E] text-white rounded-lg shadow hidden">
+  Open Desc
+</button>
+
+<!-- Gallery Modal -->
+<div id="galleryModal"
+     class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80">
+  <!-- Close -->
+  <button id="galClose"
+          class="absolute top-4 right-4 p-2 rounded-full bg-[#97864E]/70 hover:bg-[#10523C]/90 text-white text-xl font-bold leading-none">
+    <i data-lucide="x"></i>
+  </button>
+
+  <!-- Stage -->
+  <div class="relative w-[92vw] max-w-5xl">
+    <img id="galImage" src="" alt="" class="w-full h-[70vh] object-contain rounded-xl shadow-lg " />
+
+    <!-- Prev/Next -->
+    <button id="galPrev"
+            class="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#97864E]/70 hover:bg-[#10523C]/90 text-white text-2xl leading-none">
+      <i data-lucide="chevron-left"></i>
+    </button>
+    <button id="galNext"
+            class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#97864E]/70 hover:bg-[#10523C]/90 text-white text-2xl leading-none">
+      <i data-lucide="chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Dots -->
+  <div id="galDots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"></div>
+</div>
+
+
+
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <script type="module" src="./vtour.js"></script>
+  <script>
+  // render lucide once at startup
+  if (window.lucide) lucide.createIcons();
+
+  const toggleBtn = document.getElementById("toggleBtn");
+  const menu = document.getElementById("menu");
+  const chev = document.getElementById("chev");
+
+  let open = false;
+
+  toggleBtn.addEventListener("click", (e) => {
+    e.preventDefault(); // extra safety
+    e.stopPropagation();
+
+    open = !open;
+
+    // Slide open/close via max-height + opacity
+    if (open) {
+      // set a large enough max height for your content
+      menu.style.maxHeight = menu.scrollHeight + "px";
+      menu.style.opacity = "1";
+      // rotate chevron up
+      chev.style.transform = "rotate(180deg)";
+    } else {
+      menu.style.maxHeight = "0px";
+      menu.style.opacity = "0";
+      // rotate chevron down
+      chev.style.transform = "rotate(0deg)";
+    }
+  });
+
+  // Optional: if window resizes while open, keep maxHeight correct
+  window.addEventListener("resize", () => {
+    if (open) menu.style.maxHeight = menu.scrollHeight + "px";
+  });
+</script>
+</body>
+</html>

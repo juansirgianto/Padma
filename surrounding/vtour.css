@@ -1,0 +1,13 @@
+/* target tombol markersList */
+.psv-panel-resizer {
+  background-color: #97864E !important;  /* warna latar */                 /* opsional */
+  color: #fff;                           /* warna ikon */
+}
+.psv-navbar {
+  background-color: rgba(16,82,60,0.7) !important;  /* warna saat hover */
+}
+
+.psv-panel-menu {
+  background-color: rgba(16,82,60) !important; /* contoh hijau transparan */
+  color: #fff;
+}

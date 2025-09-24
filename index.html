@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Padma</title>
+  <link rel="icon" type="image/png" href="https://designedbypelago.com/wp-content/uploads/2025/09/PadmaIcon.png">
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+    <style>
+        body {
+            font-family: 'Work Sans', sans-serif;
+        }
+    
+        #thumbnailScroll::-webkit-scrollbar {
+            display: none;
+        }
+        #thumbnailScroll {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+    </style>
+<body>
+    <canvas id="webgl-canvas" class="absolute block top-0 lef-0 z-0"></canvas>
+
+<!-- Kontainer deskripsi -->
+<div id="pooldescription" class="description-box absolute top-2 right-2 bg-[#0E2C3F] rounded-lg shadow-lg w-96 z-20" style="display: none;">
+  <button class="absolute top-2 right-2 text-white close-description bg-[#0E2C3F] rounded-full p-1">
+    <i data-lucide="x"></i>
+  </button>
+  <img  src="https://res.cloudinary.com/doyr0s17x/image/upload/v1755737546/entrance1_rkhpm2.jpg" alt="" id="descImage" class="rounded-lg w-full h-[200px] object-cover mb-2">
+  <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
+  <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Orchard & Meadow</h4>
+  <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">A serene and ecologically rich landscape feature, the Orchard & Meadow area blends productivity with
+    natural beauty. Rows of apple trees are interplanted with a curated Northeast wildflower mix, designed
+    to enhance seasonal color, pollinator habitat, and biodiversity.<br/> Gently mown grass paths weave through
+    the space, inviting strolling, maintenance access, and quiet immersion in the landscape. This area
+    serves as a transitional, sensory-rich zone connecting more structured spaces with the wider natural
+    site context.</p>
+    <div class="flex gap-2 mx-4 mb-4">
+    <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#1F8389] hover:bg-[#f5f4ea] text-[#0E2C3F] w-full p-2 rounded-xl" data-gallery-id="pool"
+     data-media='[{"type":"video","src":"https://res.cloudinary.com/doyr0s17x/video/upload/v1755737911/entrance_udjwda.mp4","poster":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737559/entrance2_s5karw.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737546/entrance1_rkhpm2.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737559/entrance2_s5karw.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737560/entrance3_uiquzh.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737547/entrance1-n_gqrse6.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737557/entrance2-n_xtcmoy.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737555/entrance3-n_sbue2p.jpg"}]'>
+      <i data-lucide="image" class="size-5 my-auto "></i>
+      <span class="font-semibold">Gallery</span>
+    </button>
+    <!-- <a href="/Demo02/area1/360/" class="w-full">
+        <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#d3d2a5] hover:bg-[#f5f4ea] text-[#757741] w-full p-2 rounded-xl">
+        <i data-lucide="rotate-3d" class="size-5 my-auto "></i>
+        <span class="font-semibold">360 View</span>
+        </button>
+    </a> -->
+    </div>
+</div>
+
+<div id="housedescription" class="description-box absolute top-2 right-2 bg-[#0E2C3F] rounded-lg shadow-lg w-96 z-20" style="display: none;">
+  <button class="absolute top-2 right-2 text-[#f5f4ea] close-description bg-[#0E2C3F] rounded-full p-1">
+    <i data-lucide="x"></i>
+  </button>
+  <img  src="https://res.cloudinary.com/doyr0s17x/image/upload/v1755737573/front3_rvz5be.jpg" alt="" id="descImage" class="rounded-lg w-full h-[200px] object-cover mb-2">
+  <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
+  <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Kitchen / Potager Garden</h4>
+  <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">This productive garden space is anchored by raised beds for vegetables, herbs, and cut flowers,
+    arranged with classic symmetry and functionality. A seasonal greenhouse and potting shed provide
+    space for seed starting and tool storage, extending the growing season and enhancing horticultural
+    flexibility.<br/>Pea-stone paths offer crisp lines and comfortable footing between beds, tying the space
+    together with a clean, timeless material palette. Designed for both utility and charm, the potager garden
+    supports a vibrant, seasonal rhythm of growing and harvesting.</p>
+    <div class="flex gap-2 mx-4 mb-4">
+    <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#1F8389] hover:bg-[#f5f4ea] text-[#0E2C3F] w-full p-2 rounded-xl" data-gallery-id="house"
+     data-media='[{"type":"video","src":"https://res.cloudinary.com/doyr0s17x/video/upload/v1755737981/frontraw_ijhehy.mp4","poster":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737573/front3_rvz5be.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737573/front3_rvz5be.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737556/front1_ak8wlk.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737566/front2_tl518o.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737565/front4_oopzto.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737565/front3-n_l4oiwm.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737559/front1-n_xitzdk.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737564/front2-n_bepjqd.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737566/front4-n_ygvocv.jpg"}]'>
+      <i data-lucide="image" class="size-5 my-auto "></i>
+      <span class="font-semibold">Gallery</span>
+    </button>
+    <!-- <a href="/Demo02/area2/360/" class="w-full">
+        <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#d3d2a5] hover:bg-[#f5f4ea] text-[#757741] w-full p-2 rounded-xl">
+        <i data-lucide="rotate-3d" class="size-5 my-auto "></i>
+        <span class="font-semibold">360 View</span>
+        </button>
+    </a> -->
+    </div>
+</div>
+
+<div id="gardendescription" class="description-box absolute top-2 right-2 bg-[#0E2C3F] rounded-lg shadow-lg w-96 z-20" style="display: none;">
+  <button class="absolute top-2 right-2 text-[#f5f4ea] close-description bg-[#0E2C3F] rounded-full p-1">
+    <i data-lucide="x"></i>
+  </button>
+  <img  src="https://res.cloudinary.com/doyr0s17x/image/upload/v1755737532/back1_cvji2r.jpg" alt="" class="rounded-lg w-full h-[200px] object-cover mb-2">
+  <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
+  <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Fire Pit</h4>
+  <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">Set beyond the pool as a destination and evening focal point, the reclaimed granite fire pit adds rustic
+character and permanence. The pit's generous proportions surround a 300,000 BTU burner, designed
+to produce a realistic, campfire-like flame with ample warmth for extended outdoor use. Encircled by
+informal seating, this area provides a natural gathering place for conversation and quiet enjoyment after
+sunset.</p>
+    <div class="flex gap-2 mx-4 mb-4">
+    <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#1F8389] hover:bg-[#f5f4ea] text-[#0E2C3F] w-full p-2 rounded-xl" data-gallery-id="poolgarden"
+     data-media='[{"type":"video","src":"https://res.cloudinary.com/doyr0s17x/video/upload/v1755737896/backyard_hhhq3u.mp4","poster":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737549/back3_ps8jjv.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737532/back1_cvji2r.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737543/back2_dquv29.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737549/back3_ps8jjv.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737538/back1-n_ta80ly.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737547/back2-n_kxvqdq.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737549/back3-n_ffviol.jpg"}]'>
+      <i data-lucide="image" class="size-5 my-auto "></i>
+      <span class="font-semibold">Gallery</span>
+    </button>
+    <!-- <a href="/Demo02/area3/360/" class="w-full">
+        <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#d3d2a5] hover:bg-[#f5f4ea] text-[#757741] w-full p-2 rounded-xl">
+        <i data-lucide="rotate-3d" class="size-5 my-auto "></i>
+        <span class="font-semibold">360 View</span>
+        </button>
+    </a> -->
+    </div>
+</div>
+
+<div id="arrivaldescription" class="description-box absolute top-2 right-2 bg-[#0E2C3F] rounded-lg shadow-lg w-96 z-20" style="display: none;">
+  <button class="absolute top-2 right-2 text-[#f5f4ea] close-description bg-[#0E2C3F] rounded-full p-1">
+    <i data-lucide="x"></i>
+  </button>
+  <img  src="https://res.cloudinary.com/doyr0s17x/image/upload/v1755737533/cabana1_teumjv.jpg" alt="" class="rounded-lg w-full h-[200px] object-cover mb-2">
+  <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
+  <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Cabana Kitchen</h4>
+  <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">An informal, welcoming outdoor cooking and gathering area is framed by long planks of bluestone,
+which appear to dissolve organically into surrounding perennial gardens. The softened hardscape edge
+creates a sense of movement and impermanence, blurring the line between structure and nature. Ideal
+for both everyday outdoor meals and larger gatherings, the space accommodates flexible tables and
+seating arrangements, offering a relaxed, convivial setting for entertaining.</p>
+    <div class="flex gap-2 mx-4 mb-4">
+    <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#1F8389] hover:bg-[#f5f4ea] text-[#0E2C3F] w-full p-2 rounded-xl" data-gallery-id="arrival"
+     data-media='[{"type":"video","src":"https://res.cloudinary.com/doyr0s17x/video/upload/v1755737951/cabana_hsdxst.mp4","poster":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737533/cabana1_teumjv.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737533/cabana1_teumjv.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737536/cabana2_vbtji6.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737574/garden1_xb3q6b.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737574/garden2_tvq2gk.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737578/garden3_bbgtdv.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737533/cabana1-n_jd4iat.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737540/cabana2-n_jduhct.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737571/garden1-n_uzvm5h.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737578/garden2-n_i9g0v8.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737579/garden3-n_djvhrj.jpg"}]'>
+      <i data-lucide="image" class="size-5 my-auto "></i>
+      <span class="font-semibold">Gallery</span>
+    </button>
+    <!-- <a href="/Demo02/area4/360/" class="w-full">
+        <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#d3d2a5] hover:bg-[#f5f4ea] text-[#757741] w-full p-2 rounded-xl">
+        <i data-lucide="rotate-3d" class="size-5 my-auto "></i>
+        <span class="font-semibold">360 View</span>
+        </button>
+    </a> -->
+    </div>
+</div>
+
+<div id="archdescription" class="description-box absolute top-2 right-2 bg-[#0E2C3F] rounded-lg shadow-lg w-96 z-20" style="display: none;">
+  <button class="absolute top-2 right-2 text-[#f5f4ea] close-description bg-[#0E2C3F] rounded-full p-1">
+    <i data-lucide="x"></i>
+  </button>
+  <img  src="https://res.cloudinary.com/doyr0s17x/image/upload/v1755737557/back4_qlsqgl.jpg" alt="" class="rounded-lg w-full h-[200px] object-cover mb-2">
+  <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
+  <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Pool & Lounge Area</h4>
+  <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">A 20' x 40' swimming pool anchors this sleek and understated lawn area, with 30" wide bluestone
+coping lending a refined, architectural edge. The design emphasizes simplicity and proportion, allowing
+the pool to feel integrated and serene within the broader landscape. The adjacent lounge area features
+generous seating capacity, shaded by a striking dual cantilever Tuuci umbrella, providing comfort,
+elegance, and visual balance for sunbathing and casual relaxation.</p>
+    <div class="flex gap-2 mx-4 mb-4">
+    <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#10523C]/90 hover:bg-[#97864E]/80 text-white w-full p-2 rounded-xl" data-gallery-id="arrival"
+     data-media='[{"type":"video","src":"https://res.cloudinary.com/doyr0s17x/video/upload/v1755737943/backyard2_qmugz6.mp4","poster":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737557/back4_qlsqgl.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737557/back4_qlsqgl.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737527/back5_foi7ch.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737549/back4-n_c6dhky.jpg"},
+     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737525/back5-n_zeoyfg.jpg"}]'>
+      <i data-lucide="image" class="size-5 my-auto "></i>
+      <span class="font-semibold">Gallery</span>
+    </button>
+    <!-- <a href="/Demo02/area5/360/" class="w-full">
+        <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#d3d2a5] hover:bg-[#f5f4ea] text-[#757741] w-full p-2 rounded-xl">
+        <i data-lucide="rotate-3d" class="size-5 my-auto "></i>
+        <span class="font-semibold">360 View</span>
+        </button>
+    </a> -->
+    </div>
+</div>
+
+<div id="sidebar" class="absolute flex flex-col top-2 left-2 w-[200px] bg-[#10523C]/70 backdrop-blur-sm p-4 rounded-lg transition-all duration-300">
+  <!-- Logo + Arrow -->
+  <div class="flex flex-col items-center justify-between">
+    <img src="https://designedbypelago.com/wp-content/uploads/2025/09/Padma_LogoFinal-White-e1758596993545.png" alt="" class="w-[150px]">
+  </div>
+  <div id="menu"
+       class="mt-5 space-y-2 overflow-hidden max-h-0 transition-[max-height,opacity] duration-300 ease-in-out opacity-0">
+    <a href="/" class="rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white">
+      <div class="flex text-xl p-2 font-semibold gap-2 items-center">
+        <i data-lucide="home"></i>
+        <span>Home</span>
+      </div>
+    </a>
+    <div class="amenities-dropdown">
+  <button id="amenitiesToggle" class="w-full rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white data-[active=true]:bg-white data-[active=true]:!text-[#10523C]" data-active="false">
+    <div class="flex text-xl p-2 font-semibold gap-2 items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i data-lucide="building"></i>
+        <span>Amenities</span>
+      </div>
+      <i id="amenitiesChevron" data-lucide="chevron-down" class="transition-transform duration-300"></i>
+    </div>
+  </button>
+  
+  <div id="amenitiesDropdownMenu" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
+    <div class="space-y-1 pt-2">
+      <button id="btn-1" data-area="pool" class="block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left">
+        <div class="flex items-center gap-2 p-2 text-sm">
+          <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">1</span>
+          <span>Orchard & Meadow</span>
+        </div>
+      </button>
+      <button id="btn-2" data-area="house" class="block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left">
+        <div class="flex items-center gap-2 p-2 text-sm">
+          <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">2</span>
+          <span>Kitchen / Potager Garden</span>
+        </div>
+      </button>
+      <button id="btn-3" data-area="garden" class="block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left">
+        <div class="flex items-center gap-2 p-2 text-sm">
+          <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">3</span>
+          <span>Fire Pit</span>
+        </div>
+      </button>
+      <button id="btn-4" data-area="arrival" class="block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left">
+        <div class="flex items-center gap-2 p-2 text-sm">
+          <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">4</span>
+          <span>Cabana Kitchen</span>
+        </div>
+      </button>
+      <button id="btn-5" data-area="arch" class="block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left">
+        <div class="flex items-center gap-2 p-2 text-sm">
+          <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">5</span>
+          <span>Pool & Lounge Area</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+    <a href="/surrounding/" class="rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white data-[active=true]:bg-white data-[active=true]:!text-[#10523C]" data-active="false">
+      <div class="flex text-xl p-2 font-semibold gap-2 items-center mb-2">
+        <i data-lucide="map"></i>
+        <span>Surrounding</span>
+      </div>
+    </a>
+  </div>
+  <button id="toggleBtn" type="button" class="text-white w-full hover:bg-white hover:text-[#10523C] rounded-xl">
+    <i id="chev" data-lucide="chevron-down" class="mx-auto transition-transform duration-300"></i>
+  </button>  
+</div>
+
+ <!-- Carousel Section -->
+    <div class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden" id="carouselWrapper">
+      <div class="relative w-auto max-w-[50%]" id="carouselWrap">
+        <!-- Carousel -->
+        <div class="relative flex items-center justify-center" id="carouselContainer">
+          <button id="prevBtn" class="relative left-2 bg-[#f5f4ea] hover:bg-[#1F8389] hover:text-[#f5f4ea] rounded-full p-2 z-10">
+            <i data-lucide="chevron-left"></i>
+          </button>
+
+          <img id="carouselImage" class="w-[800px] h-[600px] object-contain rounded-lg cursor-pointer" alt="Slide" />
+          <video preload="none" id="carouselVideo"
+          class="w-[800px] h-[600px] object-contain rounded-lg cursor-pointer hidden"
+          controls
+          playsinline
+          preload="metadata"></video>
+
+          <button id="nextBtn" class="relative right-2 bg-[#f5f4ea] hover:bg-[#1F8389] hover:text-[#f5f4ea] rounded-full p-2 z-10">
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
+        <div class="relative flex w-fit max-w-[90%] mx-auto mt-4 overflow-hidden">
+        <!-- Left Arrow -->
+        <button id="thumbLeft"
+          class="absolute left-0 top-1/2 -translate-y-1/2 bg-[#f5f4ea] hover:bg-[#1F8389] hover:text-[#f5f4ea] rounded-full p-1 shadow z-10">
+          <i data-lucide="chevron-left"></i>
+        </button>
+          <div id="thumbnailScroll" class="flex gap-2 overflow-x-auto scroll-smooth px-6 scrollbar-hide hidden">
+ 
+          </div>
+        <button id="thumbRight"
+          class="absolute right-0 top-1/2 -translate-y-1/2 bg-[#f5f4ea] hover:bg-[#1F8389] hover:text-[#f5f4ea] rounded-full p-1 shadow z-10">
+          <i data-lucide="chevron-right"></i>
+        </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div id="cam-info" class="absolute bottom-2 right-2 bg-black text-white text-xs px-2 py-1 rounded z-10"></div> -->
+  
+    <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+  <script type="module" src="./main.js"></script>
+  <script>
+    const links = document.querySelectorAll('#menu a');
+
+links.forEach(link => {
+  link.addEventListener('click', (e) => {
+    // Hanya preventDefault jika href adalah "/" (bukan link navigasi)
+    if (link.getAttribute('href') === '/') {
+      e.preventDefault();
+    }
+
+    links.forEach(l => l.dataset.active = "false");
+    link.dataset.active = "true";
+  });
+});
+
+  // render lucide once at startup
+  if (window.lucide) lucide.createIcons();
+
+  const toggleBtn = document.getElementById("toggleBtn");
+  const menu = document.getElementById("menu");
+  const chev = document.getElementById("chev");
+
+  let open = false;
+
+  toggleBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  open = !open;
+
+  if (open) {
+    // Hapus pembatasan - biarkan expand sesuai content
+    menu.style.maxHeight = "none"; // atau menu.scrollHeight + "px"
+    menu.style.maxWidth = "none";  // tidak ada batas lebar
+    menu.style.opacity = "1";
+    chev.style.transform = "rotate(180deg)";
+  } else {
+    menu.style.maxHeight = "0px";
+    menu.style.opacity = "0";
+    chev.style.transform = "rotate(0deg)";
+  }
+});
+
+  // Optional: if window resizes while open, keep maxHeight correct
+  window.addEventListener("resize", () => {
+    if (open) menu.style.maxHeight = menu.scrollHeight + "px";
+  });
+</script>
+<script>
+  // Hapus JavaScript amenities yang lama, ganti dengan ini:
+const amenitiesToggle = document.getElementById('amenitiesToggle');
+const amenitiesDropdownMenu = document.getElementById('amenitiesDropdownMenu');
+const amenitiesChevron = document.getElementById('amenitiesChevron');
+
+let amenitiesDropdownOpen = false;
+
+function toggleAmenitiesDropdown() {
+  amenitiesDropdownOpen = !amenitiesDropdownOpen;
+  
+  if (amenitiesDropdownOpen) {
+    amenitiesDropdownMenu.style.maxHeight = amenitiesDropdownMenu.scrollHeight + 'px';
+    amenitiesDropdownMenu.style.opacity = '1';
+    amenitiesChevron.style.transform = 'rotate(180deg)';
+    amenitiesToggle.dataset.active = "true";
+  } else {
+    amenitiesDropdownMenu.style.maxHeight = '0px';
+    amenitiesDropdownMenu.style.opacity = '0';
+    amenitiesChevron.style.transform = 'rotate(0deg)';
+    amenitiesToggle.dataset.active = "false";
+  }
+}
+
+amenitiesToggle.addEventListener('click', (e) => {
+  e.preventDefault();
+  toggleAmenitiesDropdown();
+});
+
+// Area button mapping
+document.querySelectorAll('[data-area]').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const area = e.currentTarget.dataset.area;
+  });
+});
+</script>
+</body>
+</html>
