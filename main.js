@@ -218,6 +218,21 @@ canvas.addEventListener('click', (event) => {
 
     const pinPOI = pinPOIs.find(p => p.mesh === pinGroup);
     if (pinPOI) {
+      
+      // Buka menu jika belum terbuka
+      if (!open) {
+        // Hapus pembatasan - biarkan expand sesuai content
+        menu.style.maxHeight = "none"; // atau menu.scrollHeight + "px"
+        menu.style.maxWidth = "none";  // tidak ada batas lebar
+        menu.style.opacity = "1";
+        chev.style.transform = "rotate(180deg)";
+      } 
+
+      // Buka amenities dropdown
+      if (!amenitiesDropdownOpen) {
+        toggleAmenitiesDropdown();
+      }
+
       // Pindahkan kamera
       moveCameraTo(pinPOI.camera_position.toArray(), pinPOI.camera_target.toArray());
       needsRender = true;
@@ -227,9 +242,8 @@ canvas.addEventListener('click', (event) => {
       const desc = document.getElementById(pinPOI.descriptionId);
       if (desc) desc.style.display = 'block';
 
-      // 🔥 Set tombol active
+      // Set tombol active
       document.querySelectorAll('.area-button').forEach(b => b.dataset.active = "false");
-      // misalnya urutannya sama: pin ke-1 cocok button ke-1
       const index = pinPOIs.indexOf(pinPOI); 
       const targetBtn = document.querySelectorAll('.area-button')[index];
       if (targetBtn) targetBtn.dataset.active = "true";
@@ -309,38 +323,38 @@ canvas.addEventListener('pointermove', (event) => {
 window.addEventListener('blur', () => { if (rafId) cancelAnimationFrame(rafId); });
 
 
-const videoBtn = document.getElementById('openVideo');
-const videoModal = document.getElementById('videoModal');
-const closeVideo = document.getElementById('closeVideo');
-const videoPlayer = document.getElementById('videoPlayer');
-const videoContent = document.getElementById('videoContent');
+// const videoBtn = document.getElementById('openVideo');
+// const videoModal = document.getElementById('videoModal');
+// const closeVideo = document.getElementById('closeVideo');
+// const videoPlayer = document.getElementById('videoPlayer');
+// const videoContent = document.getElementById('videoContent');
 
-videoBtn.addEventListener('click', () => {
-  videoModal.classList.remove('hidden');
+// videoBtn.addEventListener('click', () => {
+//   videoModal.classList.remove('hidden');
 
-  requestAnimationFrame(() => {
-    videoContent.classList.remove('-translate-y-[100vh]', 'opacity-0');
-  });
+//   requestAnimationFrame(() => {
+//     videoContent.classList.remove('-translate-y-[100vh]', 'opacity-0');
+//   });
 
-  videoPlayer.currentTime = 0;
-  videoPlayer.play();
-});
+//   videoPlayer.currentTime = 0;
+//   videoPlayer.play();
+// });
 
-function closeWithAnim() {
-  videoContent.classList.add('-translate-y-[100vh]', 'opacity-0');
+// function closeWithAnim() {
+//   videoContent.classList.add('-translate-y-[100vh]', 'opacity-0');
 
-  setTimeout(() => {
-    videoModal.classList.add('hidden');
-    videoPlayer.pause();
-    videoPlayer.currentTime = 0;
-  }, 500); // durasi 500ms sesuai transition
-}
+//   setTimeout(() => {
+//     videoModal.classList.add('hidden');
+//     videoPlayer.pause();
+//     videoPlayer.currentTime = 0;
+//   }, 500); // durasi 500ms sesuai transition
+// }
 
-closeVideo.addEventListener('click', closeWithAnim);
+// closeVideo.addEventListener('click', closeWithAnim);
 
-videoModal.addEventListener('click', (e) => {
-  if (e.target === videoModal) closeWithAnim();
-});
+// videoModal.addEventListener('click', (e) => {
+//   if (e.target === videoModal) closeWithAnim();
+// });
 
   let isZooming = false;
 let isOrbiting = false;

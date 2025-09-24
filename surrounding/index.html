@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <title>Padma - Surrounding</title>
+  <link rel="icon" type="image/png" href="https://designedbypelago.com/wp-content/uploads/2025/09/PadmaIcon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- CSS Photo Sphere Viewer v5 -->
@@ -31,18 +32,18 @@
         <span>Home</span>
       </div>
     </a>
-    <a id="amenitiesLink" href="/" class="hover:bg-[#97864E]/70 rounded-xl block">
-      <div class="flex text-white text-xl p-2 font-semibold gap-2 items-center">
-        <i data-lucide="building"></i>
-        <span>Amenities</span>
-      </div>
-    </a>
-    <a href="/surrounding/" class="bg-white rounded-xl block">
-      <div class="flex text-[#10523C] text-xl p-2 font-semibold gap-2 items-center mb-2">
+    <a class="rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white data-[active=true]:bg-white data-[active=true]:!text-[#10523C]" data-active="false">
+      <div class="flex text-xl p-2 font-semibold gap-2 items-center mb-2">
         <i data-lucide="map"></i>
         <span>Surrounding</span>
-    </div>
+      </div>
     </a>
+    <button class="area-button block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left data-[active=true]:bg-[#97864E]/50">
+    <div class="flex items-center gap-2 p-2 text-xl font-semibold">
+        <span class="bg-[#97864E] text-white rounded-full p-3 text-xs"></span>
+        <span>Fire Pit</span>
+    </div>
+    </button>
   </div>
   <button id="toggleBtn" type="button" class="text-white w-full hover:bg-white hover:text-[#10523C] rounded-xl">
     <i id="chev" data-lucide="chevron-down" class="mx-auto transition-transform duration-300"></i>
@@ -51,7 +52,7 @@
 
 <!-- Info Card Overlay -->
 <div id="sceneCard"
-     class="fixed right-2 top-2 max-w-sm bg-[#10523C]/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-black/5
+     class="fixed right-2 top-2 max-w-[300px] bg-[#10523C]/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden
             opacity-0 translate-y-3 pointer-events-none transition-all duration-300">
   <img id="sceneCardImg" src="" alt="" class="w-full h-36 object-cover hidden">
   <div class="p-4">
@@ -70,7 +71,7 @@
 
   <!-- Close -->
   <button id="sceneCardClose" type="button"
-          class="absolute top-2 right-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-black/60 text-white hover:bg-black/80">
+          class="absolute top-2 right-2 inline-flex items-center justify-center w-7 h-7 rounded-full hover:bg-[#97864E] bg-[#10523C] text-white">
     <i data-lucide="x"></i>
   </button>
 </div>

@@ -80,7 +80,7 @@ const scenes = {
         'Pencahayaan natural pagi',
         'Lebar koridor 2.2 m'
       ],
-      cta: { label: 'See Gallery', href: '/docs/siteplan.pdf' },
+      cta: { label: 'See Gallery' },
       gallery: [
         '/vtour/balcony.jpg',
         '/vtour/bathroom.jpg',
@@ -103,7 +103,12 @@ const scenes = {
         'Pencahayaan natural pagi',
         'Lebar koridor 2.2 m'
       ],
-      cta: { label: 'See Gallery', href: '/docs/siteplan.pdf' }
+      cta: { label: 'See Gallery' },
+      gallery: [
+        '/vtour/kitchenpatio.jpg',
+        '/vtour/patio.jpg',
+        '/vtour/lounge.jpg',
+        ]
     }
     },
     kitchen: {
@@ -258,6 +263,8 @@ function showCard({ force = false } = {}) {
  * Render konten card untuk suatu scene.
  * @param {Object|null|undefined} info - metadata scene (tag,title,desc,img,bullets,cta)
  */
+
+let currentInfo = null;
 function renderSceneCard(info) {
   if (!cardRoot) return;
 
@@ -295,6 +302,8 @@ function renderSceneCard(info) {
     cardBullets.classList.add('hidden');
   }
 
+  currentInfo = info;
+
   // CTA
   if (info.cta && Array.isArray(info.gallery) && info.gallery.length) {
     cardCta.textContent = info.cta.label || 'See Gallery';
@@ -302,23 +311,14 @@ function renderSceneCard(info) {
     cardCta.removeAttribute('target');
     cardCta.classList.remove('hidden');
 
-    // Hindari double listener: reset dulu
-    const newCta = cardCta.cloneNode(true);
-    cardCta.parentNode.replaceChild(newCta, cardCta);
-    // re-bind reference ke elemen baru
-    const ctaEl = document.getElementById('sceneCardCta');
-    ctaEl.addEventListener('click', (e) => {
+    // RE-BIND handler ke gallery terbaru
+    cardCta.onclick = (e) => {
       e.preventDefault();
-      openGallery(info.gallery, 0);
-    });
-  } else if (info.cta?.href) {
-    // fallback: kalau tetap mau link biasa
-    cardCta.textContent = info.cta.label || 'Learn more';
-    cardCta.href = info.cta.href;
-    cardCta.target = '_blank';
-    cardCta.classList.remove('hidden');
+      openGallery(currentInfo.gallery, 0);
+    };
   } else {
     cardCta.classList.add('hidden');
+    cardCta.onclick = null;
   }
 
   showCard();
