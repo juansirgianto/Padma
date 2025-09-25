@@ -171,7 +171,7 @@ seating arrangements, offering a relaxed, convivial setting for entertaining.</p
 </div>
 
 <div id="archdescription" class="description-box absolute top-2 right-2 bg-[#10523C]/80 backdrop-blur-md rounded-lg shadow-lg w-96 z-20" style="display: none;">
-  <button class="absolute top-2 right-2 text-[#f5f4ea] close-description bg-[#0E2C3F] rounded-full p-1">
+  <button class="absolute top-2 right-2 text-[#f5f4ea] close-description bg-[#10523C] rounded-full p-1">
     <i data-lucide="x"></i>
   </button>
   <img  src="https://res.cloudinary.com/doyr0s17x/image/upload/v1755737557/back4_qlsqgl.jpg" alt="" class="rounded-lg w-full h-[200px] object-cover mb-2">
@@ -208,14 +208,14 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
   </div>
   <div id="menu"
        class="mt-5 space-y-2 overflow-hidden max-h-0 transition-[max-height,opacity] duration-300 ease-in-out opacity-0">
-    <a href="/" class="rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white">
+    <a id="btn-6" href="/" class="rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white data-[active=true]:bg-white data-[active=true]:text-[#10523C]" data-active="false">
       <div class="flex text-xl p-2 font-semibold gap-2 items-center">
         <i data-lucide="home"></i>
         <span>Home</span>
       </div>
     </a>
     <div class="amenities-dropdown">
-  <button id="amenitiesToggle" class="w-full rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white data-[active=true]:bg-white data-[active=true]:!text-[#10523C]" data-active="false">
+  <button id="amenitiesToggle" class="w-full rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white data-[active=true]:bg-white data-[active=true]:text-[#10523C]" data-active="false">
     <div class="flex text-xl p-2 font-semibold gap-2 items-center justify-between">
       <div class="flex items-center gap-2">
         <i data-lucide="building"></i>
@@ -277,7 +277,7 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
       <div class="relative w-auto max-w-[50%]" id="carouselWrap">
         <!-- Carousel -->
         <div class="relative flex items-center justify-center" id="carouselContainer">
-          <button id="prevBtn" class="relative left-2 bg-[#f5f4ea] hover:bg-[#1F8389] hover:text-[#f5f4ea] rounded-full p-2 z-10">
+          <button id="prevBtn" class="relative left-2 bg-[#10523C] text-white hover:bg-[#97864E] rounded-full p-2 z-10">
             <i data-lucide="chevron-left"></i>
           </button>
 
@@ -288,21 +288,21 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
           playsinline
           preload="metadata"></video>
 
-          <button id="nextBtn" class="relative right-2 bg-[#f5f4ea] hover:bg-[#1F8389] hover:text-[#f5f4ea] rounded-full p-2 z-10">
+          <button id="nextBtn" class="relative right-2 bg-[#10523C] text-white hover:bg-[#97864E] rounded-full p-2 z-10">
             <i data-lucide="chevron-right"></i>
           </button>
         </div>
         <div class="relative flex w-fit max-w-[90%] mx-auto mt-4 overflow-hidden">
         <!-- Left Arrow -->
         <button id="thumbLeft"
-          class="absolute left-0 top-1/2 -translate-y-1/2 bg-[#f5f4ea] hover:bg-[#1F8389] hover:text-[#f5f4ea] rounded-full p-1 shadow z-10">
+          class="absolute left-0 top-1/2 -translate-y-1/2 bg-[#10523C] text-white hover:bg-[#97864E] rounded-full p-1 shadow z-10">
           <i data-lucide="chevron-left"></i>
         </button>
           <div id="thumbnailScroll" class="flex gap-2 overflow-x-auto scroll-smooth px-6 scrollbar-hide hidden">
  
           </div>
         <button id="thumbRight"
-          class="absolute right-0 top-1/2 -translate-y-1/2 bg-[#f5f4ea] hover:bg-[#1F8389] hover:text-[#f5f4ea] rounded-full p-1 shadow z-10">
+          class="absolute right-0 top-1/2 -translate-y-1/2 bg-[#10523C] text-white hover:bg-[#97864E] rounded-full p-1 shadow z-10">
           <i data-lucide="chevron-right"></i>
         </button>
         </div>
@@ -316,89 +316,6 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
     lucide.createIcons();
   </script>
   <script type="module" src="./main.js"></script>
-  <script>
-    const links = document.querySelectorAll('#menu a');
 
-links.forEach(link => {
-  link.addEventListener('click', (e) => {
-    // Hanya preventDefault jika href adalah "/" (bukan link navigasi)
-    if (link.getAttribute('href') === '/') {
-      e.preventDefault();
-    }
-
-    links.forEach(l => l.dataset.active = "false");
-    link.dataset.active = "true";
-  });
-});
-
-  // render lucide once at startup
-  if (window.lucide) lucide.createIcons();
-
-  const toggleBtn = document.getElementById("toggleBtn");
-  const menu = document.getElementById("menu");
-  const chev = document.getElementById("chev");
-
-  let open = false;
-
-  toggleBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
-  open = !open;
-
-  if (open) {
-    // Hapus pembatasan - biarkan expand sesuai content
-    menu.style.maxHeight = "none"; // atau menu.scrollHeight + "px"
-    menu.style.maxWidth = "none";  // tidak ada batas lebar
-    menu.style.opacity = "1";
-    chev.style.transform = "rotate(180deg)";
-  } else {
-    menu.style.maxHeight = "0px";
-    menu.style.opacity = "0";
-    chev.style.transform = "rotate(0deg)";
-  }
-});
-
-  // Optional: if window resizes while open, keep maxHeight correct
-  window.addEventListener("resize", () => {
-    if (open) menu.style.maxHeight = menu.scrollHeight + "px";
-  });
-</script>
-<script>
-  // Hapus JavaScript amenities yang lama, ganti dengan ini:
-const amenitiesToggle = document.getElementById('amenitiesToggle');
-const amenitiesDropdownMenu = document.getElementById('amenitiesDropdownMenu');
-const amenitiesChevron = document.getElementById('amenitiesChevron');
-
-let amenitiesDropdownOpen = false;
-
-function toggleAmenitiesDropdown() {
-  amenitiesDropdownOpen = !amenitiesDropdownOpen;
-  
-  if (amenitiesDropdownOpen) {
-    amenitiesDropdownMenu.style.maxHeight = amenitiesDropdownMenu.scrollHeight + 'px';
-    amenitiesDropdownMenu.style.opacity = '1';
-    amenitiesChevron.style.transform = 'rotate(180deg)';
-    amenitiesToggle.dataset.active = "true";
-  } else {
-    amenitiesDropdownMenu.style.maxHeight = '0px';
-    amenitiesDropdownMenu.style.opacity = '0';
-    amenitiesChevron.style.transform = 'rotate(0deg)';
-    amenitiesToggle.dataset.active = "false";
-  }
-}
-
-amenitiesToggle.addEventListener('click', (e) => {
-  e.preventDefault();
-  toggleAmenitiesDropdown();
-});
-
-// Area button mapping
-document.querySelectorAll('[data-area]').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    const area = e.currentTarget.dataset.area;
-  });
-});
-</script>
 </body>
 </html>

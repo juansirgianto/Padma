@@ -1,4 +1,4 @@
-// main.js
+// main.js - Optimized
 
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 import { OrbitControls } from 'https://esm.run/three@0.160.0/examples/jsm/controls/OrbitControls.js';
@@ -8,7 +8,19 @@ import { createPins } from './pin.js';
 
 initCarousel();
 
-// Init scene
+// DOM Elements
+const toggleBtn = document.getElementById("toggleBtn");
+const menu = document.getElementById("menu");
+const chev = document.getElementById("chev");
+const amenitiesToggle = document.getElementById('amenitiesToggle');
+const amenitiesDropdownMenu = document.getElementById('amenitiesDropdownMenu');
+const amenitiesChevron = document.getElementById('amenitiesChevron');
+
+// State variables
+let open = false;
+let amenitiesDropdownOpen = false;
+
+// Three.js Setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3);
 camera.position.set(0.58, 0.95, -0.56);
@@ -17,8 +29,7 @@ const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false, power
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 scene.background = new THREE.Color(0x000000);
 renderer.setSize(window.innerWidth, window.innerHeight);
-const DPR = Math.min(window.devicePixelRatio, 1.25); // atau 1.0–1.5
-renderer.setPixelRatio(DPR);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
 document.body.appendChild(renderer.domElement);
 
 const canvas = renderer.domElement;
@@ -29,138 +40,75 @@ const { pins, pinPOIs } = createPins(scene);
 // Controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
+controls.minDistance = 0.9; 
+controls.maxDistance = 1.2;  
 
 const maxY = 1.5;
 const minY = 0.5;
-
 controls.addEventListener('change', () => {
-  // Clamp camera Y position
   camera.position.y = Math.min(maxY, Math.max(minY, camera.position.y));
 });
-
-controls.minDistance = 0.9; 
-controls.maxDistance = 1.2;  
 
 // Luma Splats
 const splats = new LumaSplatsThree({
     source: 'https://lumalabs.ai/capture/1855032b-de68-4fdd-adc9-b9935cef2a93',
     particleRevealEnabled: false
 });
-splats.position.set(-0.4, 0.5, 0.40); // geser Y ke 0.2, X & Z tetap
-
+splats.position.set(-0.4, 0.5, 0.40);
 scene.add(splats);
 
-// const axesHelper = new THREE.AxesHelper( 10 );
-// axesHelper.position.y = 0;
-// scene.add( axesHelper );
-
-// caminfo
-// const camInfo = document.getElementById('cam-info');
-
+// Area buttons configuration
 const areaButtons = [
-  {
-    button: document.querySelector('#btn-1'),
-    cameraPosition: [0.65, 0.73 , -0.80],
-    cameraTarget: [0.28, 0, -0.41],
-    descriptionId: 'pooldescription',
-  },
-  {
-    button: document.querySelector('#btn-2'),
-    cameraPosition: [0.18, 0.68, -0.27],
-    cameraTarget: [-0.35, 0, 0],
-    descriptionId: 'housedescription',
-  },
-  {
-    button: document.querySelector('#btn-3'),
-    cameraPosition: [-1.56, 0.77, 0.42],
-    cameraTarget: [-1, 0, 0.59],
-    descriptionId: 'gardendescription',
-  },
-  {
-    button: document.querySelector('#btn-4'),
-    cameraPosition: [-0.83, 0.81, 0.87],
-    cameraTarget: [-0.38, 0, 0.96],
-    descriptionId: 'arrivaldescription',
-  },
-  {
-    button: document.querySelector('#btn-5'),
-    cameraPosition: [-0.84, 0.79, 1.31],
-    cameraTarget: [-0.70, 0, 0.90],
-    descriptionId: 'archdescription',
-  },
+  { id: 'btn-1', cameraPosition: [0.65, 0.73, -0.80], cameraTarget: [0.28, 0, -0.41], descriptionId: 'pooldescription' },
+  { id: 'btn-2', cameraPosition: [0.18, 0.68, -0.27], cameraTarget: [-0.35, 0, 0], descriptionId: 'housedescription' },
+  { id: 'btn-3', cameraPosition: [-1.56, 0.77, 0.42], cameraTarget: [-1, 0, 0.59], descriptionId: 'gardendescription' },
+  { id: 'btn-4', cameraPosition: [-0.83, 0.81, 0.87], cameraTarget: [-0.38, 0, 0.96], descriptionId: 'arrivaldescription' },
+  { id: 'btn-5', cameraPosition: [-0.84, 0.79, 1.31], cameraTarget: [-0.70, 0, 0.90], descriptionId: 'archdescription' },
+  { id: 'btn-6', cameraPosition: [0.58, 0.95, -0.56], cameraTarget: [0, 0, 0], descriptionId: null }
 ];
 
-const buttons = document.querySelectorAll('.area-button');
-const closeButtons = document.querySelectorAll('.close-description');
-
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    buttons.forEach(b => b.dataset.active = "false");
-    btn.dataset.active = "true";
-  });
-});
-
-closeButtons.forEach(closeBtn => {
-  closeBtn.addEventListener('click', () => {
-    buttons.forEach(b => b.dataset.active = "false");
-  });
-});
-
-areaButtons.forEach(({ button, cameraPosition, cameraTarget, descriptionId }) => {
-  button.addEventListener('click', () => {
-    moveCameraTo(cameraPosition, cameraTarget);
-
-    // Sembunyikan semua deskripsi, lalu tampilkan yang dipilih
-    document.querySelectorAll('.description-box').forEach(el => el.style.display = 'none');
-    const descEl = document.getElementById(descriptionId);
-    if (descEl) descEl.style.display = 'block';
-  });
-});
-
-
-document.querySelectorAll('.close-description').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[id$="description"]').forEach(el => {
-      el.style.display = 'none';
-    });
-  });
-});
-
-let isCameraAnimating = false;
-
-let needsRender = true;
-let warmingUp = true;
-const WARMUP_MS = 3000;                 // 1.5 detik
-const warmUpEndAt = performance.now() + WARMUP_MS;
-
-function renderLoop(){
-  requestAnimationFrame(renderLoop);
-
-  // Kalau damping masih jalan, ini akan true -> render
-  if (controls.update()) needsRender = true;
-
-  // Paksa render saat awal supaya asset kelihatan segera
-  if (warmingUp) {
-    needsRender = true;
-    if (performance.now() >= warmUpEndAt) warmingUp = false;
+// Functions
+function toggleAmenitiesDropdown() {
+  amenitiesDropdownOpen = !amenitiesDropdownOpen;
+  
+  if (amenitiesDropdownOpen) {
+    amenitiesDropdownMenu.style.maxHeight = amenitiesDropdownMenu.scrollHeight + 'px';
+    amenitiesDropdownMenu.style.opacity = '1';
+    
+    // Ganti ke chevron-up
+    amenitiesChevron.setAttribute('data-lucide', 'chevron-up');
+    
+    amenitiesToggle.dataset.active = "true";
+  } else {
+    amenitiesDropdownMenu.style.maxHeight = '0px';
+    amenitiesDropdownMenu.style.opacity = '0';
+    
+    // Ganti ke chevron-down
+    amenitiesChevron.setAttribute('data-lucide', 'chevron-down');
+    
+    amenitiesToggle.dataset.active = "false";
   }
-
-  if (!needsRender) return;
-  renderer.render(scene, camera);
-  needsRender = false;
+  
+  // Re-render Lucide icons setelah ganti
+  if (window.lucide) window.lucide.createIcons();
 }
-renderLoop();
 
+function resetAllActiveStates() {
+  document.querySelector('#btn-6').dataset.active = "false";
+  amenitiesToggle.dataset.active = "false";
+  document.querySelectorAll('.area-button').forEach(b => b.dataset.active = "false");
+  document.querySelector('a[href="/surrounding/"]').dataset.active = "false";
+}
 
 function moveCameraTo(position, lookAt = null, duration = 1000) {
   needsRender = true;
-  if (isCameraAnimating) return; // hindari tumpukan animasi
+  if (isCameraAnimating) return;
   isCameraAnimating = true;
+  
   const start = camera.position.clone();
   const end = new THREE.Vector3(...position);
   const startTarget = controls.target.clone();
   const endTarget = lookAt ? new THREE.Vector3(...lookAt) : startTarget;
-
   const startTime = performance.now();
 
   function animateCamera(time) {
@@ -176,32 +124,107 @@ function moveCameraTo(position, lookAt = null, duration = 1000) {
       isCameraAnimating = false;
     }
   }
-
   requestAnimationFrame(animateCamera);
 }
 
-// const fpsEl = document.getElementById('fps-counter');
+// Event Listeners
+if (window.lucide) window.lucide.createIcons();
 
-// let frameCount = 0;
-// let lastTime = performance.now();
-// let fps = 0;
+// Main menu toggle
+toggleBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  open = !open;
 
-// function updateFPS(now) {
-//   frameCount++;
-//   const delta = now - lastTime;
-//   if (delta >= 1000) { // setiap 1 detik
-//     fps = (frameCount * 1000 / delta).toFixed(1);
-//     fpsEl.textContent = `FPS: ${fps}`;
-//     frameCount = 0;
-//     lastTime = now;
-//   }
-//   requestAnimationFrame(updateFPS);
-// }
-// requestAnimationFrame(updateFPS);
+  if (open) {
+    menu.style.maxHeight = "none";
+    menu.style.opacity = "1";
+    chev.style.transform = "rotate(180deg)";
+  } else {
+    menu.style.maxHeight = "0px";
+    menu.style.opacity = "0";
+    chev.style.transform = "rotate(0deg)";
+    if (amenitiesDropdownOpen) toggleAmenitiesDropdown();
+  }
+});
 
+// Amenities toggle
+amenitiesToggle.addEventListener('click', (e) => {
+  e.preventDefault();
+  resetAllActiveStates();
+  toggleAmenitiesDropdown();
+});
 
+// Home button
+document.querySelector('#btn-6').addEventListener('click', (e) => {
+  e.preventDefault();
+  resetAllActiveStates();
+  e.target.closest('a').dataset.active = "true";
+  
+  if (amenitiesDropdownOpen) toggleAmenitiesDropdown();
+  moveCameraTo([0.58, 0.95, -0.56], [0, 0, 0]);
+  document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
+});
 
-// Event klik
+// Area buttons (optimized single loop)
+areaButtons.slice(0, 5).forEach(({ id, cameraPosition, cameraTarget, descriptionId }) => {
+  const button = document.querySelector(`#${id}`);
+  if (button) {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Reset and set active states
+      resetAllActiveStates();
+      amenitiesToggle.dataset.active = "true";
+      button.dataset.active = "true";
+      
+      // Camera and description
+      moveCameraTo(cameraPosition, cameraTarget);
+      document.querySelectorAll('.description-box').forEach(el => el.style.display = 'none');
+      if (descriptionId) {
+        const descEl = document.getElementById(descriptionId);
+        if (descEl) descEl.style.display = 'block';
+      }
+    });
+  }
+});
+
+// Close description buttons
+document.querySelectorAll('.close-description').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.description-box').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.area-button').forEach(b => b.dataset.active = "false");
+  });
+});
+
+// Surrounding link
+document.querySelector('a[href="/surrounding/"]').addEventListener('click', () => {
+  resetAllActiveStates();
+  document.querySelector('a[href="/surrounding/"]').dataset.active = "true";
+  if (amenitiesDropdownOpen) toggleAmenitiesDropdown();
+});
+
+// Render loop
+let isCameraAnimating = false;
+let needsRender = true;
+let warmingUp = true;
+const WARMUP_MS = 3000;
+const warmUpEndAt = performance.now() + WARMUP_MS;
+
+function renderLoop(){
+  requestAnimationFrame(renderLoop);
+  if (controls.update()) needsRender = true;
+  if (warmingUp) {
+    needsRender = true;
+    if (performance.now() >= warmUpEndAt) warmingUp = false;
+  }
+  if (!needsRender) return;
+  renderer.render(scene, camera);
+  needsRender = false;
+}
+renderLoop();
+
+// Pin interactions
 canvas.addEventListener('click', (event) => {
   const rect = canvas.getBoundingClientRect();
   mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -214,93 +237,68 @@ canvas.addEventListener('click', (event) => {
 
   if (intersects.length > 0) {
     const clickedSprite = intersects[0].object;
-    const pinGroup = clickedSprite.parent;
-
-    const pinPOI = pinPOIs.find(p => p.mesh === pinGroup);
+    const pinPOI = pinPOIs.find(p => p.mesh === clickedSprite.parent);
+    
     if (pinPOI) {
-      
-      // Buka menu jika belum terbuka
+      // Open menu and dropdown
       if (!open) {
-        // Hapus pembatasan - biarkan expand sesuai content
-        menu.style.maxHeight = "none"; // atau menu.scrollHeight + "px"
-        menu.style.maxWidth = "none";  // tidak ada batas lebar
+        open = true;
+        menu.style.maxHeight = "none";
         menu.style.opacity = "1";
         chev.style.transform = "rotate(180deg)";
-      } 
-
-      // Buka amenities dropdown
-      if (!amenitiesDropdownOpen) {
-        toggleAmenitiesDropdown();
       }
+      if (!amenitiesDropdownOpen) toggleAmenitiesDropdown();
 
-      // Pindahkan kamera
+      // Camera and description
       moveCameraTo(pinPOI.camera_position.toArray(), pinPOI.camera_target.toArray());
       needsRender = true;
-
-      // Tampilkan deskripsi
+      
       document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
       const desc = document.getElementById(pinPOI.descriptionId);
       if (desc) desc.style.display = 'block';
 
-      // Set tombol active
+      // Set active states
       document.querySelectorAll('.area-button').forEach(b => b.dataset.active = "false");
-      const index = pinPOIs.indexOf(pinPOI); 
+      const index = pinPOIs.indexOf(pinPOI);
       const targetBtn = document.querySelectorAll('.area-button')[index];
       if (targetBtn) targetBtn.dataset.active = "true";
 
-      // Highlight sementara
+      // Visual feedback
       clickedSprite.material.color.set(0xffffff);
       setTimeout(() => clickedSprite.material.color.set(0xffffff), 300);
     }
   }
 });
 
-// let hoveredSprite = null;
-
-// --- Setup di awal (sebelum event) ---
-const pickables = pins               // cache sekali; jangan map di setiap event
-  .map(p => p.children[0])
-  .filter(c => c instanceof THREE.Sprite);
-
+// Pin hover effects
+const pickables = pins.map(p => p.children[0]).filter(c => c instanceof THREE.Sprite);
 const pointer = new THREE.Vector2();
 let hoveredSprite = null;
 let rafId = null;
 let pendingPick = false;
 let lastX = 0, lastY = 0;
 
-// Kurangi jangkauan ray agar tidak cek jauh-jauh (opsional)
 raycaster.near = 0.1;
-raycaster.far  = 5.0; // sesuaikan dengan skala scene
+raycaster.far = 5.0;
 
-// Kalau banyak objek lain di scene, taruh pin di layer khusus:
-const PIN_LAYER = 2;
-pickables.forEach(o => o.layers.set(PIN_LAYER));
-camera.layers.enable(PIN_LAYER);
-
-// --- Event: throttled by rAF + threshold gerak + skip saat orbit ---
 canvas.addEventListener('pointermove', (event) => {
-  // Skip kalau kamera lagi digeser/zoom (OrbitControls)
   if (controls.dragging || isCameraAnimating) return;
-
-  // Threshold gerak 2px supaya nggak spam raycast di jitter kecil
   if (Math.abs(event.clientX - lastX) < 2 && Math.abs(event.clientY - lastY) < 2) return;
-  lastX = event.clientX; lastY = event.clientY;
+  
+  lastX = event.clientX; 
+  lastY = event.clientY;
 
   const rect = canvas.getBoundingClientRect();
   pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
   pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-  if (pendingPick) return; // sudah terjadwal di frame berikutnya
+  if (pendingPick) return;
   pendingPick = true;
 
   rafId = requestAnimationFrame(() => {
     pendingPick = false;
-
-    // setFromCamera otomatis pakai camera.layers; pastikan pickables juga di layer yg sama
     raycaster.setFromCamera(pointer, camera);
-
-    // Hindari array/map baru setiap frame: pakai pickables yang sudah dicache
-    const intersects = raycaster.intersectObjects(pickables, /*recursive=*/false);
+    const intersects = raycaster.intersectObjects(pickables, false);
 
     if (intersects.length > 0) {
       const sprite = intersects[0].object;
@@ -319,49 +317,14 @@ canvas.addEventListener('pointermove', (event) => {
   });
 }, { passive: true });
 
-// Opsional: batalkan rAF saat blur/resize agar tidak ada pekerjaan sisa
-window.addEventListener('blur', () => { if (rafId) cancelAnimationFrame(rafId); });
+// Cleanup and resize
+window.addEventListener('blur', () => { 
+  if (rafId) cancelAnimationFrame(rafId); 
+});
 
-
-// const videoBtn = document.getElementById('openVideo');
-// const videoModal = document.getElementById('videoModal');
-// const closeVideo = document.getElementById('closeVideo');
-// const videoPlayer = document.getElementById('videoPlayer');
-// const videoContent = document.getElementById('videoContent');
-
-// videoBtn.addEventListener('click', () => {
-//   videoModal.classList.remove('hidden');
-
-//   requestAnimationFrame(() => {
-//     videoContent.classList.remove('-translate-y-[100vh]', 'opacity-0');
-//   });
-
-//   videoPlayer.currentTime = 0;
-//   videoPlayer.play();
-// });
-
-// function closeWithAnim() {
-//   videoContent.classList.add('-translate-y-[100vh]', 'opacity-0');
-
-//   setTimeout(() => {
-//     videoModal.classList.add('hidden');
-//     videoPlayer.pause();
-//     videoPlayer.currentTime = 0;
-//   }, 500); // durasi 500ms sesuai transition
-// }
-
-// closeVideo.addEventListener('click', closeWithAnim);
-
-// videoModal.addEventListener('click', (e) => {
-//   if (e.target === videoModal) closeWithAnim();
-// });
-
-  let isZooming = false;
-let isOrbiting = false;
-
-// Resize handler
 window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  if (open) menu.style.maxHeight = menu.scrollHeight + "px";
 });
