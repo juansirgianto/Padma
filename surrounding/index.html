@@ -27,25 +27,71 @@
   <div id="menu"
        class="mt-5 space-y-2 overflow-hidden max-h-0 transition-[max-height,opacity] duration-300 ease-in-out opacity-0">
     <a href="/" class="hover:bg-[#97864E]/70 rounded-xl block">
-      <div class="flex text-white text-xl p-2 font-semibold gap-2 items-center">
-        <i data-lucide="home"></i>
-        <span>Home</span>
+      <div class="flex text-white lg:text-xl text-lg p-2 font-semibold gap-2 items-center">
+        <i data-lucide="undo-2"></i>
+        <span>Main Page</span>
       </div>
     </a>
-    <a class="rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white data-[active=true]:bg-white data-[active=true]:!text-[#10523C]" data-active="false">
-      <div class="flex text-xl p-2 font-semibold gap-2 items-center mb-2">
-        <i data-lucide="map"></i>
-        <span>Surrounding</span>
+    <div class="flex flex-col gap-1">
+    <h1 class="font-semibold text-white lg:text-xl text-lg bg-[#97864E] rounded-xl text-center">1st Floor</h1>
+    <button data-scene="entrance" class="flex w-full text-white lg:text-lg text-md p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]" data-active="true">
+      <div class="bg-[#97864E] text-white rounded-full p-2">
+        <i data-lucide="door-open"></i>
       </div>
-    </a>
-    <button class="area-button block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left data-[active=true]:bg-[#97864E]/50">
-    <div class="flex items-center gap-2 p-2 text-xl font-semibold">
-        <span class="bg-[#97864E] text-white rounded-full p-3 text-xs"></span>
-        <span>Fire Pit</span>
-    </div>
+      <h1 class="text-start">Entrance</h1>
     </button>
+    <button data-scene="studyroom" class="flex w-full text-white lg:text-lg text-md p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2">
+        <i data-lucide="book-open"></i>
+      </div>
+      <h1 class="text-start">Study Room</h1>
+    </button>
+    <button data-scene="kitchen" class="flex w-full text-white lg:text-lg text-md p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2">
+        <i data-lucide="cooking-pot"></i>
+      </div>
+      <h1 class="text-start">Kitchen</h1>
+    </button>
+    <button data-scene="kitchenpatio" class="flex w-full text-white lg:text-lg text-md p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2">
+        <i data-lucide="lamp"></i>
+      </div>
+      <h1 class="text-start">Kitchen to Patio</h1>
+    </button>
+    <button data-scene="lounge" class="flex w-full text-white lg:text-lg text-md p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2">
+        <i data-lucide="sofa"></i>
+      </div>
+      <h1 class="text-start">Lounge</h1>
+    </button>
+    <button data-scene="patio" class="flex w-full text-white lg:text-lg text-md p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2">
+        <i data-lucide="trees"></i>
+      </div>
+      <h1 class="trees">Patio</h1>
+    </button>
+    <h1 class="font-semibold text-white lg:text-xl text-lg bg-[#97864E] rounded-xl text-center">2nd Floor</h1>
+    <button data-scene="bedroom" class="flex w-full text-white text-lg p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2">
+        <i data-lucide="bed"></i>
+      </div>
+      <h1 class="text-start">Bedroom</h1>
+    </button>
+    <button data-scene="balcony" class="flex w-full text-white lg:text-lg text-md p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2">
+        <i data-lucide="rocking-chair"></i>
+      </div>
+      <h1 class="text-start">Balcony</h1>
+    </button>
+    <button data-scene="bathroom" class="flex w-full text-white lg:text-lg text-md p-2 mb-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2">
+        <i data-lucide="bath"></i>
+      </div>
+      <h1 class="text-start">Bathroom</h1>
+    </button>
+    </div>
   </div>
-  <button id="toggleBtn" type="button" class="text-white w-full hover:bg-white hover:text-[#10523C] rounded-xl">
+  <button id="toggleBtn" type="button" class="text-white w-full hover:bg-white hover:text-[#10523C] rounded-xl ">
     <i id="chev" data-lucide="chevron-down" class="mx-auto transition-transform duration-300"></i>
   </button>  
 </div>
@@ -110,9 +156,6 @@
   <div id="galDots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"></div>
 </div>
 
-
-
-
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
     lucide.createIcons();
@@ -120,40 +163,67 @@
 
   <script type="module" src="./vtour.js"></script>
   <script>
-  // render lucide once at startup
+  // Render Lucide sekali setelah DOM siap
   if (window.lucide) lucide.createIcons();
 
+  function setActiveSceneButton(sceneId) {
+  document.querySelectorAll('#menu [data-scene]').forEach((btn) => {
+    const isActive = btn.dataset.scene === sceneId;
+    btn.dataset.active = isActive ? 'true' : 'false';     // untuk Tailwind: data-[active=true]:...
+    btn.setAttribute('aria-current', isActive ? 'page' : 'false'); // aksesibilitas
+  });
+}
+
+  // ===== MENU TOGGLE =====
   const toggleBtn = document.getElementById("toggleBtn");
-  const menu = document.getElementById("menu");
-  const chev = document.getElementById("chev");
+  const menu      = document.getElementById("menu");
+  const chev      = document.getElementById("chev");
 
-  let open = false;
+  let menuOpen = false;
 
-  toggleBtn.addEventListener("click", (e) => {
-    e.preventDefault(); // extra safety
-    e.stopPropagation();
-
-    open = !open;
-
-    // Slide open/close via max-height + opacity
-    if (open) {
-      // set a large enough max height for your content
+  function setMenuOpen(v) {
+    menuOpen = v;
+    if (v) {
       menu.style.maxHeight = menu.scrollHeight + "px";
-      menu.style.opacity = "1";
-      // rotate chevron up
-      chev.style.transform = "rotate(180deg)";
+      menu.style.opacity   = "1";
+      chev.style.transform = "rotate(180deg)"; // chevron-up
     } else {
       menu.style.maxHeight = "0px";
-      menu.style.opacity = "0";
-      // rotate chevron down
-      chev.style.transform = "rotate(0deg)";
+      menu.style.opacity   = "0";
+      chev.style.transform = "rotate(0deg)";   // chevron-down
     }
+  }
+
+  function closeMenu() { setMenuOpen(false); }
+
+  toggleBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setMenuOpen(!menuOpen);
   });
 
-  // Optional: if window resizes while open, keep maxHeight correct
+  // Jaga tinggi saat resize
   window.addEventListener("resize", () => {
-    if (open) menu.style.maxHeight = menu.scrollHeight + "px";
+    if (menuOpen) menu.style.maxHeight = menu.scrollHeight + "px";
+  });
+
+  // ===== SCENE BUTTONS (delegasi) =====
+  menu.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-scene]');
+    if (!btn) return;
+
+    e.preventDefault();
+    const sceneId = btn.dataset.scene; // "entrance" | "studyroom" | ...
+
+    if (typeof window.switchScene === 'function') {
+      window.switchScene(sceneId);
+      setActiveSceneButton(sceneId);
+      // closeMenu(); // opsional: tutup menu setelah pilih
+    } else {
+      console.warn('switchScene belum tersedia di window. Pastikan vtour.js meng-expose-nya: Object.assign(window, { switchScene })');
+    }
   });
 </script>
+
 </body>
 </html>

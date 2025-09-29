@@ -52,7 +52,7 @@ const container = document.getElementById('viewer');
 const viewer = new Viewer({
     container,
     defaultZoomLvl: 0,
-    navbar: ['fullscreen', 'markersList'],
+    navbar: ['fullscreen'],
     plugins: [MarkersPlugin],
 });
 
@@ -82,14 +82,14 @@ const scenes = {
       ],
       cta: { label: 'See Gallery' },
       gallery: [
-        '/vtour/balcony.jpg',
-        '/vtour/bathroom.jpg',
+        '/vtour/ENTRANCE_.jpg',
+        '/vtour/study.jpg',
         '/vtour/bedroom.jpg',
         ]
     }
   },
     studyroom: {
-    panorama: ' /vtour/study.jpg',
+    panorama: '/vtour/study.jpg',
     markers: [
         { id: 'back-entrance', to: 'entrance', img: ' /vtour/ENTRANCE_.jpg', label: 'Entrance', position: { yaw: deg(-86), pitch: deg(-10) } },
     ],
@@ -105,59 +105,175 @@ const scenes = {
       ],
       cta: { label: 'See Gallery' },
       gallery: [
-        '/vtour/kitchenpatio.jpg',
-        '/vtour/patio.jpg',
-        '/vtour/lounge.jpg',
+        '/vtour/study.jpg',
+        '/vtour/ENTRANCE_.jpg',
         ]
     }
     },
     kitchen: {
-    panorama: ' /vtour/kitchen.jpg',
+    panorama: '/vtour/kitchen.jpg',
     markers: [
         { id: 'back-entrance',  to: 'entrance',     img: ' /vtour/ENTRANCE_.jpg',     label: 'Entrance',     position: { yaw: deg(-200), pitch: deg(-8) } },
         { id: 'to-kitchenpatio',to: 'kitchenpatio', img: ' /vtour/kitchenpatio.jpg', label: 'Kitchen Patio', position: { yaw: deg(-17),  pitch: deg(-6) } },
         { id: 'to-lounge',      to: 'lounge',       img: ' /vtour/lounge.jpg',       label: 'Lounge',        position: { yaw: deg(-100), pitch: deg(-6) } },
     ],
+    info: {
+      tag: 'Welcome',
+      title: 'Kitchen',
+      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      img: '/vtour/kitchen.jpg',
+      bullets: [
+        'Akses ke Study, Kitchen, dan Bedroom',
+        'Pencahayaan natural pagi',
+        'Lebar koridor 2.2 m'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        '/vtour/kitchen.jpg',
+        '/vtour/lounge.jpg',
+        '/vtour/kitchentopatio.jpg',
+        '/vtour/entrance.jpg',
+        ]
+    }
     },
     kitchenpatio: {
-    panorama: ' /vtour/kitchenpatio.jpg',
+    panorama: '/vtour/kitchenpatio.jpg',
     markers: [
         { id: 'back-entrance', to: 'entrance', img: ' /vtour/ENTRANCE_.jpg', label: 'Entrance', position: { yaw: deg(149), pitch: deg(-5) } },
         { id: 'to-patio',      to: 'patio',    img: ' /vtour/patio.jpg',    label: 'Patio',    position: { yaw: deg(12),  pitch: deg(-6) } },
         { id: 'to-lounge',     to: 'lounge',   img: ' /vtour/lounge.jpg',   label: 'Lounge',   position: { yaw: deg(183), pitch: deg(-6) } },
     ],
+    info: {
+      tag: 'Welcome',
+      title: 'Kitchen to Patio',
+      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      img: '/vtour/kitchenpatio.jpg',
+      bullets: [
+        'Akses ke Study, Kitchen, dan Bedroom',
+        'Pencahayaan natural pagi',
+        'Lebar koridor 2.2 m'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        '/vtour/kitchenpatio.jpg',
+        '/vtour/kitchen.jpg',
+        '/vtour/lounge.jpg',
+        ]
+    }
     },
     patio: {
-    panorama: ' /vtour/patio.jpg',
+    panorama: '/vtour/patio.jpg',
     markers: [
-        { id: 'to-kitchenpatio', to: 'kitchenpatio', img: ' /vtour/kitchenpatio.jpg', label: 'Kitchen Patio', position: { yaw: deg(115), pitch: deg(-12) } },
+        { id: 'to-kitchenpatio', to: 'kitchenpatio', img: '/vtour/kitchenpatio.jpg', label: 'Kitchen Patio', position: { yaw: deg(115), pitch: deg(-12) } },
     ],
+    info: {
+      tag: 'Welcome',
+      title: 'Patio',
+      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      img: '/vtour/patio.jpg',
+      bullets: [
+        'Akses ke Study, Kitchen, dan Bedroom',
+        'Pencahayaan natural pagi',
+        'Lebar koridor 2.2 m'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        '/vtour/patio.jpg',
+        '/vtour/kitchenpatio.jpg',
+        ]
+    }
     },
     lounge: {
-    panorama: ' /vtour/lounge.jpg',
+    panorama: '/vtour/lounge.jpg',
     markers: [
         { id: 'to-kitchen', to: 'kitchen', img: ' /vtour/kitchen.jpg', label: 'Kitchen', position: { yaw: deg(75), pitch: deg(-10) } },
     ],
+    info: {
+      tag: 'Welcome',
+      title: 'Lounge',
+      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      img: '/vtour/lounge.jpg',
+      bullets: [
+        'Akses ke Study, Kitchen, dan Bedroom',
+        'Pencahayaan natural pagi',
+        'Lebar koridor 2.2 m'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        '/vtour/lounge.jpg',
+        '/vtour/kitchen.jpg',
+        ]
+    }
     },
     bedroom: {
-    panorama: ' /vtour/bedroom.jpg',
+    panorama: '/vtour/bedroom.jpg',
     markers: [
         { id: 'back-entrance', to: 'entrance', img: ' /vtour/ENTRANCE_.jpg', label: 'Entrance', position: { yaw: deg(-189), pitch: deg(-17) } },
         { id: 'to-balcony',    to: 'balcony',  img: ' /vtour/balcony.jpg',  label: 'Balcony',  position: { yaw: deg(-12),  pitch: deg(-11) } },
         { id: 'to-bathroom',   to: 'bathroom', img: ' /vtour/bathroom.jpg', label: 'Bathroom', position: { yaw: deg(-132), pitch: deg(-11) } },
     ],
+    info: {
+      tag: 'Welcome',
+      title: 'Bedroom',
+      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      img: '/vtour/bedroom.jpg',
+      bullets: [
+        'Akses ke Study, Kitchen, dan Bedroom',
+        'Pencahayaan natural pagi',
+        'Lebar koridor 2.2 m'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        '/vtour/bedroom.jpg',
+        '/vtour/balcony.jpg',
+        '/vtour/entrance.jpg',
+        '/vtour/bathroom.jpg',
+        ]
+    }
     },
     balcony: {
-    panorama: ' /vtour/balcony.jpg',
+    panorama: '/vtour/balcony.jpg',
     markers: [
         { id: 'to-bedroom', to: 'bedroom', img: ' /vtour/bedroom.jpg', label: 'Bedroom', position: { yaw: deg(-37), pitch: deg(-12) } },
     ],
+    info: {
+      tag: 'Welcome',
+      title: 'Balcony',
+      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      img: '/vtour/balcony.jpg',
+      bullets: [
+        'Akses ke Study, Kitchen, dan Bedroom',
+        'Pencahayaan natural pagi',
+        'Lebar koridor 2.2 m'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        '/vtour/balcony.jpg',
+        '/vtour/bedroom.jpg',
+        ]
+    }
     },
     bathroom: {
-    panorama: ' /vtour/bathroom.jpg',
+    panorama: '/vtour/bathroom.jpg',
     markers: [
         { id: 'to-bedroom', to: 'bedroom', img: ' /vtour/bedroom.jpg', label: 'Bedroom', position: { yaw: deg(160), pitch: deg(-12) } },
     ],
+    info: {
+      tag: 'Welcome',
+      title: 'Bathroom',
+      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      img: '/vtour/bathroom.jpg',
+      bullets: [
+        'Akses ke Study, Kitchen, dan Bedroom',
+        'Pencahayaan natural pagi',
+        'Lebar koridor 2.2 m'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        '/vtour/bathroom.jpg',
+        '/vtour/bedroom.jpg',
+        ]
+    }
     },
 };
 
@@ -197,6 +313,8 @@ async function switchScene(sceneId) {
   scene.onEnter?.();
 
   currentSceneId = sceneId;
+
+  setActiveSceneButton(sceneId);
 }
 
 // Klik marker → pindah scene
@@ -403,3 +521,7 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft')  showImage(galIndex - 1);
   if (e.key === 'ArrowRight') showImage(galIndex + 1);
 });
+
+
+
+Object.assign(window, { switchScene }); // jika perlu: { scenes, switchScene }

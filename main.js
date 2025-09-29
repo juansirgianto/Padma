@@ -2,7 +2,7 @@
 
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 import { OrbitControls } from 'https://esm.run/three@0.160.0/examples/jsm/controls/OrbitControls.js';
-import { LumaSplatsThree, LumaSplatsSemantics } from './libs/luma-web.module.js';
+import { LumaSplatsThree } from './libs/luma-web.module.js';
 import { initCarousel } from './carousel.js';
 import { createPins } from './pin.js';
 
@@ -75,29 +75,37 @@ function toggleAmenitiesDropdown() {
     amenitiesDropdownMenu.style.maxHeight = amenitiesDropdownMenu.scrollHeight + 'px';
     amenitiesDropdownMenu.style.opacity = '1';
     
-    // Ganti ke chevron-up
-    amenitiesChevron.setAttribute('data-lucide', 'chevron-up');
+    if (amenitiesChevron) {
+      amenitiesChevron.setAttribute('data-lucide', 'chevron-up');
+      window.lucide?.createElement(amenitiesChevron);
+    }
     
     amenitiesToggle.dataset.active = "true";
   } else {
     amenitiesDropdownMenu.style.maxHeight = '0px';
     amenitiesDropdownMenu.style.opacity = '0';
     
-    // Ganti ke chevron-down
-    amenitiesChevron.setAttribute('data-lucide', 'chevron-down');
+    if (amenitiesChevron) {
+      amenitiesChevron.setAttribute('data-lucide', 'chevron-down');
+      window.lucide?.createElement(amenitiesChevron);
+    }
     
     amenitiesToggle.dataset.active = "false";
   }
-  
-  // Re-render Lucide icons setelah ganti
-  if (window.lucide) window.lucide.createIcons();
 }
 
 function resetAllActiveStates() {
-  document.querySelector('#btn-6').dataset.active = "false";
-  amenitiesToggle.dataset.active = "false";
+  const elementsToReset = [
+    document.querySelector('#btn-6'),
+    amenitiesToggle,
+    document.querySelector('a[href="/surrounding/"]')
+  ];
+  
+  elementsToReset.forEach(el => {
+    if (el) el.dataset.active = "false";
+  });
+  
   document.querySelectorAll('.area-button').forEach(b => b.dataset.active = "false");
-  document.querySelector('a[href="/surrounding/"]').dataset.active = "false";
 }
 
 function moveCameraTo(position, lookAt = null, duration = 1000) {
@@ -265,7 +273,6 @@ canvas.addEventListener('click', (event) => {
 
       // Visual feedback
       clickedSprite.material.color.set(0xffffff);
-      setTimeout(() => clickedSprite.material.color.set(0xffffff), 300);
     }
   }
 });
