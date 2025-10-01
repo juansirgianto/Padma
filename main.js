@@ -57,6 +57,13 @@ const splats = new LumaSplatsThree({
 splats.position.set(-0.4, 0.5, 0.40);
 scene.add(splats);
 
+// const axesHelper = new THREE.AxesHelper( 10 );
+// axesHelper.position.y = 0;
+// scene.add( axesHelper );
+
+// caminfo
+// const camInfo = document.getElementById('cam-info');
+
 // Area buttons configuration
 const areaButtons = [
   { id: 'btn-1', cameraPosition: [0.65, 0.73, -0.80], cameraTarget: [0.28, 0, -0.41], descriptionId: 'pooldescription' },
@@ -227,6 +234,13 @@ function renderLoop(){
     if (performance.now() >= warmUpEndAt) warmingUp = false;
   }
   if (!needsRender) return;
+
+// caminfo
+//   if (camInfo) {
+//     camInfo.textContent = `x: ${camera.position.x.toFixed(2)}, 
+// y: ${camera.position.y.toFixed(2)}, 
+// z: ${camera.position.z.toFixed(2)}`;
+//   }
   renderer.render(scene, camera);
   needsRender = false;
 }
