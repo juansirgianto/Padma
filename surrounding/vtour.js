@@ -522,6 +522,4 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') showImage(galIndex + 1);
 });
 
-
-
 Object.assign(window, { switchScene }); // jika perlu: { scenes, switchScene }
