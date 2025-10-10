@@ -9,15 +9,11 @@ import { createPins } from './pin.js';
 initCarousel();
 
 // DOM Elements
-const toggleBtn = document.getElementById("toggleBtn");
-const menu = document.getElementById("menu");
-const chev = document.getElementById("chev");
 const amenitiesToggle = document.getElementById('amenitiesToggle');
 const amenitiesDropdownMenu = document.getElementById('amenitiesDropdownMenu');
 const amenitiesChevron = document.getElementById('amenitiesChevron');
 
 // State variables
-let open = false;
 let amenitiesDropdownOpen = false;
 
 // Three.js Setup
@@ -145,24 +141,6 @@ function moveCameraTo(position, lookAt = null, duration = 1000) {
 // Event Listeners
 if (window.lucide) window.lucide.createIcons();
 
-// Main menu toggle
-toggleBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  open = !open;
-
-  if (open) {
-    menu.style.maxHeight = "none";
-    menu.style.opacity = "1";
-    chev.style.transform = "rotate(180deg)";
-  } else {
-    menu.style.maxHeight = "0px";
-    menu.style.opacity = "0";
-    chev.style.transform = "rotate(0deg)";
-    if (amenitiesDropdownOpen) toggleAmenitiesDropdown();
-  }
-});
-
 // Amenities toggle
 amenitiesToggle.addEventListener('click', (e) => {
   e.preventDefault();
@@ -263,11 +241,8 @@ canvas.addEventListener('click', (event) => {
     
     if (pinPOI) {
       // Open menu and dropdown
-      if (!open) {
-        open = true;
-        menu.style.maxHeight = "none";
-        menu.style.opacity = "1";
-        chev.style.transform = "rotate(180deg)";
+      if (!window.menuOpen) {
+        window.toggleMainMenu(true);
       }
       if (!amenitiesDropdownOpen) toggleAmenitiesDropdown();
 

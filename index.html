@@ -310,12 +310,62 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
     </div>
 
     <!-- <div id="cam-info" class="absolute bottom-2 right-2 bg-black text-white text-xs px-2 py-1 rounded z-10"></div> -->
+
   
-    <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+  
+  // Buat variabel GLOBAL agar bisa diakses dari main.js
+  window.menuOpen = false;
+  
+  // Fungsi global untuk toggle menu dengan icon
+  window.toggleMainMenu = function(shouldOpen) {
+    const toggleBtn = document.getElementById('toggleBtn');
+    const menu = document.getElementById('menu');
+    const chev = document.getElementById('chev');
+    
+    if (shouldOpen === undefined) {
+      shouldOpen = menu.classList.contains('max-h-0');
+    }
+    
+    window.menuOpen = shouldOpen;
+    
+    if (shouldOpen) {
+      // Buka menu
+      menu.classList.remove('max-h-0', 'opacity-0');
+      menu.classList.add('max-h-[500px]', 'opacity-100');
+      menu.style.maxHeight = "none";
+      menu.style.opacity = "1";
+      
+      // Ubah icon ke chevron-up
+      chev.setAttribute('data-lucide', 'chevron-down');
+      chev.style.transform = "rotate(180deg)";
+    } else {
+      // Tutup menu
+      menu.classList.remove('max-h-[500px]', 'opacity-100');
+      menu.classList.add('max-h-0', 'opacity-0');
+      menu.style.maxHeight = "0px";
+      menu.style.opacity = "0";
+      
+      // Ubah icon ke chevron-down
+      chev.setAttribute('data-lucide', 'chevron-down');
+      chev.style.transform = "rotate(0deg)";
+    }
+    
+    // Re-render lucide icons
     lucide.createIcons();
-  </script>
-  <script type="module" src="./main.js"></script>
+  };
+  
+  // Event listener untuk button
+  document.getElementById('toggleBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.toggleMainMenu();
+  });
+</script>
+
+<script type="module" src="./main.js"></script>
 
 </body>
 </html>
