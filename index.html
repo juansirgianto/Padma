@@ -318,6 +318,7 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
   
   // Buat variabel GLOBAL agar bisa diakses dari main.js
   window.menuOpen = false;
+  window.amenitiesOpen = false;
   
   // Fungsi global untuk toggle menu dengan icon
   window.toggleMainMenu = function(shouldOpen) {
@@ -357,7 +358,43 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
     lucide.createIcons();
   };
   
-  // Event listener untuk button
+  // Fungsi global untuk toggle amenities dropdown
+  window.toggleAmenitiesDropdown = function(shouldOpen) {
+    const amenitiesDropdownMenu = document.getElementById('amenitiesDropdownMenu');
+    const amenitiesChevron = document.getElementById('amenitiesChevron');
+    const amenitiesToggle = document.getElementById('amenitiesToggle');
+    
+    // Cek status dari window.amenitiesOpen, bukan dari classList
+    if (shouldOpen === undefined) {
+      shouldOpen = !window.amenitiesOpen; // Toggle status
+    }
+    
+    window.amenitiesOpen = shouldOpen;
+    
+    if (shouldOpen) {
+      amenitiesDropdownMenu.style.maxHeight = amenitiesDropdownMenu.scrollHeight + 'px';
+      amenitiesDropdownMenu.style.opacity = '1';
+      
+      // Rotasi chevron
+      if (amenitiesChevron) {
+        amenitiesChevron.style.transform = "rotate(180deg)";
+      }
+      
+      if (amenitiesToggle) amenitiesToggle.dataset.active = "true";
+    } else {
+      amenitiesDropdownMenu.style.maxHeight = '0px';
+      amenitiesDropdownMenu.style.opacity = '0';
+      
+      // Reset rotasi chevron
+      if (amenitiesChevron) {
+        amenitiesChevron.style.transform = "rotate(0deg)";
+      }
+      
+      if (amenitiesToggle) amenitiesToggle.dataset.active = "false";
+    }
+  };
+  
+  // Event listener untuk toggle button
   document.getElementById('toggleBtn').addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();

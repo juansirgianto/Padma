@@ -13,9 +13,6 @@ const amenitiesToggle = document.getElementById('amenitiesToggle');
 const amenitiesDropdownMenu = document.getElementById('amenitiesDropdownMenu');
 const amenitiesChevron = document.getElementById('amenitiesChevron');
 
-// State variables
-let amenitiesDropdownOpen = false;
-
 // Three.js Setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3);
@@ -70,37 +67,10 @@ const areaButtons = [
   { id: 'btn-6', cameraPosition: [0.58, 0.95, -0.56], cameraTarget: [0, 0, 0], descriptionId: null }
 ];
 
-// Functions
-function toggleAmenitiesDropdown() {
-  amenitiesDropdownOpen = !amenitiesDropdownOpen;
-  
-  if (amenitiesDropdownOpen) {
-    amenitiesDropdownMenu.style.maxHeight = amenitiesDropdownMenu.scrollHeight + 'px';
-    amenitiesDropdownMenu.style.opacity = '1';
-    
-    if (amenitiesChevron) {
-      amenitiesChevron.setAttribute('data-lucide', 'chevron-up');
-      window.lucide?.createElement(amenitiesChevron);
-    }
-    
-    amenitiesToggle.dataset.active = "true";
-  } else {
-    amenitiesDropdownMenu.style.maxHeight = '0px';
-    amenitiesDropdownMenu.style.opacity = '0';
-    
-    if (amenitiesChevron) {
-      amenitiesChevron.setAttribute('data-lucide', 'chevron-down');
-      window.lucide?.createElement(amenitiesChevron);
-    }
-    
-    amenitiesToggle.dataset.active = "false";
-  }
-}
-
 function resetAllActiveStates() {
   const elementsToReset = [
     document.querySelector('#btn-6'),
-    amenitiesToggle,
+    // amenitiesToggle, // HAPUS dari sini, biar tidak direset
     document.querySelector('a[href="/surrounding/"]')
   ];
   
@@ -144,8 +114,7 @@ if (window.lucide) window.lucide.createIcons();
 // Amenities toggle
 amenitiesToggle.addEventListener('click', (e) => {
   e.preventDefault();
-  resetAllActiveStates();
-  toggleAmenitiesDropdown();
+  window.toggleAmenitiesDropdown(); 
 });
 
 // Home button
@@ -154,7 +123,7 @@ document.querySelector('#btn-6').addEventListener('click', (e) => {
   resetAllActiveStates();
   e.target.closest('a').dataset.active = "true";
   
-  if (amenitiesDropdownOpen) toggleAmenitiesDropdown();
+  if (window.amenitiesOpen) window.toggleAmenitiesDropdown();
   moveCameraTo([0.58, 0.95, -0.56], [0, 0, 0]);
   document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
 });
@@ -194,7 +163,7 @@ document.querySelectorAll('.close-description').forEach(btn => {
 document.querySelector('a[href="/surrounding/"]').addEventListener('click', () => {
   resetAllActiveStates();
   document.querySelector('a[href="/surrounding/"]').dataset.active = "true";
-  if (amenitiesDropdownOpen) toggleAmenitiesDropdown();
+  if (window.amenitiesOpen) window.toggleAmenitiesDropdown();
 });
 
 // Render loop
@@ -244,7 +213,7 @@ canvas.addEventListener('click', (event) => {
       if (!window.menuOpen) {
         window.toggleMainMenu(true);
       }
-      if (!amenitiesDropdownOpen) toggleAmenitiesDropdown();
+      if (!window.amenitiesOpen) window.toggleAmenitiesDropdown();
 
       // Camera and description
       moveCameraTo(pinPOI.camera_position.toArray(), pinPOI.camera_target.toArray());
@@ -322,5 +291,8 @@ window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-  if (open) menu.style.maxHeight = menu.scrollHeight + "px";
+  if (window.menuOpen) {
+    const menu = document.getElementById('menu');
+    if (menu) menu.style.maxHeight = menu.scrollHeight + "px";
+  }
 });
