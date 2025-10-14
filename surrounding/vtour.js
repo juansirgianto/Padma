@@ -22,20 +22,9 @@ function createCircleMarker(imgSrc, label) {
 
     const tip = document.createElement('div');
     tip.textContent = label;
-    tip.style.cssText = `
-    position:absolute; bottom: calc(100% + 10px); left:50%; transform:translateX(-50%);
-    background: rgba(46,48,71,.95); color:#fff; padding:6px 10px; border-radius:9999px;
-    white-space:nowrap; font-size:12px; font-weight:600; opacity:0; pointer-events:none;
-    transition: opacity .25s;
-    `;
     wrap.appendChild(tip);
 
     const caret = document.createElement('div');
-    caret.style.cssText = `
-    position:absolute; top: -6px; left:50%; transform:translateX(-50%);
-    width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;
-    border-top:6px solid rgba(46,48,71,.95);
-    `;
     tip.appendChild(caret);
 
     wrap.addEventListener('mouseenter', () => (tip.style.opacity = '1'));
@@ -59,45 +48,47 @@ const viewer = new Viewer({
 const markers = viewer.getPlugin(MarkersPlugin);
 
 // ------- DEFINISI SCENE -------
-/** @typedef {'entrance'|'studyroom'|'kitchen'|'kitchenpatio'|'patio'|'lounge'|'bedroom'|'balcony'|'bathroom'} SceneId */
+/** @typedef {'aerial'|'gardenhouse'|'lakeview'|'kitchenpatio'|'patio'|'lounge'|'bedroom'|'balcony'|'bathroom'} SceneId */
 
 /** @type {Record<SceneId, { panorama: string, markers: Array<{id:string,to:SceneId,img:string,label:string,position:{yaw:string|number,pitch:string|number}}>} >} */
 const scenes = {
-    entrance: {
-    panorama: '/vtour/ENTRANCE_.jpg',
+    aerial: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/00_AereialView.jpg',
+    view: { yaw: deg(70), pitch: deg(-50) },
     markers: [
-      { id:'to-study',   to:'studyroom', img:'/vtour/study.jpg',   label:'Study',   position:{ yaw:deg(75),  pitch:deg(-10) } },
-      { id:'to-kitchen', to:'kitchen',   img:'/vtour/kitchen.jpg', label:'Kitchen', position:{ yaw:deg(12),  pitch:deg(-6) } },
-      { id:'to-bedroom', to:'bedroom',   img:'/vtour/bedroom.jpg', label:'Bedroom', position:{ yaw:deg(-6),  pitch:deg(23) } },
+      { id:'to-gardenhouse',   to:'gardenhouse', img:'/vtour/gardenhouse.png',   label:'Garden House',   position:{ yaw:deg(-10),  pitch:deg(-40) } },
+      { id:'to-lakeview', to:'lakeview',   img:'/vtour/lakeview.png', label:'Lake View', position:{ yaw:deg(85),  pitch:deg(-55) } },
+      { id:'to-landmark', to:'landmark',   img:'/vtour/landmark2k.png', label:'Landmark', position:{ yaw:deg(110),  pitch:deg(-20) } },
     ],
     info: {
       tag: 'Welcome',
-      title: 'Entrance',
+      title: 'Aerial View',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: '/vtour/ENTRANCE_.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/00_AereialView.jpg',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
         'Lebar koridor 2.2 m'
       ],
-      cta: { label: 'See Gallery' },
-      gallery: [
-        '/vtour/ENTRANCE_.jpg',
-        '/vtour/study.jpg',
-        '/vtour/bedroom.jpg',
-        ]
+      // cta: { label: 'See Gallery' },
+      // gallery: [
+      //   '/vtour/ENTRANCE_.jpg',
+      //   '/vtour/study.jpg',
+      //   '/vtour/bedroom.jpg',
+      //   ]
     }
   },
-    studyroom: {
-    panorama: '/vtour/study.jpg',
+    gardenhouse: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/01_GardenView.jpg',
+    view: { yaw: deg(200), pitch: deg(0), zoom: 0 },
     markers: [
         { id: 'back-entrance', to: 'entrance', img: ' /vtour/ENTRANCE_.jpg', label: 'Entrance', position: { yaw: deg(-86), pitch: deg(-10) } },
     ],
     info: {
       tag: 'Welcome',
-      title: 'Study Room',
+      title: 'Garden House',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: '/vtour/study.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/01_GardenView.jpg',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
@@ -110,8 +101,9 @@ const scenes = {
         ]
     }
     },
-    kitchen: {
-    panorama: '/vtour/kitchen.jpg',
+    lakeview: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/02_LakeView.jpg',
+    view: { yaw: deg(90), pitch: deg(0), zoom: 0 },
     markers: [
         { id: 'back-entrance',  to: 'entrance',     img: ' /vtour/ENTRANCE_.jpg',     label: 'Entrance',     position: { yaw: deg(-200), pitch: deg(-8) } },
         { id: 'to-kitchenpatio',to: 'kitchenpatio', img: ' /vtour/kitchenpatio.jpg', label: 'Kitchen Patio', position: { yaw: deg(-17),  pitch: deg(-6) } },
@@ -119,9 +111,9 @@ const scenes = {
     ],
     info: {
       tag: 'Welcome',
-      title: 'Kitchen',
+      title: 'Lake View',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: '/vtour/kitchen.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/02_LakeView.jpg',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
@@ -136,8 +128,9 @@ const scenes = {
         ]
     }
     },
-    kitchenpatio: {
-    panorama: '/vtour/kitchenpatio.jpg',
+    landmark: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/03_LandmarkBunga.jpg',
+    view: { yaw: deg(90), pitch: deg(0), zoom: 0 },
     markers: [
         { id: 'back-entrance', to: 'entrance', img: ' /vtour/ENTRANCE_.jpg', label: 'Entrance', position: { yaw: deg(149), pitch: deg(-5) } },
         { id: 'to-patio',      to: 'patio',    img: ' /vtour/patio.jpg',    label: 'Patio',    position: { yaw: deg(12),  pitch: deg(-6) } },
@@ -286,13 +279,34 @@ async function switchScene(sceneId) {
 
   // (optional) onLeave sebelumnya
   if (currentSceneId && scenes[currentSceneId]?.onLeave) {
-    scenes[currentSceneId].onLeave();
+    try { scenes[currentSceneId].onLeave(); } catch (err) { console.warn(err); }
   }
 
-  markers.clearMarkers();
-  await viewer.setPanorama(scene.panorama, { transition: true });
+  // Ganti panorama
+   markers.clearMarkers();
 
-  for (const mk of scene.markers) {
+  // === set arah awal LANGSUNG saat ganti panorama ===
+  const hasView = !!scene.view;
+  await viewer.setPanorama(scene.panorama, {
+    // set posisi awal supaya tidak pakai arah sebelumnya
+    ...(hasView ? { position: {
+      ...(scene.view.yaw   != null ? { yaw:   scene.view.yaw }   : {}),
+      ...(scene.view.pitch != null ? { pitch: scene.view.pitch } : {}),
+    }} : {}),
+
+    // opsional: ikut set zoom awal
+    ...(scene.view?.zoom != null ? { zoom: scene.view.zoom } : {}),
+
+    // opsional: cegah “rotasi campur” selama transisi
+    transition: {
+      // pakai efek fade standar (atau 'black'/'wipe' sesuai selera)
+      effect: 'fade',
+      rotation: false, // <— penting untuk hilangkan jeda arah lama
+    },
+  });
+
+  // Tambah markers
+  for (const mk of (scene.markers ?? [])) {
     const el = createCircleMarker(mk.img, mk.label);
     el.dataset.to = mk.to;
     markers.addMarker({
@@ -301,19 +315,18 @@ async function switchScene(sceneId) {
       position: mk.position,
       size: { width: 76, height: 76 },
       anchor: 'center center',
-      zIndex: 10,
+      zIndex: 1,
       tooltip: mk.label,
     });
   }
 
-  // === Render info card khusus scene ini ===
+  // Render info card
   renderSceneCard(scene.info);
 
   // (optional) onEnter
   scene.onEnter?.();
 
   currentSceneId = sceneId;
-
   setActiveSceneButton(sceneId);
 }
 
@@ -325,7 +338,7 @@ markers.addEventListener('select-marker', (e) => {
 });
 
 // Mulai dari scene 'entrance'
-switchScene('entrance');
+switchScene('aerial');
 
 // (Opsional) cleanup saat keluar halaman
 window.addEventListener('beforeunload', () => viewer.destroy());

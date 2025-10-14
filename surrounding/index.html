@@ -21,7 +21,7 @@
 </head>
 <body>
   <div id="viewer"></div>
-  <div id="sidebar" class="absolute flex flex-col top-2 left-2 md:w-[200px] w-[150px] bg-[#10523C]/70 backdrop-blur-sm md:p-4 p-2 rounded-lg transition-all duration-300 max-h-[95vh]">
+  <div id="sidebar" class="absolute flex flex-col top-2 left-2 lg:w-[250px] md:w-[200px] w-[150px] bg-[#10523C]/90 backdrop-blur-sm md:p-4 p-2 rounded-lg transition-all duration-300 max-h-[95vh] z-10">
   <!-- Logo + Arrow -->
   <div class="flex flex-col items-center justify-between">
     <img src="https://designedbypelago.com/wp-content/uploads/2025/09/Padma_LogoFinal-White-e1758596993545.png" alt="" class="lg:w-[150px] md:w-[100px] w-[80px]">
@@ -36,29 +36,29 @@
     </a>
     <div class="flex flex-col gap-1">
     <h1 class="font-semibold text-white lg:text-xl md:text-lg text-sm bg-[#97864E] rounded-xl text-center lg:p-1">1st Floor</h1>
-    <button data-scene="entrance" class="flex w-full text-white lg:text-lg md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]" data-active="true">
+    <button data-scene="aerial" class="flex w-full text-white lg:text-lg md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]" data-active="true">
       <div class="bg-[#97864E] text-white rounded-full p-2 hidden md:flex">
-        <i data-lucide="door-open"></i>
+        <i data-lucide="eye"></i>
       </div>
-      <h1>Entrance</h1>
+      <h1>Aerial View</h1>
     </button>
-    <button data-scene="studyroom" class="flex w-full text-white lg:text-lg md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+    <button data-scene="gardenhouse" class="flex w-full text-white lg:text-lg md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
       <div class="bg-[#97864E] text-white rounded-full p-2 hidden md:flex">
-        <i data-lucide="book-open"></i>
+        <i data-lucide="house"></i>
       </div>
-      <h1>Study Room</h1>
+      <h1>Garden House</h1>
     </button>
-    <button data-scene="kitchen" class="flex w-full text-white lg:text-lg md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+    <button data-scene="lakeview" class="flex w-full text-white lg:text-lg md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
       <div class="bg-[#97864E] text-white rounded-full p-2 hidden md:flex">
-        <i data-lucide="cooking-pot"></i>
+        <i data-lucide="trees"></i>
       </div>
-      <h1>Kitchen</h1>
+      <h1>Lake View</h1>
     </button>
-    <button data-scene="kitchenpatio" class="flex w-full text-white lg:text-lg md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+    <button data-scene="landmark" class="flex w-full text-white lg:text-lg md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
       <div class="bg-[#97864E] text-white rounded-full p-2 hidden md:flex">
-        <i data-lucide="lamp"></i>
+        <i data-lucide="pyramid"></i>
       </div>
-      <h1 class="text-start">Kitchen to Patio</h1>
+      <h1 class="text-start">Landmark</h1>
     </button>
     <button data-scene="lounge" class="flex w-full text-white lg:text-lg md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
       <div class="bg-[#97864E] text-white rounded-full p-2 hidden md:flex">
@@ -100,8 +100,8 @@
 
 <!-- Info Card Overlay -->
 <div id="sceneCard"
-     class="fixed right-2 top-2 md:max-w-[300px] max-w-[50vw] bg-[#10523C]/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden
-            opacity-0 translate-y-3 pointer-events-none transition-all duration-300">
+     class="fixed right-2 top-2 lg:max-w-[300px] md:max-w-[250px] max-w-[50vw] bg-[#10523C]/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden
+            opacity-0 translate-y-3 pointer-events-none transition-all duration-300 z-10">
   <img id="sceneCardImg" src="" alt="" class="w-full h-36 object-cover hidden">
   <div class="p-4">
     <div class="text-xs tracking-widest text-white uppercase" id="sceneCardTag"></div>

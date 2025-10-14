@@ -1,8 +1,7 @@
-// main.js - Optimized
+// main.js - Using @mkkellogg/gaussian-splats-3d
 
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-import { OrbitControls } from 'https://esm.run/three@0.160.0/examples/jsm/controls/OrbitControls.js';
-import { LumaSplatsThree } from './libs/luma-web.module.js';
+import * as GS from 'https://unpkg.com/@mkkellogg/gaussian-splats-3d/build/gaussian-splats-3d.module.js';
 import { initCarousel } from './carousel.js';
 import { createPins } from './pin.js';
 
@@ -13,49 +12,86 @@ const amenitiesToggle = document.getElementById('amenitiesToggle');
 const amenitiesDropdownMenu = document.getElementById('amenitiesDropdownMenu');
 const amenitiesChevron = document.getElementById('amenitiesChevron');
 
-// Three.js Setup
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3);
-camera.position.set(0.58, 0.95, -0.56);
+// Three.js Scene Setup
+const threeScene = new THREE.Scene();
+threeScene.background = new THREE.Color(0x606060);
 
-const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false, powerPreference: 'high-performance' });
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-scene.background = new THREE.Color(0x000000);
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
-document.body.appendChild(renderer.domElement);
+// Axes Helper (optional, uncomment to debug)
+const axesHelper = new THREE.AxesHelper(10);
+threeScene.add(axesHelper);
 
-const canvas = renderer.domElement;
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-const { pins, pinPOIs } = createPins(scene);
+// Gaussian Splats Viewer
+const viewer = new GS.Viewer({
+  antialiased: false,
+  sharedMemoryForWorkers: false,
+  initialCameraPosition: [-1.91, 1.71, 1.11],
+  initialCameraLookAt: [0, 0, 0],
+  threeScene,
+  devicePixelRatio: Math.min(window.devicePixelRatio, 1.25),
+  enablePointerLockControls: false,
+  enableMouseControls: true,
+});
 
-// Controls
-const controls = new OrbitControls(camera, renderer.domElement);
+// Pastikan canvas viewer ada di body dan di-style dengan benar
+viewer.renderer.domElement.style.position = 'absolute';
+viewer.renderer.domElement.style.top = '0';
+viewer.renderer.domElement.style.left = '0';
+viewer.renderer.domElement.style.width = '100%';
+viewer.renderer.domElement.style.height = '100%';
+viewer.renderer.domElement.style.display = 'block';
+viewer.renderer.domElement.style.zIndex = '1'; // Di atas background, tapi di bawah UI
+
+// Tambahkan z-index ke sidebar agar lebih tinggi dari canvas
+const sidebar = document.getElementById('sidebar');
+if (sidebar) sidebar.style.zIndex = '30';
+
+// Pastikan description boxes juga punya z-index tinggi
+document.querySelectorAll('.description-box').forEach(box => {
+  box.style.zIndex = '30';
+});
+
+// Load Splat Scene - Ganti dengan path model .ply Anda
+await viewer.addSplatScene('/models/gs_drone_v1.compressed.ply', {
+  splatAlphaRemovalThreshold: 25,
+  showLoadingUI: true,
+  scale: [1, -1, -1],
+  position: [0, 0, 0],
+});
+
+// Access camera and controls
+const camera = viewer.camera;
+const controls = viewer.controls;
+
+// Configure controls
+// controls.minDistance = 0.9;
+// controls.maxDistance = 1.2;
 controls.enableDamping = true;
-controls.minDistance = 0.9; 
-controls.maxDistance = 1.2;  
 
-const maxY = 1.5;
-const minY = 0.5;
+const maxY = 5;
+const minY = 0.1;
 controls.addEventListener('change', () => {
   camera.position.y = Math.min(maxY, Math.max(minY, camera.position.y));
 });
 
-// Luma Splats
-const splats = new LumaSplatsThree({
-    source: 'https://lumalabs.ai/capture/1855032b-de68-4fdd-adc9-b9935cef2a93',
-    particleRevealEnabled: false
-});
-splats.position.set(-0.4, 0.5, 0.40);
-scene.add(splats);
+// Setup raycaster and pins
+const canvas = viewer.renderer.domElement;
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+const { pins, pinPOIs } = createPins(threeScene);
 
-// const axesHelper = new THREE.AxesHelper( 10 );
-// axesHelper.position.y = 0;
-// scene.add( axesHelper );
+// Start viewer
+viewer.start();
 
-// caminfo
-// const camInfo = document.getElementById('cam-info');
+// Camera info display (optional, uncomment to debug)
+const camInfo = document.createElement('div');
+camInfo.style.cssText = 'position:absolute;top:10px;left:10px;color:#fff;font:12px monospace;background:rgba(0,0,0,.4);padding:6px 10px;border-radius:6px;z-index:1000';
+document.body.appendChild(camInfo);
+function updateCameraInfo() {
+  const pos = camera.position;
+  camInfo.innerHTML = `x: ${pos.x.toFixed(2)}, y: ${pos.y.toFixed(2)}, z: ${pos.z.toFixed(2)}`;
+  requestAnimationFrame(updateCameraInfo);
+}
+updateCameraInfo();
 
 // Area buttons configuration
 const areaButtons = [
@@ -64,13 +100,11 @@ const areaButtons = [
   { id: 'btn-3', cameraPosition: [-1.56, 0.77, 0.42], cameraTarget: [-1, 0, 0.59], descriptionId: 'gardendescription' },
   { id: 'btn-4', cameraPosition: [-0.83, 0.81, 0.87], cameraTarget: [-0.38, 0, 0.96], descriptionId: 'arrivaldescription' },
   { id: 'btn-5', cameraPosition: [-0.84, 0.79, 1.31], cameraTarget: [-0.70, 0, 0.90], descriptionId: 'archdescription' },
-  { id: 'btn-6', cameraPosition: [0.58, 0.95, -0.56], cameraTarget: [0, 0, 0], descriptionId: null }
 ];
 
 function resetAllActiveStates() {
   const elementsToReset = [
     document.querySelector('#btn-6'),
-    // amenitiesToggle, // HAPUS dari sini, biar tidak direset
     document.querySelector('a[href="/surrounding/"]')
   ];
   
@@ -81,8 +115,9 @@ function resetAllActiveStates() {
   document.querySelectorAll('.area-button').forEach(b => b.dataset.active = "false");
 }
 
+let isCameraAnimating = false;
+
 function moveCameraTo(position, lookAt = null, duration = 1000) {
-  needsRender = true;
   if (isCameraAnimating) return;
   isCameraAnimating = true;
   
@@ -97,7 +132,7 @@ function moveCameraTo(position, lookAt = null, duration = 1000) {
     const t = Math.min(elapsed / duration, 1);
     camera.position.lerpVectors(start, end, t);
     controls.target.lerpVectors(startTarget, endTarget, t);
-    needsRender = true;
+    controls.update();
 
     if (t < 1) {
       requestAnimationFrame(animateCamera);
@@ -124,23 +159,21 @@ document.querySelector('#btn-6').addEventListener('click', (e) => {
   e.target.closest('a').dataset.active = "true";
   
   if (window.amenitiesOpen) window.toggleAmenitiesDropdown();
-  moveCameraTo([0.58, 0.95, -0.56], [0, 0, 0]);
+  moveCameraTo([-1.91, 1.71, 1.11], [0, 0, 0]);
   document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
 });
 
-// Area buttons (optimized single loop)
+// Area buttons
 areaButtons.slice(0, 5).forEach(({ id, cameraPosition, cameraTarget, descriptionId }) => {
   const button = document.querySelector(`#${id}`);
   if (button) {
     button.addEventListener('click', (e) => {
       e.preventDefault();
       
-      // Reset and set active states
       resetAllActiveStates();
       amenitiesToggle.dataset.active = "true";
       button.dataset.active = "true";
       
-      // Camera and description
       moveCameraTo(cameraPosition, cameraTarget);
       document.querySelectorAll('.description-box').forEach(el => el.style.display = 'none');
       if (descriptionId) {
@@ -166,33 +199,6 @@ document.querySelector('a[href="/surrounding/"]').addEventListener('click', () =
   if (window.amenitiesOpen) window.toggleAmenitiesDropdown();
 });
 
-// Render loop
-let isCameraAnimating = false;
-let needsRender = true;
-let warmingUp = true;
-const WARMUP_MS = 3000;
-const warmUpEndAt = performance.now() + WARMUP_MS;
-
-function renderLoop(){
-  requestAnimationFrame(renderLoop);
-  if (controls.update()) needsRender = true;
-  if (warmingUp) {
-    needsRender = true;
-    if (performance.now() >= warmUpEndAt) warmingUp = false;
-  }
-  if (!needsRender) return;
-
-// caminfo
-//   if (camInfo) {
-//     camInfo.textContent = `x: ${camera.position.x.toFixed(2)}, 
-// y: ${camera.position.y.toFixed(2)}, 
-// z: ${camera.position.z.toFixed(2)}`;
-//   }
-  renderer.render(scene, camera);
-  needsRender = false;
-}
-renderLoop();
-
 // Pin interactions
 canvas.addEventListener('click', (event) => {
   const rect = canvas.getBoundingClientRect();
@@ -209,27 +215,22 @@ canvas.addEventListener('click', (event) => {
     const pinPOI = pinPOIs.find(p => p.mesh === clickedSprite.parent);
     
     if (pinPOI) {
-      // Open menu and dropdown
       if (!window.menuOpen) {
         window.toggleMainMenu(true);
       }
       if (!window.amenitiesOpen) window.toggleAmenitiesDropdown();
 
-      // Camera and description
       moveCameraTo(pinPOI.camera_position.toArray(), pinPOI.camera_target.toArray());
-      needsRender = true;
       
       document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
       const desc = document.getElementById(pinPOI.descriptionId);
       if (desc) desc.style.display = 'block';
 
-      // Set active states
       document.querySelectorAll('.area-button').forEach(b => b.dataset.active = "false");
       const index = pinPOIs.indexOf(pinPOI);
       const targetBtn = document.querySelectorAll('.area-button')[index];
       if (targetBtn) targetBtn.dataset.active = "true";
 
-      // Visual feedback
       clickedSprite.material.color.set(0xffffff);
     }
   }
@@ -247,7 +248,7 @@ raycaster.near = 0.1;
 raycaster.far = 5.0;
 
 canvas.addEventListener('pointermove', (event) => {
-  if (controls.dragging || isCameraAnimating) return;
+  if (isCameraAnimating) return;
   if (Math.abs(event.clientX - lastX) < 2 && Math.abs(event.clientY - lastY) < 2) return;
   
   lastX = event.clientX; 
@@ -270,7 +271,6 @@ canvas.addEventListener('pointermove', (event) => {
       if (hoveredSprite !== sprite) {
         if (hoveredSprite) hoveredSprite.material.color.setHex(0xffffff);
         sprite.material.color.setHex(0x757641);
-        needsRender = true;
         hoveredSprite = sprite;
       }
       canvas.style.cursor = 'pointer';
@@ -282,7 +282,7 @@ canvas.addEventListener('pointermove', (event) => {
   });
 }, { passive: true });
 
-// Cleanup and resize
+// Cleanup
 window.addEventListener('blur', () => { 
   if (rafId) cancelAnimationFrame(rafId); 
 });
@@ -290,7 +290,7 @@ window.addEventListener('blur', () => {
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  viewer.renderer.setSize(window.innerWidth, window.innerHeight);
   if (window.menuOpen) {
     const menu = document.getElementById('menu');
     if (menu) menu.style.maxHeight = menu.scrollHeight + "px";

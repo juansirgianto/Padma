@@ -27,7 +27,7 @@
         }
     </style>
 <body>
-    <canvas id="webgl-canvas" class="absolute block top-0 lef-0 z-0"></canvas>
+    <canvas id="webgl-canvas" class="absolute block top-0 left-0 z-0"></canvas>
 
 <!-- Kontainer deskripsi -->
 <div id="pooldescription" class="description-box absolute top-2 right-2 bg-[#10523C]/80 backdrop-blur-md rounded-lg shadow-lg w-96 z-20" style="display: none;">
@@ -385,6 +385,15 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
     window.toggleMainMenu();
   });
 </script>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "@mkkellogg/gaussian-splats-3d": "https://unpkg.com/@mkkellogg/gaussian-splats-3d/build/gaussian-splats-3d.module.js"
+    }
+  }
+  </script>
 
 <script type="module" src="./main.js"></script>
 
