@@ -56,15 +56,21 @@ const scenes = {
     panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/00_AereialView.jpg',
     view: { yaw: deg(70), pitch: deg(-50) },
     markers: [
-      { id:'to-gardenhouse',   to:'gardenhouse', img:'/vtour/gardenhouse.png',   label:'Garden House',   position:{ yaw:deg(-10),  pitch:deg(-40) } },
-      { id:'to-lakeview', to:'lakeview',   img:'/vtour/lakeview.png', label:'Lake View', position:{ yaw:deg(85),  pitch:deg(-55) } },
-      { id:'to-landmark', to:'landmark',   img:'/vtour/landmark2k.png', label:'Landmark', position:{ yaw:deg(110),  pitch:deg(-20) } },
+      { id:'to-gardenhouse',   to:'gardenhouse', img:'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-TAMAN-AMERTA.jpeg',   label:'Garden House',   position:{ yaw:deg(-10),  pitch:deg(-40) } },
+      { id:'to-lakeview', to:'lakeview',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-DANAU-2.jpg', label:'Lake View', position:{ yaw:deg(85),  pitch:deg(-55) } },
+      { id:'to-landmark', to:'landmark',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/03_LandmarkBunga.jpg', label:'Landmark', position:{ yaw:deg(110),  pitch:deg(-20) } },
+      { id:'to-tamandoa', to:'tamandoa',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/TAMAN-DOA-OUR-LADY-OF-AKITA.jpeg', label:'Taman Doa Akita', position:{ yaw:deg(45),  pitch:deg(-20) } },
+      { id:'to-rukan', to:'rukan',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/LAU-PA-SAT-1-e1760512333179.jpeg', label:'Rukan Lau Pa Sat', position:{ yaw:deg(65),  pitch:deg(-20) } },
+      { id:'to-clubhouse', to:'clubhouse',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender12.jpeg', label:'Club House', position:{ yaw:deg(115),  pitch:deg(-15) } },
+      { id:'to-roundabout', to:'roundabout',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/09_Fountain.jpg', label:'Round About', position:{ yaw:deg(65),  pitch:deg(-100) } },
+      { id:'to-entrance', to:'entrance',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/GERBANG-KAWASAN-PADMA-09062025.jpeg', label:'Entrance Gate', position:{ yaw:deg(155),  pitch:deg(-30) } },
+      { id:'to-sporthub', to:'sporthub',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/11_ST.-JOHANNES-BERCHMANS.jpg', label:'Verde Sporthub', position:{ yaw:deg(-60),  pitch:deg(-25) } },
     ],
     info: {
       tag: 'Welcome',
       title: 'Aerial View',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/00_AereialView.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
@@ -82,13 +88,13 @@ const scenes = {
     panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/01_GardenView.jpg',
     view: { yaw: deg(200), pitch: deg(0), zoom: 0 },
     markers: [
-        { id: 'back-entrance', to: 'entrance', img: ' /vtour/ENTRANCE_.jpg', label: 'Entrance', position: { yaw: deg(-86), pitch: deg(-10) } },
+        { id: 'back-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(50), pitch: deg(50) } },
     ],
     info: {
       tag: 'Welcome',
       title: 'Garden House',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/01_GardenView.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-TAMAN-AMERTA.jpeg',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
@@ -96,24 +102,21 @@ const scenes = {
       ],
       cta: { label: 'See Gallery' },
       gallery: [
-        '/vtour/study.jpg',
-        '/vtour/ENTRANCE_.jpg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-TAMAN-AMERTA.jpeg',
         ]
     }
     },
     lakeview: {
-    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/02_LakeView.jpg',
-    view: { yaw: deg(90), pitch: deg(0), zoom: 0 },
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/02_LakeView-1.jpg',
+    view: { yaw: deg(180), pitch: deg(0), zoom: 0 },
     markers: [
-        { id: 'back-entrance',  to: 'entrance',     img: ' /vtour/ENTRANCE_.jpg',     label: 'Entrance',     position: { yaw: deg(-200), pitch: deg(-8) } },
-        { id: 'to-kitchenpatio',to: 'kitchenpatio', img: ' /vtour/kitchenpatio.jpg', label: 'Kitchen Patio', position: { yaw: deg(-17),  pitch: deg(-6) } },
-        { id: 'to-lounge',      to: 'lounge',       img: ' /vtour/lounge.jpg',       label: 'Lounge',        position: { yaw: deg(-100), pitch: deg(-6) } },
+        { id: 'back-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(0), pitch: deg(50) } },
     ],
     info: {
       tag: 'Welcome',
       title: 'Lake View',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/02_LakeView.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-DANAU-2.jpg',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
@@ -121,10 +124,8 @@ const scenes = {
       ],
       cta: { label: 'See Gallery' },
       gallery: [
-        '/vtour/kitchen.jpg',
-        '/vtour/lounge.jpg',
-        '/vtour/kitchentopatio.jpg',
-        '/vtour/entrance.jpg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-DANAU-2.jpg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-DANAU-1.jpg',
         ]
     }
     },
@@ -132,15 +133,37 @@ const scenes = {
     panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/03_LandmarkBunga.jpg',
     view: { yaw: deg(90), pitch: deg(0), zoom: 0 },
     markers: [
-        { id: 'back-entrance', to: 'entrance', img: ' /vtour/ENTRANCE_.jpg', label: 'Entrance', position: { yaw: deg(149), pitch: deg(-5) } },
-        { id: 'to-patio',      to: 'patio',    img: ' /vtour/patio.jpg',    label: 'Patio',    position: { yaw: deg(12),  pitch: deg(-6) } },
-        { id: 'to-lounge',     to: 'lounge',   img: ' /vtour/lounge.jpg',   label: 'Lounge',   position: { yaw: deg(183), pitch: deg(-6) } },
+        { id: 'to-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(-80), pitch: deg(30) } },
     ],
     info: {
       tag: 'Welcome',
-      title: 'Kitchen to Patio',
+      title: 'Landmark',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: '/vtour/kitchenpatio.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/03_LandmarkBunga.jpg',
+      bullets: [
+        'Akses ke Study, Kitchen, dan Bedroom',
+        'Pencahayaan natural pagi',
+        'Lebar koridor 2.2 m'
+      ],
+      // cta: { label: 'See Gallery' },
+      // gallery: [
+      //   '/vtour/kitchenpatio.jpg',
+      //   '/vtour/kitchen.jpg',
+      //   '/vtour/lounge.jpg',
+      //   ]
+    }
+    },
+    tamandoa: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/06_TamanDoa.jpg',
+    view: { yaw: deg(100), pitch: deg(0), zoom: 0 },
+    markers: [
+        { id: 'to-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(-80), pitch: deg(30) } },
+    ],
+    info: {
+      tag: 'Welcome',
+      title: 'Taman Doa Akita',
+      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/TAMAN-DOA-OUR-LADY-OF-AKITA.jpeg',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
@@ -148,22 +171,44 @@ const scenes = {
       ],
       cta: { label: 'See Gallery' },
       gallery: [
-        '/vtour/kitchenpatio.jpg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/TAMAN-DOA-OUR-LADY-OF-AKITA.jpeg',
+        ]
+    }
+    },
+    rukan: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/05_Rukan-Lau-Pa-Sat.jpg',
+    view: { yaw: deg(90), pitch: deg(0), zoom: 0 },
+    markers: [
+        { id: 'to-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(-80), pitch: deg(30) } },
+    ],
+    info: {
+      tag: 'Welcome',
+      title: 'Rukan Lau Pa Sat',
+      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/LAU-PA-SAT-1-e1760512333179.jpeg',
+      bullets: [
+        'Akses ke Study, Kitchen, dan Bedroom',
+        'Pencahayaan natural pagi',
+        'Lebar koridor 2.2 m'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        'https://designedbypelago.com/wp-content/uploads/2025/10/LAU-PA-SAT-1-e1760512333179.jpeg',
         '/vtour/kitchen.jpg',
-        '/vtour/lounge.jpg',
         ]
     }
     },
-    patio: {
-    panorama: '/vtour/patio.jpg',
+    clubhouse: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/04_PadmaClubhouse.jpg',
+    view: { yaw: deg(90), pitch: deg(0), zoom: 0 },
     markers: [
-        { id: 'to-kitchenpatio', to: 'kitchenpatio', img: '/vtour/kitchenpatio.jpg', label: 'Kitchen Patio', position: { yaw: deg(115), pitch: deg(-12) } },
+        { id: 'to-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(-80), pitch: deg(30) } },
     ],
     info: {
       tag: 'Welcome',
-      title: 'Patio',
+      title: 'Club House',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: '/vtour/patio.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender12.jpeg',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
@@ -171,69 +216,32 @@ const scenes = {
       ],
       cta: { label: 'See Gallery' },
       gallery: [
-        '/vtour/patio.jpg',
-        '/vtour/kitchenpatio.jpg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender12.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender1.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender13.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender14.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender15.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender5.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender6.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender7.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender8.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender9.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender10.jpeg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender11.jpeg'
         ]
     }
     },
-    lounge: {
-    panorama: '/vtour/lounge.jpg',
-    markers: [
-        { id: 'to-kitchen', to: 'kitchen', img: ' /vtour/kitchen.jpg', label: 'Kitchen', position: { yaw: deg(75), pitch: deg(-10) } },
-    ],
+    roundabout: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/09_Fountain.jpg',
+    view: { yaw: deg(100), pitch: deg(0), zoom: 0 },
+    // markers: [
+    //     { id: 'to-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/00_AereialView.jpg', label: 'Aerial View', position: { yaw: deg(-80), pitch: deg(30) } },
+    // ],
     info: {
       tag: 'Welcome',
-      title: 'Lounge',
+      title: 'Round About',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: '/vtour/lounge.jpg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
-      cta: { label: 'See Gallery' },
-      gallery: [
-        '/vtour/lounge.jpg',
-        '/vtour/kitchen.jpg',
-        ]
-    }
-    },
-    bedroom: {
-    panorama: '/vtour/bedroom.jpg',
-    markers: [
-        { id: 'back-entrance', to: 'entrance', img: ' /vtour/ENTRANCE_.jpg', label: 'Entrance', position: { yaw: deg(-189), pitch: deg(-17) } },
-        { id: 'to-balcony',    to: 'balcony',  img: ' /vtour/balcony.jpg',  label: 'Balcony',  position: { yaw: deg(-12),  pitch: deg(-11) } },
-        { id: 'to-bathroom',   to: 'bathroom', img: ' /vtour/bathroom.jpg', label: 'Bathroom', position: { yaw: deg(-132), pitch: deg(-11) } },
-    ],
-    info: {
-      tag: 'Welcome',
-      title: 'Bedroom',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: '/vtour/bedroom.jpg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
-      cta: { label: 'See Gallery' },
-      gallery: [
-        '/vtour/bedroom.jpg',
-        '/vtour/balcony.jpg',
-        '/vtour/entrance.jpg',
-        '/vtour/bathroom.jpg',
-        ]
-    }
-    },
-    balcony: {
-    panorama: '/vtour/balcony.jpg',
-    markers: [
-        { id: 'to-bedroom', to: 'bedroom', img: ' /vtour/bedroom.jpg', label: 'Bedroom', position: { yaw: deg(-37), pitch: deg(-12) } },
-    ],
-    info: {
-      tag: 'Welcome',
-      title: 'Balcony',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: '/vtour/balcony.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/09_Fountain.jpg',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
@@ -246,16 +254,17 @@ const scenes = {
         ]
     }
     },
-    bathroom: {
-    panorama: '/vtour/bathroom.jpg',
+    entrance: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/10_Entrance.jpg',
+    view: { yaw: deg(100), pitch: deg(0) },
     markers: [
-        { id: 'to-bedroom', to: 'bedroom', img: ' /vtour/bedroom.jpg', label: 'Bedroom', position: { yaw: deg(160), pitch: deg(-12) } },
+        { id: 'to-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(70), pitch: deg(30) } },
     ],
     info: {
       tag: 'Welcome',
-      title: 'Bathroom',
+      title: 'Entrance Gate',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: '/vtour/bathroom.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/GERBANG-KAWASAN-PADMA-09062025.jpeg',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
@@ -263,8 +272,29 @@ const scenes = {
       ],
       cta: { label: 'See Gallery' },
       gallery: [
-        '/vtour/bathroom.jpg',
-        '/vtour/bedroom.jpg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/GERBANG-KAWASAN-PADMA-09062025.jpeg',
+        ]
+    }
+    },
+    sporthub: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/11_ST.-JOHANNES-BERCHMANS.jpg',
+    view: { yaw: deg(100), pitch: deg(-20) },
+    markers: [
+        { id: 'to-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(-100), pitch: deg(30) } },
+    ],
+    info: {
+      tag: 'Welcome',
+      title: 'Verde Sporthub',
+      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/VERDE-SPORTS-HUB.jpg',
+      bullets: [
+        'Akses ke Study, Kitchen, dan Bedroom',
+        'Pencahayaan natural pagi',
+        'Lebar koridor 2.2 m'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        'https://designedbypelago.com/wp-content/uploads/2025/10/VERDE-SPORTS-HUB.jpg',
         ]
     }
     },
@@ -346,7 +376,7 @@ window.addEventListener('beforeunload', () => viewer.destroy());
 // ===== Ambil elemen card sekali =====
 const cardRoot    = document.getElementById('sceneCard');
 const cardImg     = document.getElementById('sceneCardImg');
-const cardTag     = document.getElementById('sceneCardTag');
+// const cardTag     = document.getElementById('sceneCardTag');
 const cardTitle   = document.getElementById('sceneCardTitle');
 const cardDesc    = document.getElementById('sceneCardDesc');
 const cardBullets = document.getElementById('sceneCardBullets');
@@ -406,7 +436,7 @@ function renderSceneCard(info) {
   }
 
   // Tag
-  cardTag.textContent = info.tag ?? '';
+  // cardTag.textContent = info.tag ?? '';
 
   // Title & Desc
   cardTitle.textContent = info.title ?? '';
@@ -483,56 +513,160 @@ const galDots      = document.getElementById('galDots');
 let galImages = [];
 let galIndex  = 0;
 let galOpen   = false;
+let imageCache = {}; // Cache untuk preloaded images
 
+// ===== LOADER ELEMENT =====
+// Buat loader spinner (tambahkan di HTML atau create via JS)
+let galLoader = document.getElementById('galLoader');
+if (!galLoader) {
+  galLoader = document.createElement('div');
+  galLoader.id = 'galLoader';
+  galLoader.className = 'absolute inset-0 flex items-center justify-center bg-black/50 z-10 hidden';
+  galLoader.innerHTML = `
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
+  `;
+  galleryModal?.appendChild(galLoader);
+}
+
+function showLoader() {
+  galLoader?.classList.remove('hidden');
+}
+
+function hideLoader() {
+  galLoader?.classList.add('hidden');
+}
+
+// ===== PRELOAD IMAGE =====
+function preloadImage(src) {
+  return new Promise((resolve, reject) => {
+    // Cek cache dulu
+    if (imageCache[src]) {
+      resolve(imageCache[src]);
+      return;
+    }
+
+    const img = new Image();
+    img.onload = () => {
+      imageCache[src] = img;
+      resolve(img);
+    };
+    img.onerror = () => {
+      console.error('Failed to load image:', src);
+      reject(new Error(`Failed to load: ${src}`));
+    };
+    img.src = src;
+  });
+}
+
+// ===== RENDER DOTS =====
 function renderDots() {
   galDots.innerHTML = '';
   galImages.forEach((_, i) => {
     const dot = document.createElement('button');
-    dot.className = 'w-2.5 h-2.5 rounded-full ' + (i === galIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/70');
+    dot.className = 'w-2.5 h-2.5 rounded-full transition-colors ' + 
+      (i === galIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/70');
     dot.addEventListener('click', () => showImage(i));
     galDots.appendChild(dot);
   });
 }
 
-function showImage(i) {
+// ===== SHOW IMAGE WITH LOADER =====
+async function showImage(i) {
   galIndex = (i + galImages.length) % galImages.length;
-  galImage.src = galImages[galIndex];
-  renderDots();
+  const targetSrc = galImages[galIndex];
+
+  // Show loader
+  showLoader();
+  
+  try {
+    // Preload image
+    await preloadImage(targetSrc);
+    
+    // Set image source (smooth transition)
+    galImage.style.opacity = '0';
+    
+    setTimeout(() => {
+      galImage.src = targetSrc;
+      galImage.style.opacity = '1';
+      hideLoader();
+    }, 150); // Small delay for smooth fade
+    
+    renderDots();
+    
+    // Preload adjacent images (prev & next) untuk smooth navigation
+    preloadAdjacentImages();
+    
+  } catch (error) {
+    console.error('Error loading image:', error);
+    hideLoader();
+    
+    // Fallback: show placeholder atau error message
+    galImage.alt = 'Failed to load image';
+  }
 }
 
+// ===== PRELOAD ADJACENT IMAGES =====
+function preloadAdjacentImages() {
+  const prevIndex = (galIndex - 1 + galImages.length) % galImages.length;
+  const nextIndex = (galIndex + 1) % galImages.length;
+  
+  // Preload in background (no await)
+  preloadImage(galImages[prevIndex]).catch(() => {});
+  preloadImage(galImages[nextIndex]).catch(() => {});
+}
+
+// ===== OPEN GALLERY =====
 function openGallery(images, start = 0) {
   if (!Array.isArray(images) || images.length === 0) return;
+  
   galImages = images;
   galIndex = start;
-  showImage(galIndex);
+  
+  // Clear previous image
+  galImage.src = '';
+  galImage.style.opacity = '0';
+  
+  // Show modal
   galleryModal.classList.remove('hidden');
-  galleryModal.classList.add('flex');   // pakai flex centering
+  galleryModal.classList.add('flex');
   document.body.style.overflow = 'hidden';
   galOpen = true;
+  
+  // Load first image
+  showImage(galIndex);
 }
 
+// ===== CLOSE GALLERY =====
 function closeGallery() {
   galleryModal.classList.add('hidden');
   galleryModal.classList.remove('flex');
   document.body.style.overflow = '';
   galOpen = false;
+  hideLoader();
 }
 
+// ===== EVENT LISTENERS =====
 galPrev?.addEventListener('click', () => showImage(galIndex - 1));
 galNext?.addEventListener('click', () => showImage(galIndex + 1));
 galClose?.addEventListener('click', closeGallery);
 
-// klik di area gelap untuk close
+// Klik di area gelap untuk close
 galleryModal?.addEventListener('click', (e) => {
   if (e.target === galleryModal) closeGallery();
 });
 
-// keyboard
+// Keyboard navigation
 window.addEventListener('keydown', (e) => {
   if (!galOpen) return;
   if (e.key === 'Escape') closeGallery();
   if (e.key === 'ArrowLeft')  showImage(galIndex - 1);
   if (e.key === 'ArrowRight') showImage(galIndex + 1);
 });
+
+// ===== ADD SMOOTH TRANSITION CSS =====
+// Tambahkan ini ke galImage element
+if (galImage) {
+  galImage.style.transition = 'opacity 0.3s ease-in-out';
+}
 
 Object.assign(window, { switchScene }); // jika perlu: { scenes, switchScene }

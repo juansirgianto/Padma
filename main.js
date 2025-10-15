@@ -24,7 +24,7 @@ threeScene.add(axesHelper);
 const viewer = new GS.Viewer({
   antialiased: false,
   sharedMemoryForWorkers: false,
-  initialCameraPosition: [-1.91, 1.71, 1.11],
+  initialCameraPosition: [-1.33, 1.87, -1.59],
   initialCameraLookAt: [0, 0, 0],
   threeScene,
   devicePixelRatio: Math.min(window.devicePixelRatio, 1.25),
@@ -51,7 +51,7 @@ document.querySelectorAll('.description-box').forEach(box => {
 });
 
 // Load Splat Scene - Ganti dengan path model .ply Anda
-await viewer.addSplatScene('/models/gs_drone_v1.compressed.ply', {
+await viewer.addSplatScene('/models/padma_compressed.ply', {
   splatAlphaRemovalThreshold: 25,
   showLoadingUI: true,
   scale: [1, -1, -1],
@@ -62,12 +62,15 @@ await viewer.addSplatScene('/models/gs_drone_v1.compressed.ply', {
 const camera = viewer.camera;
 const controls = viewer.controls;
 
+// set rotasi
+controls.rotateSpeed = -0.5;
+
 // Configure controls
-// controls.minDistance = 0.9;
-// controls.maxDistance = 1.2;
+controls.minDistance = 1;
+controls.maxDistance = 4;
 controls.enableDamping = true;
 
-const maxY = 5;
+const maxY = 4;
 const minY = 0.1;
 controls.addEventListener('change', () => {
   camera.position.y = Math.min(maxY, Math.max(minY, camera.position.y));
@@ -149,7 +152,18 @@ if (window.lucide) window.lucide.createIcons();
 // Amenities toggle
 amenitiesToggle.addEventListener('click', (e) => {
   e.preventDefault();
-  window.toggleAmenitiesDropdown(); 
+  
+  // Reset states
+  resetAllActiveStates();
+  
+  // Set Properties button active
+  amenitiesToggle.dataset.active = "true";
+  
+  // Toggle dropdown
+  window.toggleAmenitiesDropdown();
+  
+  // Tutup description boxes
+  document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
 });
 
 // Home button
@@ -159,7 +173,7 @@ document.querySelector('#btn-6').addEventListener('click', (e) => {
   e.target.closest('a').dataset.active = "true";
   
   if (window.amenitiesOpen) window.toggleAmenitiesDropdown();
-  moveCameraTo([-1.91, 1.71, 1.11], [0, 0, 0]);
+  moveCameraTo([-1.33, 1.87, -1.59], [0, 0, 0]);
   document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
 });
 

@@ -34,9 +34,12 @@
   <button class="absolute top-2 right-2 text-white close-description bg-[#10523C] rounded-full p-1">
     <i data-lucide="x"></i>
   </button>
-  <img  src="https://res.cloudinary.com/doyr0s17x/image/upload/v1755737546/entrance1_rkhpm2.jpg" alt="" id="descImage" class="rounded-lg w-full h-[200px] object-cover mb-2">
+  <img  src="https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg" alt="" id="descImage" class="rounded-lg w-full h-[200px] object-cover mb-2">
   <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
-  <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Orchard & Meadow</h4>
+  <div class="flex justify-between">
+    <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Lake View</h4>
+    <h4 class="text-md text-[#f5f4ea] mx-4">(15 x 35)</h4>
+  </div>
   <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">A serene and ecologically rich landscape feature, the Orchard & Meadow area blends productivity with
     natural beauty. Rows of apple trees are interplanted with a curated Northeast wildflower mix, designed
     to enhance seasonal color, pollinator habitat, and biodiversity.<br/> Gently mown grass paths weave through
@@ -45,13 +48,17 @@
     site context.</p>
     <div class="flex gap-2 mx-4 mb-4">
     <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#97864E]/90 hover:bg-[#97864E] text-white text-[#0E2C3F] w-full p-2 rounded-xl" data-gallery-id="pool"
-     data-media='[{"type":"video","src":"https://res.cloudinary.com/doyr0s17x/video/upload/v1755737911/entrance_udjwda.mp4","poster":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737559/entrance2_s5karw.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737546/entrance1_rkhpm2.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737559/entrance2_s5karw.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737560/entrance3_uiquzh.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737547/entrance1-n_gqrse6.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737557/entrance2-n_xtcmoy.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737555/entrance3-n_sbue2p.jpg"}]'>
+     data-media='[{"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg"},
+     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-4.jpeg"},
+     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-2.jpeg"},
+     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-1.jpeg"},
+     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-2.jpeg"},
+     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/POOL-RUMAH-PADMA.jpeg"},
+     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewInterior02_Final.jpeg"},
+     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewMainBedroom_Final.jpeg"},
+     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewLivingRoom_Final.jpeg"},
+     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewKidsBedroom_Final.jpeg"}
+     ]'>
       <i data-lucide="image" class="size-5 my-auto "></i>
       <span class="font-semibold">Gallery</span>
     </button>
@@ -201,7 +208,7 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
     </div>
 </div>
 
-<div id="sidebar" class="absolute flex flex-col top-2 left-2 w-[200px] bg-[#10523C]/70 backdrop-blur-md p-4 rounded-lg transition-all duration-300">
+<div id="sidebar" class="absolute flex flex-col top-2 left-2 w-[250px] bg-[#10523C]/70 backdrop-blur-md p-4 rounded-lg transition-all duration-300">
   <!-- Logo + Arrow -->
   <div class="flex flex-col items-center justify-between">
     <img src="https://designedbypelago.com/wp-content/uploads/2025/09/Padma_LogoFinal-White-e1758596993545.png" alt="" class="w-[150px]">
@@ -219,7 +226,7 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
     <div class="flex text-xl p-2 font-semibold gap-2 items-center justify-between">
       <div class="flex items-center gap-2">
         <i data-lucide="building"></i>
-        <span>Amenities</span>
+        <span>Properties</span>
       </div>
       <i id="amenitiesChevron" data-lucide="chevron-down" class="transition-transform duration-300"></i>
     </div>
@@ -228,33 +235,21 @@ elegance, and visual balance for sunbathing and casual relaxation.</p>
   <div id="amenitiesDropdownMenu" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
     <div class="space-y-1 pt-2">
       <button id="btn-1" class="area-button block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left data-[active=true]:bg-[#97864E]/50">
-        <div class="flex items-center gap-2 p-2 text-sm">
+        <div class="flex items-center gap-2 p-2 text-md">
           <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">1</span>
-          <span>Orchard & Meadow</span>
+          <span>Lake View</span>
         </div>
       </button>
       <button id="btn-2" class="area-button block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left data-[active=true]:bg-[#97864E]/50">
-        <div class="flex items-center gap-2 p-2 text-sm">
+        <div class="flex items-center gap-2 p-2 text-md">
           <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">2</span>
-          <span>Kitchen / Potager Garden</span>
+          <span>Boulevard View</span>
         </div>
       </button>
       <button id="btn-3" class="area-button block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left data-[active=true]:bg-[#97864E]/50">
-        <div class="flex items-center gap-2 p-2 text-sm">
+        <div class="flex items-center gap-2 p-2 text-md">
           <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">3</span>
-          <span>Fire Pit</span>
-        </div>
-      </button>
-      <button id="btn-4" class="area-button block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left data-[active=true]:bg-[#97864E]/50">
-        <div class="flex items-center gap-2 p-2 text-sm">
-          <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">4</span>
-          <span>Cabana Kitchen</span>
-        </div>
-      </button>
-      <button id="btn-5" class="area-button block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left data-[active=true]:bg-[#97864E]/50">
-        <div class="flex items-center gap-2 p-2 text-sm">
-          <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">5</span>
-          <span>Pool & Lounge Area</span>
+          <span>Park View</span>
         </div>
       </button>
     </div>
