@@ -37,7 +37,7 @@ export function createPins(scene) {
       });
       
       const sprite = new THREE.Sprite(material);
-      sprite.scale.set(0.1, 0.1, 1);
+      sprite.scale.set(0.13, 0.13, 1);
       sprite.center.set(0.5, 0); // Ujung bawah pin menyentuh lantai
       sprite.position.set(0, 0, 0);
       pinGroup.add(sprite);
