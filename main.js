@@ -51,7 +51,7 @@ document.querySelectorAll('.description-box').forEach(box => {
 });
 
 // Load Splat Scene - Ganti dengan path model .ply Anda
-await viewer.addSplatScene('/models/padma_final.ply', {
+await viewer.addSplatScene('./models/padma_final.ply', {
   splatAlphaRemovalThreshold: 25,
   showLoadingUI: true,
   scale: [1, -1, -1],
