@@ -61,10 +61,10 @@ const scenes = {
       { id:'to-landmark', to:'landmark',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/03_LandmarkBunga.jpg', label:'Landmark', position:{ yaw:deg(110),  pitch:deg(-20) } },
       { id:'to-tamandoa', to:'tamandoa',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/TAMAN-DOA-OUR-LADY-OF-AKITA.jpeg', label:'Taman Doa Akita', position:{ yaw:deg(45),  pitch:deg(-20) } },
       { id:'to-rukan', to:'rukan',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/LAU-PA-SAT-1-e1760512333179.jpeg', label:'Rukan Lau Pa Sat', position:{ yaw:deg(65),  pitch:deg(-20) } },
-      { id:'to-clubhouse', to:'clubhouse',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender12.jpeg', label:'Club House', position:{ yaw:deg(115),  pitch:deg(-15) } },
-      { id:'to-roundabout', to:'roundabout',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/09_Fountain.jpg', label:'Round About', position:{ yaw:deg(65),  pitch:deg(-100) } },
-      { id:'to-entrance', to:'entrance',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/GERBANG-KAWASAN-PADMA-09062025.jpeg', label:'Entrance Gate', position:{ yaw:deg(155),  pitch:deg(-30) } },
-      { id:'to-sporthub', to:'sporthub',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/11_ST.-JOHANNES-BERCHMANS.jpg', label:'Verde Sporthub', position:{ yaw:deg(-60),  pitch:deg(-25) } },
+      { id:'to-clubhouse', to:'clubhouse',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender12.jpeg', label:'Padma Club House', position:{ yaw:deg(115),  pitch:deg(-15) } },
+      { id:'to-roundabout', to:'roundabout',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/09_Fountain.jpg', label:'Padma Roundabout', position:{ yaw:deg(65),  pitch:deg(-100) } },
+      { id:'to-entrance', to:'entrance',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/GERBANG-KAWASAN-PADMA-09062025.jpeg', label:'Padma Entrance', position:{ yaw:deg(155),  pitch:deg(-30) } },
+      { id:'to-sporthub', to:'sporthub',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/ST.-JOHANNES-BERCHMANS.jpeg', label:'St. Johannes Berchmans', position:{ yaw:deg(-60),  pitch:deg(-25) } },
     ],
     info: {
       tag: 'Welcome',
@@ -205,7 +205,7 @@ const scenes = {
     ],
     info: {
       tag: 'Welcome',
-      title: 'Club House',
+      title: 'Padma Club House',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender12.jpeg',
       bullets: [
@@ -238,7 +238,7 @@ const scenes = {
     // ],
     info: {
       tag: 'Welcome',
-      title: 'Round About',
+      title: 'Padma Roundabout',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/09_Fountain.jpg',
       bullets: [
@@ -261,7 +261,7 @@ const scenes = {
     ],
     info: {
       tag: 'Welcome',
-      title: 'Entrance Gate',
+      title: 'Padma Entrance',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/GERBANG-KAWASAN-PADMA-09062025.jpeg',
       bullets: [
@@ -283,9 +283,9 @@ const scenes = {
     ],
     info: {
       tag: 'Welcome',
-      title: 'Verde Sporthub',
+      title: 'St. Johannes Berchmans',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
-      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/VERDE-SPORTS-HUB.jpg',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/ST.-JOHANNES-BERCHMANS.jpeg',
       bullets: [
         'Akses ke Study, Kitchen, dan Bedroom',
         'Pencahayaan natural pagi',
@@ -293,7 +293,7 @@ const scenes = {
       ],
       cta: { label: 'See Gallery' },
       gallery: [
-        'https://designedbypelago.com/wp-content/uploads/2025/10/VERDE-SPORTS-HUB.jpg',
+        'https://designedbypelago.com/wp-content/uploads/2025/10/ST.-JOHANNES-BERCHMANS.jpeg',
         ]
     }
     },
