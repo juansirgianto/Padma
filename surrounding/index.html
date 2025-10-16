@@ -28,7 +28,7 @@
   </div>
   <div id="menu"
        class="md:mt-5 mt-2 lg:space-y-2 overflow-hidden max-h-0 transition-[max-height,opacity] duration-300 ease-in-out opacity-0">
-    <a href="/" class="hover:bg-[#97864E]/70 rounded-xl block">
+    <a href="/Padma/" class="hover:bg-[#97864E]/70 rounded-xl block">
       <div class="flex text-white lg:text-xl md:text-lg text-sm p-2 font-semibold gap-2 items-center">
         <i data-lucide="undo-2" class="hidden md:flex"></i>
         <span class="mx-auto">Main Page</span>
@@ -233,6 +233,15 @@
       console.warn('switchScene belum tersedia di window. Pastikan vtour.js meng-expose-nya: Object.assign(window, { switchScene })');
     }
   });
+</script>
+
+<script type="importmap">
+{
+  "imports": {
+    "@photo-sphere-viewer/core": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.module.js",
+    "@photo-sphere-viewer/markers-plugin": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin/index.module.js"
+  }
+}
 </script>
 
 </body>
