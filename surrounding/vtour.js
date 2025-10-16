@@ -194,7 +194,6 @@ const scenes = {
       cta: { label: 'See Gallery' },
       gallery: [
         'https://designedbypelago.com/wp-content/uploads/2025/10/LAU-PA-SAT-1-e1760512333179.jpeg',
-        '/vtour/kitchen.jpg',
         ]
     }
     },
@@ -247,11 +246,11 @@ const scenes = {
         'Pencahayaan natural pagi',
         'Lebar koridor 2.2 m'
       ],
-      cta: { label: 'See Gallery' },
-      gallery: [
-        '/vtour/balcony.jpg',
-        '/vtour/bedroom.jpg',
-        ]
+      // cta: { label: 'See Gallery' },
+      // gallery: [
+      //   '/vtour/balcony.jpg',
+      //   '/vtour/bedroom.jpg',
+      //   ]
     }
     },
     entrance: {

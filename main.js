@@ -108,7 +108,7 @@ const areaButtons = [
 function resetAllActiveStates() {
   const elementsToReset = [
     document.querySelector('#btn-6'),
-    document.querySelector('a[href="/surrounding/"]')
+    document.querySelector('a[href="/Padma/surrounding/"]')
   ];
   
   elementsToReset.forEach(el => {
@@ -207,9 +207,9 @@ document.querySelectorAll('.close-description').forEach(btn => {
 });
 
 // Surrounding link
-document.querySelector('a[href="/surrounding/"]').addEventListener('click', () => {
+document.querySelector('a[href="/Padma/surrounding/"]').addEventListener('click', () => {
   resetAllActiveStates();
-  document.querySelector('a[href="/surrounding/"]').dataset.active = "true";
+  document.querySelector('a[href="/Padma/surrounding/"]').dataset.active = "true";
   if (window.amenitiesOpen) window.toggleAmenitiesDropdown();
 });
 
