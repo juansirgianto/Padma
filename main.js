@@ -17,14 +17,14 @@ const threeScene = new THREE.Scene();
 threeScene.background = new THREE.Color(0x606060);
 
 // Axes Helper (optional, uncomment to debug)
-const axesHelper = new THREE.AxesHelper(10);
-threeScene.add(axesHelper);
+// const axesHelper = new THREE.AxesHelper(10);
+// threeScene.add(axesHelper);
 
 // Gaussian Splats Viewer
 const viewer = new GS.Viewer({
   antialiased: false,
   sharedMemoryForWorkers: false,
-  initialCameraPosition: [-1.33, 1.87, -1.59],
+  initialCameraPosition: [-1.84, 2.04, 0.51],
   initialCameraLookAt: [0, 0, 0],
   threeScene,
   devicePixelRatio: Math.min(window.devicePixelRatio, 1.25),
@@ -51,7 +51,7 @@ document.querySelectorAll('.description-box').forEach(box => {
 });
 
 // Load Splat Scene - Ganti dengan path model .ply Anda
-await viewer.addSplatScene('/models/padma_compressed.ply', {
+await viewer.addSplatScene('/models/padma_final.ply', {
   splatAlphaRemovalThreshold: 25,
   showLoadingUI: true,
   scale: [1, -1, -1],
@@ -63,7 +63,7 @@ const camera = viewer.camera;
 const controls = viewer.controls;
 
 // set rotasi
-controls.rotateSpeed = -0.5;
+controls.rotateSpeed = -1;
 
 // Configure controls
 controls.minDistance = 1;
@@ -86,21 +86,21 @@ const { pins, pinPOIs } = createPins(threeScene);
 viewer.start();
 
 // Camera info display (optional, uncomment to debug)
-const camInfo = document.createElement('div');
-camInfo.style.cssText = 'position:absolute;top:10px;left:10px;color:#fff;font:12px monospace;background:rgba(0,0,0,.4);padding:6px 10px;border-radius:6px;z-index:1000';
-document.body.appendChild(camInfo);
-function updateCameraInfo() {
-  const pos = camera.position;
-  camInfo.innerHTML = `x: ${pos.x.toFixed(2)}, y: ${pos.y.toFixed(2)}, z: ${pos.z.toFixed(2)}`;
-  requestAnimationFrame(updateCameraInfo);
-}
-updateCameraInfo();
+// const camInfo = document.createElement('div');
+// camInfo.style.cssText = 'position:absolute;top:10px;left:10px;color:#fff;font:12px monospace;background:rgba(0,0,0,.4);padding:6px 10px;border-radius:6px;z-index:1000';
+// document.body.appendChild(camInfo);
+// function updateCameraInfo() {
+//   const pos = camera.position;
+//   camInfo.innerHTML = `x: ${pos.x.toFixed(2)}, y: ${pos.y.toFixed(2)}, z: ${pos.z.toFixed(2)}`;
+//   requestAnimationFrame(updateCameraInfo);
+// }
+// updateCameraInfo();
 
 // Area buttons configuration
 const areaButtons = [
-  { id: 'btn-1', cameraPosition: [0.65, 0.73, -0.80], cameraTarget: [0.28, 0, -0.41], descriptionId: 'pooldescription' },
-  { id: 'btn-2', cameraPosition: [0.18, 0.68, -0.27], cameraTarget: [-0.35, 0, 0], descriptionId: 'housedescription' },
-  { id: 'btn-3', cameraPosition: [-1.56, 0.77, 0.42], cameraTarget: [-1, 0, 0.59], descriptionId: 'gardendescription' },
+  { id: 'btn-1', cameraPosition: [-0.85, 0.80 , 1.47], cameraTarget: [0.15, 0, 1.2], descriptionId: 'pooldescription' },
+  { id: 'btn-2', cameraPosition: [-0.85, 1.14 , 1.47], cameraTarget: [0.45, 0, 1.1], descriptionId: 'housedescription' },
+  { id: 'btn-3', cameraPosition: [0.26, 0.80, -0.01], cameraTarget: [1.7, 0, 0], descriptionId: 'gardendescription' },
   { id: 'btn-4', cameraPosition: [-0.83, 0.81, 0.87], cameraTarget: [-0.38, 0, 0.96], descriptionId: 'arrivaldescription' },
   { id: 'btn-5', cameraPosition: [-0.84, 0.79, 1.31], cameraTarget: [-0.70, 0, 0.90], descriptionId: 'archdescription' },
 ];
@@ -173,7 +173,7 @@ document.querySelector('#btn-6').addEventListener('click', (e) => {
   e.target.closest('a').dataset.active = "true";
   
   if (window.amenitiesOpen) window.toggleAmenitiesDropdown();
-  moveCameraTo([-1.33, 1.87, -1.59], [0, 0, 0]);
+  moveCameraTo([-1.84, 2.04, 0.51], [0, 0, 0]);
   document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
 });
 

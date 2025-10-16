@@ -48,7 +48,7 @@ const viewer = new Viewer({
 const markers = viewer.getPlugin(MarkersPlugin);
 
 // ------- DEFINISI SCENE -------
-/** @typedef {'aerial'|'gardenhouse'|'lakeview'|'kitchenpatio'|'patio'|'lounge'|'bedroom'|'balcony'|'bathroom'} SceneId */
+/** @typedef {'aerial'|'gardenhouse'|'lakeview'|'landmark'|'tamandoa'|'rukan'|'clubhouse'|'roundabout'|'entrance' | 'sporthub'} SceneId */
 
 /** @type {Record<SceneId, { panorama: string, markers: Array<{id:string,to:SceneId,img:string,label:string,position:{yaw:string|number,pitch:string|number}}>} >} */
 const scenes = {
@@ -56,7 +56,7 @@ const scenes = {
     panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/00_AereialView.jpg',
     view: { yaw: deg(70), pitch: deg(-50) },
     markers: [
-      { id:'to-gardenhouse',   to:'gardenhouse', img:'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-TAMAN-AMERTA.jpeg',   label:'Garden House',   position:{ yaw:deg(-10),  pitch:deg(-40) } },
+      { id:'to-gardenhouse',   to:'gardenhouse', img:'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-TAMAN-AMERTA.jpeg',   label:'Amerta Garden',   position:{ yaw:deg(-10),  pitch:deg(-40) } },
       { id:'to-lakeview', to:'lakeview',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-DANAU-2.jpg', label:'Lake View', position:{ yaw:deg(85),  pitch:deg(-55) } },
       { id:'to-landmark', to:'landmark',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/03_LandmarkBunga.jpg', label:'Landmark', position:{ yaw:deg(110),  pitch:deg(-20) } },
       { id:'to-tamandoa', to:'tamandoa',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/TAMAN-DOA-OUR-LADY-OF-AKITA.jpeg', label:'Taman Doa Akita', position:{ yaw:deg(45),  pitch:deg(-20) } },
@@ -92,7 +92,7 @@ const scenes = {
     ],
     info: {
       tag: 'Welcome',
-      title: 'Garden House',
+      title: 'Amerta Garden',
       desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-TAMAN-AMERTA.jpeg',
       bullets: [
