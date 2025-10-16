@@ -164,6 +164,15 @@
   <div id="galDots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"></div>
 </div>
 
+<script type="importmap">
+{
+  "imports": {
+    "@photo-sphere-viewer/core": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.module.js",
+    "@photo-sphere-viewer/markers-plugin": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin/index.module.js"
+  }
+}
+</script>
+
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
     lucide.createIcons();
@@ -233,15 +242,6 @@
       console.warn('switchScene belum tersedia di window. Pastikan vtour.js meng-expose-nya: Object.assign(window, { switchScene })');
     }
   });
-</script>
-
-<script type="importmap">
-{
-  "imports": {
-    "@photo-sphere-viewer/core": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.module.js",
-    "@photo-sphere-viewer/markers-plugin": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin/index.module.js"
-  }
-}
 </script>
 
 </body>
