@@ -1,312 +1,539 @@
-// main.js - Using @mkkellogg/gaussian-splats-3d
+import { Viewer } from '@photo-sphere-viewer/core';
+import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
 
-import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-import * as GS from 'https://unpkg.com/@mkkellogg/gaussian-splats-3d/build/gaussian-splats-3d.module.js';
-import { initCarousel } from './carousel.js';
-import { createPins } from './pin.js';
+// Helper: buat elemen marker foto bulat + tooltip
+function createCircleMarker(imgSrc, label) {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = `
+    width: 76px; height: 76px; border-radius: 9999px; overflow: hidden;
+    box-shadow: 0 12px 28px rgba(0,0,0,.35);
+    border: 3px solid #fff;
+    position: relative;
+    cursor: pointer;
+    transform: translateZ(0);
+    background: #000;
+    `;
 
-initCarousel();
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = label;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+    wrap.appendChild(img);
 
-// DOM Elements
-const amenitiesToggle = document.getElementById('amenitiesToggle');
-const amenitiesDropdownMenu = document.getElementById('amenitiesDropdownMenu');
-const amenitiesChevron = document.getElementById('amenitiesChevron');
+    const tip = document.createElement('div');
+    tip.textContent = label;
+    wrap.appendChild(tip);
 
-// Three.js Scene Setup
-const threeScene = new THREE.Scene();
-threeScene.background = new THREE.Color(0x606060);
+    const caret = document.createElement('div');
+    tip.appendChild(caret);
 
-// Axes Helper (optional, uncomment to debug)
-// const axesHelper = new THREE.AxesHelper(10);
-// threeScene.add(axesHelper);
+    wrap.addEventListener('mouseenter', () => (tip.style.opacity = '1'));
+    wrap.addEventListener('mouseleave', () => (tip.style.opacity = '0'));
 
-// Gaussian Splats Viewer
-const viewer = new GS.Viewer({
-  antialiased: false,
-  sharedMemoryForWorkers: false,
-  initialCameraPosition: [-1.84, 2.04, 0.51],
-  initialCameraLookAt: [0, 0, 0],
-  threeScene,
-  devicePixelRatio: Math.min(window.devicePixelRatio, 1.25),
-  enablePointerLockControls: false,
-  enableMouseControls: true,
-});
-
-// Pastikan canvas viewer ada di body dan di-style dengan benar
-viewer.renderer.domElement.style.position = 'absolute';
-viewer.renderer.domElement.style.top = '0';
-viewer.renderer.domElement.style.left = '0';
-viewer.renderer.domElement.style.width = '100%';
-viewer.renderer.domElement.style.height = '100%';
-viewer.renderer.domElement.style.display = 'block';
-viewer.renderer.domElement.style.zIndex = '1'; // Di atas background, tapi di bawah UI
-
-// Tambahkan z-index ke sidebar agar lebih tinggi dari canvas
-const sidebar = document.getElementById('sidebar');
-if (sidebar) sidebar.style.zIndex = '30';
-
-// Pastikan description boxes juga punya z-index tinggi
-document.querySelectorAll('.description-box').forEach(box => {
-  box.style.zIndex = '30';
-});
-
-// Load Splat Scene - Ganti dengan path model .ply Anda
-await viewer.addSplatScene('./public/models/padma_final.ply', {
-  splatAlphaRemovalThreshold: 25,
-  showLoadingUI: true,
-  scale: [1, -1, -1],
-  position: [0, 0, 0],
-});
-
-// Access camera and controls
-const camera = viewer.camera;
-const controls = viewer.controls;
-
-// set rotasi
-controls.rotateSpeed = -1;
-
-// Configure controls
-controls.minDistance = 1;
-controls.maxDistance = 4;
-controls.enableDamping = true;
-
-const maxY = 4;
-const minY = 0.1;
-controls.addEventListener('change', () => {
-  camera.position.y = Math.min(maxY, Math.max(minY, camera.position.y));
-});
-
-// Setup raycaster and pins
-const canvas = viewer.renderer.domElement;
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-const { pins, pinPOIs } = createPins(threeScene);
-
-// Start viewer
-viewer.start();
-
-// Camera info display (optional, uncomment to debug)
-// const camInfo = document.createElement('div');
-// camInfo.style.cssText = 'position:absolute;top:10px;left:10px;color:#fff;font:12px monospace;background:rgba(0,0,0,.4);padding:6px 10px;border-radius:6px;z-index:1000';
-// document.body.appendChild(camInfo);
-// function updateCameraInfo() {
-//   const pos = camera.position;
-//   camInfo.innerHTML = `x: ${pos.x.toFixed(2)}, y: ${pos.y.toFixed(2)}, z: ${pos.z.toFixed(2)}`;
-//   requestAnimationFrame(updateCameraInfo);
-// }
-// updateCameraInfo();
-
-// Area buttons configuration
-const areaButtons = [
-  { id: 'btn-1', cameraPosition: [-0.85, 0.80 , 1.47], cameraTarget: [0.15, 0, 1.2], descriptionId: 'pooldescription' },
-  { id: 'btn-2', cameraPosition: [-0.85, 1.14 , 1.47], cameraTarget: [0.45, 0, 1.1], descriptionId: 'housedescription' },
-  { id: 'btn-3', cameraPosition: [0.26, 0.80, -0.01], cameraTarget: [1.7, 0, 0], descriptionId: 'gardendescription' },
-  { id: 'btn-4', cameraPosition: [-0.83, 0.81, 0.87], cameraTarget: [-0.38, 0, 0.96], descriptionId: 'arrivaldescription' },
-  { id: 'btn-5', cameraPosition: [-0.84, 0.79, 1.31], cameraTarget: [-0.70, 0, 0.90], descriptionId: 'archdescription' },
-];
-
-function resetAllActiveStates() {
-  const elementsToReset = [
-    document.querySelector('#btn-6'),
-    document.querySelector('a[href="/Padma/surrounding/"]')
-  ];
-  
-  elementsToReset.forEach(el => {
-    if (el) el.dataset.active = "false";
-  });
-  
-  document.querySelectorAll('.area-button').forEach(b => b.dataset.active = "false");
+    return wrap;
 }
 
-let isCameraAnimating = false;
+// util deg string (PSV v5 menerima "deg" string atau radian number)
+const deg = (v) => `${v}deg`;
 
-function moveCameraTo(position, lookAt = null, duration = 1000) {
-  if (isCameraAnimating) return;
-  isCameraAnimating = true;
-  
-  const start = camera.position.clone();
-  const end = new THREE.Vector3(...position);
-  const startTarget = controls.target.clone();
-  const endTarget = lookAt ? new THREE.Vector3(...lookAt) : startTarget;
-  const startTime = performance.now();
+// ------- INIT VIEWER + PLUGIN -------
+const container = document.getElementById('viewer');
+const viewer = new Viewer({
+    container,
+    defaultZoomLvl: 0,
+    navbar: ['fullscreen'],
+    plugins: [MarkersPlugin],
+});
 
-  function animateCamera(time) {
-    const elapsed = time - startTime;
-    const t = Math.min(elapsed / duration, 1);
-    camera.position.lerpVectors(start, end, t);
-    controls.target.lerpVectors(startTarget, endTarget, t);
-    controls.update();
+const markers = viewer.getPlugin(MarkersPlugin);
 
-    if (t < 1) {
-      requestAnimationFrame(animateCamera);
-    } else {
-      isCameraAnimating = false;
+// ------- DEFINISI SCENE -------
+/** @typedef {'aerial'|'gardenhouse'|'lakeview'|'landmark'|'tamandoa'|'rukan'|'clubhouse'|'roundabout'|'entrance' | 'sporthub'} SceneId */
+
+/** @type {Record<SceneId, { panorama: string, markers: Array<{id:string,to:SceneId,img:string,label:string,position:{yaw:string|number,pitch:string|number}}>} >} */
+const scenes = {
+    aerial: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/00_AereialView.jpg',
+    view: { yaw: deg(30), pitch: deg(-50), zoom: 30 },
+    markers: [
+      { id:'to-modern',   to:'modern', img:'https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg',   label:'Lake View House',   position:{ yaw:deg(70),  pitch:deg(-50) } },
+      { id:'to-tropical', to:'tropical',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-4.jpeg', label:'Boulevard View House', position:{ yaw:deg(55),  pitch:deg(-50) } },
+      { id:'to-classic', to:'classic',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-2.jpeg', label:'Park View House', position:{ yaw:deg(-10),  pitch:deg(-35) } },
+    ],
+    info: {
+      tag: 'Welcome',
+      title: 'Aerial View',
+      desc: 'Aerial view to explore the properties of Padma from above.',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png',
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
+      // cta: { label: 'See Gallery' },
+      // gallery: [
+      //   '/vtour/ENTRANCE_.jpg',
+      //   '/vtour/study.jpg',
+      //   '/vtour/bedroom.jpg',
+      //   ]
     }
+  },
+    modern: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/12_ModernHouse-1.jpg',
+    view: { yaw: deg(90), pitch: deg(0), zoom: 0 },
+    markers: [
+        { id: 'back-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(50), pitch: deg(50) } },
+    ],
+    info: {
+      tag: 'Modern',
+      title: 'Lake View House',
+      desc: 'Modern two-storey twin house with a sleek, minimalist facade, featuring wide carports, spacious balconies, and contemporary wood-accented frames. Perfect for stylish urban living with open-plan interiors and ample natural light.',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg',
+      bullets: [
+        '15 x 35 m²'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        'https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg',
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-4.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-2.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-1.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-2.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/POOL-RUMAH-PADMA.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewInterior02_Final.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewMainBedroom_Final.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewLivingRoom_Final.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewKidsBedroom_Final.jpeg"
+        ]
+    }
+    },
+    tropical: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/13_TropicalHouse.jpg',
+    view: { yaw: deg(90), pitch: deg(0), zoom: 0 },
+    markers: [
+        { id: 'back-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(0), pitch: deg(50) } },
+    ],
+    info: {
+      tag: 'Tropical',
+      title: 'Boulevard View House',
+      desc: 'Tropical two-storey twin house with a sleek, minimalist facade, featuring wide carports, spacious balconies, and contemporary wood-accented frames. Perfect for stylish urban living with open-plan interiors and ample natural light.',
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-4.jpeg',
+      bullets: [
+        '15 x 30 m²'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        'https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg',
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-4.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-2.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-1.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-2.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/POOL-RUMAH-PADMA.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewInterior02_Final.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewMainBedroom_Final.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewLivingRoom_Final.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewKidsBedroom_Final.jpeg"
+        ]
+    }
+    },
+    classic: {
+    panorama: 'https://designedbypelago.com/wp-content/uploads/2025/10/14_ClassicHouse.jpg',
+    view: { yaw: deg(90), pitch: deg(0), zoom: 0 },
+    markers: [
+        { id: 'to-aerial', to: 'aerial', img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png', label: 'Aerial View', position: { yaw: deg(-80), pitch: deg(30) } },
+    ],
+    info: {
+      tag: 'Classic',
+      title: 'Park View House',
+      desc: "Classic two-storey twin house with a sleek, featuring wide carports, spacious balconies, and contemporary wood-accented frames. Perfect for stylish urban living with open-plan interiors and ample natural light.",
+      img: 'https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-2.jpeg',
+      bullets: [
+        '15 x 30 m²'
+      ],
+      cta: { label: 'See Gallery' },
+      gallery: [
+        'https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg',
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-4.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-2.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-1.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-2.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/POOL-RUMAH-PADMA.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewInterior02_Final.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewMainBedroom_Final.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewLivingRoom_Final.jpeg",
+      "https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewKidsBedroom_Final.jpeg"
+        ]
+    }
+    },
+};
+
+// ------- FUNGSI GANTI SCENE -------
+let currentSceneId = null;
+
+async function switchScene(sceneId) {
+  const scene = scenes[sceneId];
+  if (!scene) return;
+
+  // (optional) onLeave sebelumnya
+  if (currentSceneId && scenes[currentSceneId]?.onLeave) {
+    try { scenes[currentSceneId].onLeave(); } catch (err) { console.warn(err); }
   }
-  requestAnimationFrame(animateCamera);
-}
 
-// Event Listeners
-if (window.lucide) window.lucide.createIcons();
+  // Ganti panorama
+   markers.clearMarkers();
 
-// Amenities toggle
-amenitiesToggle.addEventListener('click', (e) => {
-  e.preventDefault();
-  
-  // Reset states
-  resetAllActiveStates();
-  
-  // Set Properties button active
-  amenitiesToggle.dataset.active = "true";
-  
-  // Toggle dropdown
-  window.toggleAmenitiesDropdown();
-  
-  // Tutup description boxes
-  document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
-});
+  // === set arah awal LANGSUNG saat ganti panorama ===
+  const hasView = !!scene.view;
+  await viewer.setPanorama(scene.panorama, {
+    // set posisi awal supaya tidak pakai arah sebelumnya
+    ...(hasView ? { position: {
+      ...(scene.view.yaw   != null ? { yaw:   scene.view.yaw }   : {}),
+      ...(scene.view.pitch != null ? { pitch: scene.view.pitch } : {}),
+    }} : {}),
 
-// Home button
-document.querySelector('#btn-6').addEventListener('click', (e) => {
-  e.preventDefault();
-  resetAllActiveStates();
-  e.target.closest('a').dataset.active = "true";
-  
-  if (window.amenitiesOpen) window.toggleAmenitiesDropdown();
-  moveCameraTo([-1.84, 2.04, 0.51], [0, 0, 0]);
-  document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
-});
+    // opsional: ikut set zoom awal
+    ...(scene.view?.zoom != null ? { zoom: scene.view.zoom } : {}),
 
-// Area buttons
-areaButtons.slice(0, 5).forEach(({ id, cameraPosition, cameraTarget, descriptionId }) => {
-  const button = document.querySelector(`#${id}`);
-  if (button) {
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-      
-      resetAllActiveStates();
-      amenitiesToggle.dataset.active = "true";
-      button.dataset.active = "true";
-      
-      moveCameraTo(cameraPosition, cameraTarget);
-      document.querySelectorAll('.description-box').forEach(el => el.style.display = 'none');
-      if (descriptionId) {
-        const descEl = document.getElementById(descriptionId);
-        if (descEl) descEl.style.display = 'block';
-      }
+    // opsional: cegah “rotasi campur” selama transisi
+    transition: {
+      // pakai efek fade standar (atau 'black'/'wipe' sesuai selera)
+      effect: 'fade',
+      rotation: false, // <— penting untuk hilangkan jeda arah lama
+    },
+  });
+
+  // Tambah markers
+  for (const mk of (scene.markers ?? [])) {
+    const el = createCircleMarker(mk.img, mk.label);
+    el.dataset.to = mk.to;
+    markers.addMarker({
+      id: mk.id,
+      element: el,
+      position: mk.position,
+      size: { width: 76, height: 76 },
+      anchor: 'center center',
+      zIndex: 1,
+      tooltip: mk.label,
     });
   }
+
+  // Render info card
+  renderSceneCard(scene.info);
+
+  // (optional) onEnter
+  scene.onEnter?.();
+
+  currentSceneId = sceneId;
+  setActiveSceneButton(sceneId);
+}
+
+// Klik marker → pindah scene
+markers.addEventListener('select-marker', (e) => {
+    const el = e.marker?.config?.element ?? null;
+    const to = el?.dataset?.to;
+    if (to) switchScene(to);
 });
 
-// Close description buttons
-document.querySelectorAll('.close-description').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.description-box').forEach(el => el.style.display = 'none');
-    document.querySelectorAll('.area-button').forEach(b => b.dataset.active = "false");
-  });
-});
+// Mulai dari scene 'entrance'
+switchScene('aerial');
 
-// Surrounding link
-document.querySelector('a[href="/Padma/surrounding/"]').addEventListener('click', () => {
-  resetAllActiveStates();
-  document.querySelector('a[href="/Padma/surrounding/"]').dataset.active = "true";
-  if (window.amenitiesOpen) window.toggleAmenitiesDropdown();
-});
+// (Opsional) cleanup saat keluar halaman
+window.addEventListener('beforeunload', () => viewer.destroy());
 
-// Pin interactions
-canvas.addEventListener('click', (event) => {
-  const rect = canvas.getBoundingClientRect();
-  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+// ===== Ambil elemen card sekali =====
+const cardRoot    = document.getElementById('sceneCard');
+const cardImg     = document.getElementById('sceneCardImg');
+const cardTag     = document.getElementById('sceneCardTag');
+const cardTitle   = document.getElementById('sceneCardTitle');
+const cardDesc    = document.getElementById('sceneCardDesc');
+const cardBullets = document.getElementById('sceneCardBullets');
+const cardCta     = document.getElementById('sceneCardCta');
+const cardClose   = document.getElementById('sceneCardClose');
 
-  raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(
-    pins.map(p => p.children[0]).filter(c => c instanceof THREE.Sprite)
-  );
+// (tambahkan di HTML kamu)
+// <button id="openCardBtn" class="fixed right-2 top-2 px-3 py-1.5 bg-[#97864E] text-white rounded-lg shadow hidden">Open Desc</button>
+const openCardBtn = document.getElementById('openCardBtn');
 
-  if (intersects.length > 0) {
-    const clickedSprite = intersects[0].object;
-    const pinPOI = pinPOIs.find(p => p.mesh === clickedSprite.parent);
-    
-    if (pinPOI) {
-      if (!window.menuOpen) {
-        window.toggleMainMenu(true);
-      }
-      if (!window.amenitiesOpen) window.toggleAmenitiesDropdown();
+// ===== State =====
+// - isVisible: kondisi aktual di layar
+// - userHidden: user menekan close secara sadar → jangan auto-show pada scene berikutnya
+let isVisible = false;
+let userHidden = false;
 
-      moveCameraTo(pinPOI.camera_position.toArray(), pinPOI.camera_target.toArray());
-      
-      document.querySelectorAll('.description-box').forEach(d => d.style.display = 'none');
-      const desc = document.getElementById(pinPOI.descriptionId);
-      if (desc) desc.style.display = 'block';
-
-      document.querySelectorAll('.area-button').forEach(b => b.dataset.active = "false");
-      const index = pinPOIs.indexOf(pinPOI);
-      const targetBtn = document.querySelectorAll('.area-button')[index];
-      if (targetBtn) targetBtn.dataset.active = "true";
-
-      clickedSprite.material.color.set(0xffffff);
-    }
+function applyVisible(v) {
+  if (!cardRoot) return;
+  isVisible = v;
+  if (v) {
+    cardRoot.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
+    openCardBtn?.classList.add('hidden');
+    // aksesibilitas
+    cardRoot.setAttribute('aria-hidden', 'false');
+  } else {
+    cardRoot.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+    openCardBtn?.classList.remove('hidden');
+    cardRoot.setAttribute('aria-hidden', 'true');
   }
-});
+}
 
-// Pin hover effects
-const pickables = pins.map(p => p.children[0]).filter(c => c instanceof THREE.Sprite);
-const pointer = new THREE.Vector2();
-let hoveredSprite = null;
-let rafId = null;
-let pendingPick = false;
-let lastX = 0, lastY = 0;
+function hideCard({ byUser = false } = {}) {
+  if (byUser) userHidden = true;
+  applyVisible(false);
+}
 
-raycaster.near = 0.1;
-raycaster.far = 5.0;
+function showCard({ force = false } = {}) {
+  // Jika user pernah menutup manual, jangan auto-show kecuali dipaksa
+  if (userHidden && !force) return;
+  userHidden = false;
+  applyVisible(true);
+}
 
-canvas.addEventListener('pointermove', (event) => {
-  if (isCameraAnimating) return;
-  if (Math.abs(event.clientX - lastX) < 2 && Math.abs(event.clientY - lastY) < 2) return;
-  
-  lastX = event.clientX; 
-  lastY = event.clientY;
+/**
+ * Render konten card untuk suatu scene.
+ * @param {Object|null|undefined} info - metadata scene (tag,title,desc,img,bullets,cta)
+ */
 
-  const rect = canvas.getBoundingClientRect();
-  pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-  pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+let currentInfo = null;
+function renderSceneCard(info) {
+  if (!cardRoot) return;
 
-  if (pendingPick) return;
-  pendingPick = true;
+  // Jika scene ini tidak punya info → sembunyikan card
+  if (!info) {
+    hideCard();
+    return;
+  }
 
-  rafId = requestAnimationFrame(() => {
-    pendingPick = false;
-    raycaster.setFromCamera(pointer, camera);
-    const intersects = raycaster.intersectObjects(pickables, false);
+  // Tag
+  cardTag.textContent = info.tag ?? '';
 
-    if (intersects.length > 0) {
-      const sprite = intersects[0].object;
-      if (hoveredSprite !== sprite) {
-        if (hoveredSprite) hoveredSprite.material.color.setHex(0xffffff);
-        sprite.material.color.setHex(0x757641);
-        hoveredSprite = sprite;
-      }
-      canvas.style.cursor = 'pointer';
+  // Title & Desc
+  cardTitle.textContent = info.title ?? '';
+  cardDesc.textContent  = info.desc ?? '';
+
+  // Image (opsional)
+  if (info.img) {
+    cardImg.src = info.img;
+    cardImg.classList.remove('hidden');
+  } else {
+    cardImg.classList.add('hidden');
+  }
+
+  // Bullets
+  cardBullets.innerHTML = '';
+  if (Array.isArray(info.bullets) && info.bullets.length) {
+    for (const b of info.bullets) {
+      const li = document.createElement('li');
+      li.textContent = b;
+      cardBullets.appendChild(li);
+    }
+    cardBullets.classList.remove('hidden');
+  } else {
+    cardBullets.classList.add('hidden');
+  }
+
+  currentInfo = info;
+
+  // CTA
+  if (info.cta && Array.isArray(info.gallery) && info.gallery.length) {
+    cardCta.textContent = info.cta.label || 'See Gallery';
+    cardCta.removeAttribute('href');   // jangan navigate
+    cardCta.removeAttribute('target');
+    cardCta.classList.remove('hidden');
+
+    // RE-BIND handler ke gallery terbaru
+    cardCta.onclick = (e) => {
+      e.preventDefault();
+      openGallery(currentInfo.gallery, 0);
+    };
+  } else {
+    cardCta.classList.add('hidden');
+    cardCta.onclick = null;
+  }
+
+  showCard();
+}
+
+// === Events ===
+cardClose?.addEventListener('click', () => hideCard({ byUser: true }));
+openCardBtn?.addEventListener('click', () => showCard({ force: true }));
+
+// Keyboard: Esc untuk close, 'i' untuk toggle cepat
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && isVisible) {
+    hideCard({ byUser: true });
+  } else if ((e.key === 'i' || e.key === 'I')) {
+    if (isVisible) {
+      hideCard({ byUser: true });
     } else {
-      if (hoveredSprite) hoveredSprite.material.color.setHex(0xffffff);
-      hoveredSprite = null;
-      canvas.style.cursor = 'default';
+      showCard({ force: true });
     }
-  });
-}, { passive: true });
-
-// Cleanup
-window.addEventListener('blur', () => { 
-  if (rafId) cancelAnimationFrame(rafId); 
-});
-
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  viewer.renderer.setSize(window.innerWidth, window.innerHeight);
-  if (window.menuOpen) {
-    const menu = document.getElementById('menu');
-    if (menu) menu.style.maxHeight = menu.scrollHeight + "px";
   }
 });
+
+// ===== Gallery modal state =====
+const galleryModal = document.getElementById('galleryModal');
+const galImage     = document.getElementById('galImage');
+const galPrev      = document.getElementById('galPrev');
+const galNext      = document.getElementById('galNext');
+const galClose     = document.getElementById('galClose');
+const galDots      = document.getElementById('galDots');
+
+let galImages = [];
+let galIndex  = 0;
+let galOpen   = false;
+let imageCache = {}; // Cache untuk preloaded images
+
+// ===== LOADER ELEMENT =====
+// Buat loader spinner (tambahkan di HTML atau create via JS)
+let galLoader = document.getElementById('galLoader');
+if (!galLoader) {
+  galLoader = document.createElement('div');
+  galLoader.id = 'galLoader';
+  galLoader.className = 'absolute inset-0 flex items-center justify-center bg-black/50 z-10 hidden';
+  galLoader.innerHTML = `
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
+  `;
+  galleryModal?.appendChild(galLoader);
+}
+
+function showLoader() {
+  galLoader?.classList.remove('hidden');
+}
+
+function hideLoader() {
+  galLoader?.classList.add('hidden');
+}
+
+// ===== PRELOAD IMAGE =====
+function preloadImage(src) {
+  return new Promise((resolve, reject) => {
+    // Cek cache dulu
+    if (imageCache[src]) {
+      resolve(imageCache[src]);
+      return;
+    }
+
+    const img = new Image();
+    img.onload = () => {
+      imageCache[src] = img;
+      resolve(img);
+    };
+    img.onerror = () => {
+      console.error('Failed to load image:', src);
+      reject(new Error(`Failed to load: ${src}`));
+    };
+    img.src = src;
+  });
+}
+
+// ===== RENDER DOTS =====
+function renderDots() {
+  galDots.innerHTML = '';
+  galImages.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'w-2.5 h-2.5 rounded-full transition-colors ' + 
+      (i === galIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/70');
+    dot.addEventListener('click', () => showImage(i));
+    galDots.appendChild(dot);
+  });
+}
+
+// ===== SHOW IMAGE WITH LOADER =====
+async function showImage(i) {
+  galIndex = (i + galImages.length) % galImages.length;
+  const targetSrc = galImages[galIndex];
+
+  // Show loader
+  showLoader();
+  
+  try {
+    // Preload image
+    await preloadImage(targetSrc);
+    
+    // Set image source (smooth transition)
+    galImage.style.opacity = '0';
+    
+    setTimeout(() => {
+      galImage.src = targetSrc;
+      galImage.style.opacity = '1';
+      hideLoader();
+    }, 150); // Small delay for smooth fade
+    
+    renderDots();
+    
+    // Preload adjacent images (prev & next) untuk smooth navigation
+    preloadAdjacentImages();
+    
+  } catch (error) {
+    console.error('Error loading image:', error);
+    hideLoader();
+    
+    // Fallback: show placeholder atau error message
+    galImage.alt = 'Failed to load image';
+  }
+}
+
+// ===== PRELOAD ADJACENT IMAGES =====
+function preloadAdjacentImages() {
+  const prevIndex = (galIndex - 1 + galImages.length) % galImages.length;
+  const nextIndex = (galIndex + 1) % galImages.length;
+  
+  // Preload in background (no await)
+  preloadImage(galImages[prevIndex]).catch(() => {});
+  preloadImage(galImages[nextIndex]).catch(() => {});
+}
+
+// ===== OPEN GALLERY =====
+function openGallery(images, start = 0) {
+  if (!Array.isArray(images) || images.length === 0) return;
+  
+  galImages = images;
+  galIndex = start;
+  
+  // Clear previous image
+  galImage.src = '';
+  galImage.style.opacity = '0';
+  
+  // Show modal
+  galleryModal.classList.remove('hidden');
+  galleryModal.classList.add('flex');
+  document.body.style.overflow = 'hidden';
+  galOpen = true;
+  
+  // Load first image
+  showImage(galIndex);
+}
+
+// ===== CLOSE GALLERY =====
+function closeGallery() {
+  galleryModal.classList.add('hidden');
+  galleryModal.classList.remove('flex');
+  document.body.style.overflow = '';
+  galOpen = false;
+  hideLoader();
+}
+
+// ===== EVENT LISTENERS =====
+galPrev?.addEventListener('click', () => showImage(galIndex - 1));
+galNext?.addEventListener('click', () => showImage(galIndex + 1));
+galClose?.addEventListener('click', closeGallery);
+
+// Klik di area gelap untuk close
+galleryModal?.addEventListener('click', (e) => {
+  if (e.target === galleryModal) closeGallery();
+});
+
+// Keyboard navigation
+window.addEventListener('keydown', (e) => {
+  if (!galOpen) return;
+  if (e.key === 'Escape') closeGallery();
+  if (e.key === 'ArrowLeft')  showImage(galIndex - 1);
+  if (e.key === 'ArrowRight') showImage(galIndex + 1);
+});
+
+// ===== ADD SMOOTH TRANSITION CSS =====
+// Tambahkan ini ke galImage element
+if (galImage) {
+  galImage.style.transition = 'opacity 0.3s ease-in-out';
+}
+
+Object.assign(window, { switchScene }); // jika perlu: { scenes, switchScene }

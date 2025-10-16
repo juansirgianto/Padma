@@ -1,0 +1,27 @@
+/* target tombol markersList */
+.psv-panel-resizer {
+  background-color: #97864E !important;
+  color: #fff;
+}
+.psv-navbar {
+  background-color: rgba(16,82,60,0.7) !important;
+}
+
+.psv-panel-menu {
+  background-color: rgba(16,82,60) !important;
+  color: #fff;
+}
+
+.psv-tooltip {
+  background-color: rgb(16, 82, 60) !important;
+  box-shadow: 0px -3px rgb(151, 134, 78) !important;
+}
+
+/* Coba berbagai selector untuk caret/arrow */
+.psv-tooltip::before,
+.psv-tooltip::after,
+.psv-tooltip-arrow,
+.psv-tooltip-content::before,
+.psv-tooltip-content::after {
+  border-top-color: rgb(16, 82, 60) !important;
+}

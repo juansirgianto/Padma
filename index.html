@@ -1,394 +1,211 @@
+<!-- /surrounding/index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Padma</title>
+  <meta charset="utf-8" />
+  <title>Padma - Surrounding</title>
   <link rel="icon" type="image/png" href="https://designedbypelago.com/wp-content/uploads/2025/09/PadmaIcon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS Photo Sphere Viewer v5 -->
+  <link rel="stylesheet" href="https://unpkg.com/@photo-sphere-viewer/core/index.css">
+  <link rel="stylesheet" href="https://unpkg.com/@photo-sphere-viewer/markers-plugin/index.css">
+  <link rel="stylesheet" href="main.css">
+
   <style>
-    body { margin: 0; overflow: hidden; }
-    canvas { display: block; }
+    html, body { height: 100%; margin: 0; }
+    #viewer { width: 100vw; height: 100vh; }
   </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-    <style>
-        body {
-            font-family: 'Work Sans', sans-serif;
-        }
-    
-        #thumbnailScroll::-webkit-scrollbar {
-            display: none;
-        }
-        #thumbnailScroll {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-        }
-    </style>
 <body>
-    <canvas id="webgl-canvas" class="absolute block top-0 left-0 z-0"></canvas>
-
-<!-- Kontainer deskripsi -->
-<div id="pooldescription" class="description-box absolute top-2 right-2 bg-[#10523C]/80 backdrop-blur-md rounded-lg shadow-lg w-96 z-20" style="display: none;">
-  <button class="absolute top-2 right-2 text-white close-description bg-[#10523C] rounded-full p-1">
-    <i data-lucide="x"></i>
-  </button>
-  <img  src="https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg" alt="" id="descImage" class="rounded-lg w-full h-[200px] object-cover mb-2">
-  <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
-  <div class="flex justify-between mb-1">
-    <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Lake View</h4>
-    <h4 class="text-md text-[#f5f4ea] mx-4">(15 x 35)</h4>
-  </div>
-  <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">Modern two-storey twin house with a sleek, minimalist facade, featuring wide carports, spacious balconies, and contemporary wood-accented frames. Perfect for stylish urban living with open-plan interiors and ample natural light.</p>
-    <div class="flex gap-2 mx-4 mb-4">
-    <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#97864E]/90 hover:bg-[#97864E] text-white text-[#0E2C3F] w-full p-2 rounded-xl" data-gallery-id="pool"
-     data-media='[{"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-4.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-2.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-1.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-2.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/POOL-RUMAH-PADMA.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewInterior02_Final.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewMainBedroom_Final.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewLivingRoom_Final.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewKidsBedroom_Final.jpeg"}
-     ]'>
-      <i data-lucide="image" class="size-5 my-auto "></i>
-      <span class="font-semibold">Gallery</span>
-    </button>
-    <!-- <a href="/Demo02/area1/360/" class="w-full">
-        <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#d3d2a5] hover:bg-[#f5f4ea] text-[#757741] w-full p-2 rounded-xl">
-        <i data-lucide="rotate-3d" class="size-5 my-auto "></i>
-        <span class="font-semibold">360 View</span>
-        </button>
-    </a> -->
-    </div>
-</div>
-
-<div id="housedescription" class="description-box absolute top-2 right-2 bg-[#10523C]/80 backdrop-blur-md rounded-lg shadow-lg w-96 z-20" style="display: none;">
-  <button class="absolute top-2 right-2 text-[#f5f4ea] close-description bg-[#10523C] rounded-full p-1">
-    <i data-lucide="x"></i>
-  </button>
-  <img  src="https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg" alt="" id="descImage" class="rounded-lg w-full h-[200px] object-cover mb-2">
-  <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
-  <div class="flex justify-between mb-1">
-    <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Boulevard View</h4>
-    <h4 class="text-md text-[#f5f4ea] mx-4">(15 x 30)</h4>
-  </div>
-  <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">Modern two-storey twin house with a sleek, minimalist facade, featuring wide carports, spacious balconies, and contemporary wood-accented frames. Perfect for stylish urban living with open-plan interiors and ample natural light.</p>
-    <div class="flex gap-2 mx-4 mb-4">
-    <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#97864E]/90 hover:bg-[#97864E] text-white w-full p-2 rounded-xl" data-gallery-id="house"
-     data-media='[{"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-4.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-2.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-1.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-2.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/POOL-RUMAH-PADMA.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewInterior02_Final.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewMainBedroom_Final.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewLivingRoom_Final.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewKidsBedroom_Final.jpeg"}
-     ]'>
-      <i data-lucide="image" class="size-5 my-auto "></i>
-      <span class="font-semibold">Gallery</span>
-    </button>
-    <!-- <a href="/Demo02/area2/360/" class="w-full">
-        <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#d3d2a5] hover:bg-[#f5f4ea] text-[#757741] w-full p-2 rounded-xl">
-        <i data-lucide="rotate-3d" class="size-5 my-auto "></i>
-        <span class="font-semibold">360 View</span>
-        </button>
-    </a> -->
-    </div>
-</div>
-
-<div id="gardendescription" class="description-box absolute top-2 right-2 bg-[#10523C]/80 backdrop-blur-md rounded-lg shadow-lg w-96 z-20" style="display: none;">
-  <button class="absolute top-2 right-2 text-[#f5f4ea] close-description bg-[#10523C] rounded-full p-1">
-    <i data-lucide="x"></i>
-  </button>
-  <img  src="https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg" alt="" class="rounded-lg w-full h-[200px] object-cover mb-2">
-  <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
-  <div class="flex justify-between mb-1">
-    <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Park View</h4>
-    <h4 class="text-md text-[#f5f4ea] mx-4">(15 x 30)</h4>
-  </div>
-  <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">Modern two-storey twin house with a sleek, minimalist facade, featuring wide carports, spacious balconies, and contemporary wood-accented frames. Perfect for stylish urban living with open-plan interiors and ample natural light.</p>
-    <div class="flex gap-2 mx-4 mb-4">
-    <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#97864E]/90 hover:bg-[#97864E] text-white w-full p-2 rounded-xl" data-gallery-id="poolgarden"
-     data-media='[{"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-1.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-4.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-DEPAN-2.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-1.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/RUMAH-BHARATA-TAMPAK-BELAKANG-2.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/POOL-RUMAH-PADMA.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewInterior02_Final.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewMainBedroom_Final.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewLivingRoom_Final.jpeg"},
-     {"type":"image","src":"https://designedbypelago.com/wp-content/uploads/2025/10/ProjectPadma-InteriorRumah_ViewKidsBedroom_Final.jpeg"}
-     ]'>
-      <i data-lucide="image" class="size-5 my-auto "></i>
-      <span class="font-semibold">Gallery</span>
-    </button>
-    <!-- <a href="/Demo02/area3/360/" class="w-full">
-        <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#d3d2a5] hover:bg-[#f5f4ea] text-[#757741] w-full p-2 rounded-xl">
-        <i data-lucide="rotate-3d" class="size-5 my-auto "></i>
-        <span class="font-semibold">360 View</span>
-        </button>
-    </a> -->
-    </div>
-</div>
-
-<!-- <div id="arrivaldescription" class="description-box absolute top-2 right-2 bg-[#10523C]/80 backdrop-blur-md rounded-lg shadow-lg w-96 z-20" style="display: none;">
-  <button class="absolute top-2 right-2 text-[#f5f4ea] close-description bg-[#10523C] rounded-full p-1">
-    <i data-lucide="x"></i>
-  </button>
-  <img  src="https://res.cloudinary.com/doyr0s17x/image/upload/v1755737533/cabana1_teumjv.jpg" alt="" class="rounded-lg w-full h-[200px] object-cover mb-2">
-  <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
-  <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Cabana Kitchen</h4>
-  <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">An informal, welcoming outdoor cooking and gathering area is framed by long planks of bluestone,
-which appear to dissolve organically into surrounding perennial gardens. The softened hardscape edge
-creates a sense of movement and impermanence, blurring the line between structure and nature. Ideal
-for both everyday outdoor meals and larger gatherings, the space accommodates flexible tables and
-seating arrangements, offering a relaxed, convivial setting for entertaining.</p>
-    <div class="flex gap-2 mx-4 mb-4">
-    <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#97864E]/90 hover:bg-[#97864E] text-white w-full p-2 rounded-xl" data-gallery-id="arrival"
-     data-media='[{"type":"video","src":"https://res.cloudinary.com/doyr0s17x/video/upload/v1755737951/cabana_hsdxst.mp4","poster":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737533/cabana1_teumjv.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737533/cabana1_teumjv.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737536/cabana2_vbtji6.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737574/garden1_xb3q6b.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737574/garden2_tvq2gk.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737578/garden3_bbgtdv.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737533/cabana1-n_jd4iat.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737540/cabana2-n_jduhct.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737571/garden1-n_uzvm5h.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737578/garden2-n_i9g0v8.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737579/garden3-n_djvhrj.jpg"}]'>
-      <i data-lucide="image" class="size-5 my-auto "></i>
-      <span class="font-semibold">Gallery</span>
-    </button>
-    <a href="/Demo02/area4/360/" class="w-full">
-        <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#d3d2a5] hover:bg-[#f5f4ea] text-[#757741] w-full p-2 rounded-xl">
-        <i data-lucide="rotate-3d" class="size-5 my-auto "></i>
-        <span class="font-semibold">360 View</span>
-        </button>
-    </a>
-    </div>
-</div>
-
-<div id="archdescription" class="description-box absolute top-2 right-2 bg-[#10523C]/80 backdrop-blur-md rounded-lg shadow-lg w-96 z-20" style="display: none;">
-  <button class="absolute top-2 right-2 text-[#f5f4ea] close-description bg-[#10523C] rounded-full p-1">
-    <i data-lucide="x"></i>
-  </button>
-  <img  src="https://res.cloudinary.com/doyr0s17x/image/upload/v1755737557/back4_qlsqgl.jpg" alt="" class="rounded-lg w-full h-[200px] object-cover mb-2">
-  <video id="descVideo" class="w-full h-[420px] object-contain rounded-xl hidden" controls playsinline preload="metadata"></video>
-  <h4 class="text-lg font-bold text-[#f5f4ea] mx-4">Pool & Lounge Area</h4>
-  <p class="text-sm mb-3 text-[#f5f4ea] mx-4 font-light">A 20' x 40' swimming pool anchors this sleek and understated lawn area, with 30" wide bluestone
-coping lending a refined, architectural edge. The design emphasizes simplicity and proportion, allowing
-the pool to feel integrated and serene within the broader landscape. The adjacent lounge area features
-generous seating capacity, shaded by a striking dual cantilever Tuuci umbrella, providing comfort,
-elegance, and visual balance for sunbathing and casual relaxation.</p>
-    <div class="flex gap-2 mx-4 mb-4">
-    <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#97864E]/90 hover:bg-[#97864E] text-white w-full p-2 rounded-xl" data-gallery-id="arrival"
-     data-media='[{"type":"video","src":"https://res.cloudinary.com/doyr0s17x/video/upload/v1755737943/backyard2_qmugz6.mp4","poster":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737557/back4_qlsqgl.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737557/back4_qlsqgl.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737527/back5_foi7ch.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737549/back4-n_c6dhky.jpg"},
-     {"type":"image","src":"https://res.cloudinary.com/doyr0s17x/image/upload/v1755737525/back5-n_zeoyfg.jpg"}]'>
-      <i data-lucide="image" class="size-5 my-auto "></i>
-      <span class="font-semibold">Gallery</span>
-    </button>
-    <a href="/Demo02/area5/360/" class="w-full">
-        <button class="galleryBtn flex gap-2 text-center justify-center font-medium items-center bg-[#d3d2a5] hover:bg-[#f5f4ea] text-[#757741] w-full p-2 rounded-xl">
-        <i data-lucide="rotate-3d" class="size-5 my-auto "></i>
-        <span class="font-semibold">360 View</span>
-        </button>
-    </a>
-    </div>
-</div> -->
-
-<div id="sidebar" class="absolute flex flex-col top-2 left-2 w-[250px] bg-[#10523C]/70 backdrop-blur-md p-4 rounded-lg transition-all duration-300">
+  <div id="viewer"></div>
+  <div id="sidebar" class="absolute flex flex-col top-2 left-2 lg:w-[250px] md:w-[200px] w-[150px] bg-[#10523C]/90 backdrop-blur-sm md:p-4 p-2 rounded-lg transition-all duration-300 max-h-[95vh] z-10">
   <!-- Logo + Arrow -->
   <div class="flex flex-col items-center justify-between">
-    <img src="https://designedbypelago.com/wp-content/uploads/2025/09/Padma_LogoFinal-White-e1758596993545.png" alt="" class="w-[150px]">
+    <img src="https://designedbypelago.com/wp-content/uploads/2025/09/Padma_LogoFinal-White-e1758596993545.png" alt="" class="lg:w-[150px] md:w-[100px] w-[80px]">
   </div>
   <div id="menu"
-       class="mt-5 space-y-2 overflow-hidden max-h-0 transition-[max-height,opacity] duration-300 ease-in-out opacity-0">
-    <a id="btn-6" href="/" class="rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white data-[active=true]:bg-white data-[active=true]:text-[#10523C]" data-active="false">
-      <div class="flex text-xl p-2 font-semibold gap-2 items-center">
-        <i data-lucide="home"></i>
-        <span>Home</span>
+       class="md:mt-5 mt-2 lg:space-y-2 overflow-hidden max-h-0 transition-[max-height,opacity] duration-300 ease-in-out opacity-0">
+    <div class="flex flex-col gap-1">
+      <button data-scene="aerial" class="flex w-full text-white lg:text-md md:text-base text-xs p-2 font-semibold gap-1 items-center mb-2 hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]" data-active="true">
+        <div class="bg-[#97864E] text-white rounded-full p-2 hidden md:flex">
+          <i data-lucide="eye"></i>
+        </div>
+        <h1 class="text-start">Aerial View</h1>
+      </button>
+      <h1 class="font-semibold text-white lg:text-xl md:text-lg text-sm bg-[#97864E] rounded-xl text-center lg:p-1">Properties</h1>
+    <button data-scene="modern" class="flex w-full text-white lg:text-md md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2 hidden md:flex">
+        <i data-lucide="shrub"></i>
       </div>
+      <h1 class="text-start">Lake View</h1>
+    </button>
+    <button data-scene="tropical" class="flex w-full text-white lg:text-md md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2 hidden md:flex">
+        <i data-lucide="car"></i>
+      </div>
+      <h1 class="text-start">Boulevard View</h1>
+    </button>
+    <button data-scene="classic" class="flex w-full text-white lg:text-md md:text-base text-xs p-2 font-semibold gap-1 items-center hover:bg-[#97864E]/70 rounded-xl data-[active=true]:bg-white data-[active=true]:text-[#10523C]">
+      <div class="bg-[#97864E] text-white rounded-full p-2 hidden md:flex">
+        <i data-lucide="trees"></i>
+      </div>
+      <h1 class="text-start">Park View</h1>
+    </button>
+    <a href="/Padma/surrounding/" class="font-semibold text-white lg:text-xl md:text-lg text-sm bg-whie hover:text-white hover:bg-[#97864E] rounded-xl text-center lg:p-2 mb-2">
+    <button >
+      Go to Surrounding
+    </button>
     </a>
-    <div class="amenities-dropdown">
-  <button id="amenitiesToggle" class="w-full rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white data-[active=true]:bg-white data-[active=true]:text-[#10523C]" data-active="false">
-    <div class="flex text-xl p-2 font-semibold gap-2 items-center justify-between">
-      <div class="flex items-center gap-2">
-        <i data-lucide="building"></i>
-        <span>Properties</span>
-      </div>
-      <i id="amenitiesChevron" data-lucide="chevron-down" class="transition-transform duration-300"></i>
-    </div>
-  </button>
-  
-  <div id="amenitiesDropdownMenu" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
-    <div class="space-y-1 pt-2">
-      <button id="btn-1" class="area-button block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left data-[active=true]:bg-[#97864E]/50">
-        <div class="flex items-center gap-2 p-2 text-md">
-          <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">1</span>
-          <span>Lake View</span>
-        </div>
-      </button>
-      <button id="btn-2" class="area-button block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left data-[active=true]:bg-[#97864E]/50">
-        <div class="flex items-center gap-2 p-2 text-md">
-          <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">2</span>
-          <span>Boulevard View</span>
-        </div>
-      </button>
-      <button id="btn-3" class="area-button block text-white hover:bg-[#97864E]/50 rounded-lg transition-colors w-full text-left data-[active=true]:bg-[#97864E]/50">
-        <div class="flex items-center gap-2 p-2 text-md">
-          <span class="bg-[#97864E] text-white rounded-full px-2 py-0.5 text-xs font-bold">3</span>
-          <span>Park View</span>
-        </div>
-      </button>
     </div>
   </div>
-</div>
-    <a href="/Padma/surrounding/" class="rounded-xl text-white block hover:bg-[#97864E]/70 hover:text-white data-[active=true]:bg-white data-[active=true]:!text-[#10523C]" data-active="false">
-      <div class="flex text-xl p-2 font-semibold gap-2 items-center mb-2">
-        <i data-lucide="map"></i>
-        <span>Surrounding</span>
-      </div>
-    </a>
-  </div>
-  <button id="toggleBtn" type="button" class="text-white w-full hover:bg-white hover:text-[#10523C] rounded-xl">
-    <i id="chev" data-lucide="chevron-down" class="mx-auto transition-transform duration-300"></i>
+  <button id="toggleBtn" type="button" class="text-white w-full hover:bg-white hover:text-[#10523C] rounded-xl ">
+    <i id="chev" data-lucide="chevron-down" class="mx-auto transition-transform duration-300 md:w-[100px] w-[20px]"></i>
   </button>  
 </div>
 
- <!-- Carousel Section -->
-    <div class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden" id="carouselWrapper">
-      <div class="relative w-auto max-w-[50%]" id="carouselWrap">
-        <!-- Carousel -->
-        <div class="relative flex items-center justify-center" id="carouselContainer">
-          <button id="prevBtn" class="relative left-2 bg-[#10523C] text-white hover:bg-[#97864E] rounded-full p-2 z-10">
-            <i data-lucide="chevron-left"></i>
-          </button>
+<!-- Info Card Overlay -->
+<div id="sceneCard"
+     class="fixed right-2 top-2 lg:max-w-[300px] md:max-w-[250px] max-w-[50vw] bg-[#10523C]/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden
+            opacity-0 translate-y-3 pointer-events-none transition-all duration-300 z-10">
+  <img id="sceneCardImg" src="" alt="" class="w-full h-36 object-cover hidden">
+  <div class="p-4">
+    <div class="text-xs tracking-widest text-white uppercase" id="sceneCardTag"></div>
+    <h3 id="sceneCardTitle" class="text-xl font-bold text-white mt-0"></h3>
+    <p id="sceneCardDesc" class="text-gray-200 mt-2 md:text-md text-sm"></p>
+    <ul id="sceneCardBullets" class="mt-3 space-y-1 md:text-sm text-xs text-gray-200"></ul>
+    <a id="sceneCardCta"
+       class="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-lg bg-[#97864E] text-white hover:bg-[#97864E]/90 transition hidden cursor-pointer">
+      See Gallery
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M7 17L17 7M7 7h10v10"/>
+      </svg>
+    </a>
+  </div>
 
-          <img id="carouselImage" class="w-[800px] h-[600px] object-contain rounded-lg cursor-pointer" alt="Slide" />
-          <video preload="none" id="carouselVideo"
-          class="w-[800px] h-[600px] object-contain rounded-lg cursor-pointer hidden"
-          controls
-          playsinline
-          preload="metadata"></video>
+  <!-- Close -->
+  <button id="sceneCardClose" type="button"
+          class="absolute top-2 right-2 inline-flex items-center justify-center w-7 h-7 rounded-full hover:bg-[#97864E] bg-[#10523C] text-white">
+    <i data-lucide="x"></i>
+  </button>
+</div>
 
-          <button id="nextBtn" class="relative right-2 bg-[#10523C] text-white hover:bg-[#97864E] rounded-full p-2 z-10">
-            <i data-lucide="chevron-right"></i>
-          </button>
-        </div>
-        <div class="relative flex w-fit max-w-[90%] mx-auto mt-4 overflow-hidden">
-        <!-- Left Arrow -->
-        <button id="thumbLeft"
-          class="absolute left-0 top-1/2 -translate-y-1/2 bg-[#10523C] text-white hover:bg-[#97864E] rounded-full p-1 shadow z-10">
-          <i data-lucide="chevron-left"></i>
-        </button>
-          <div id="thumbnailScroll" class="flex gap-2 overflow-x-auto scroll-smooth px-6 scrollbar-hide hidden">
- 
-          </div>
-        <button id="thumbRight"
-          class="absolute right-0 top-1/2 -translate-y-1/2 bg-[#10523C] text-white hover:bg-[#97864E] rounded-full p-1 shadow z-10">
-          <i data-lucide="chevron-right"></i>
-        </button>
-        </div>
-      </div>
-    </div>
+<!-- Tombol Open (default hidden, muncul setelah close) -->
+<button id="openCardBtn"
+        class="fixed right-2 top-2 px-3 py-1.5 bg-[#97864E] text-white rounded-lg shadow hidden md:text-base text-sm">
+  Open Desc
+</button>
 
-    <!-- <div id="cam-info" class="absolute bottom-2 right-2 bg-black text-white text-xs px-2 py-1 rounded z-10"></div> -->
+<!-- Gallery Modal -->
+<div id="galleryModal"
+     class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80">
+  <!-- Close -->
+  <button id="galClose"
+          class="absolute top-4 right-4 p-2 rounded-full bg-[#97864E]/70 hover:bg-[#10523C]/90 text-white text-xl font-bold leading-none">
+    <i data-lucide="x"></i>
+  </button>
 
-  
-  <script src="https://unpkg.com/lucide@latest"></script>
-<script>
-  lucide.createIcons();
-  
-  // Buat variabel GLOBAL agar bisa diakses dari main.js
-  window.menuOpen = false;
-  window.amenitiesOpen = false;
-  
-  // Fungsi global untuk toggle menu dengan icon
-  window.toggleMainMenu = function (shouldOpen) {
-  const menu = document.getElementById('menu');
-  const chev = document.getElementById('chev');
+  <!-- Stage -->
+  <div class="relative w-[92vw] max-w-5xl">
+    <img id="galImage" src="" alt="" class="w-full h-[70vh] object-contain rounded-xl shadow-lg " />
 
-  if (shouldOpen === undefined) {
-    shouldOpen = menu.classList.contains('max-h-0');
-  }
+    <!-- Prev/Next -->
+    <button id="galPrev"
+            class="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#10523C]/90 hover:bg-[#97864E]/70 text-white text-2xl leading-none">
+      <i data-lucide="chevron-left"></i>
+    </button>
+    <button id="galNext"
+            class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#10523C]/90 hover:bg-[#97864E]/70 text-white text-2xl leading-none">
+      <i data-lucide="chevron-right"></i>
+    </button>
+  </div>
 
-  window.menuOpen = shouldOpen;
-
-  if (shouldOpen) {
-    menu.classList.remove('max-h-0', 'opacity-0');
-    menu.classList.add('max-h-[500px]', 'opacity-100');
-    chev.style.transform = "rotate(180deg)";
-  } else {
-    menu.classList.remove('max-h-[500px]', 'opacity-100');
-    menu.classList.add('max-h-0', 'opacity-0');
-    chev.style.transform = "rotate(0deg)";
-  }
-};
-  
-  // Fungsi global untuk toggle amenities dropdown
-  window.toggleAmenitiesDropdown = function(shouldOpen) {
-    const amenitiesDropdownMenu = document.getElementById('amenitiesDropdownMenu');
-    const amenitiesChevron = document.getElementById('amenitiesChevron');
-    const amenitiesToggle = document.getElementById('amenitiesToggle');
-    
-    // Cek status dari window.amenitiesOpen, bukan dari classList
-    if (shouldOpen === undefined) {
-      shouldOpen = !window.amenitiesOpen; // Toggle status
-    }
-    
-    window.amenitiesOpen = shouldOpen;
-    
-    if (shouldOpen) {
-      amenitiesDropdownMenu.style.maxHeight = amenitiesDropdownMenu.scrollHeight + 'px';
-      amenitiesDropdownMenu.style.opacity = '1';
-      
-      // Rotasi chevron
-      if (amenitiesChevron) {
-        amenitiesChevron.style.transform = "rotate(180deg)";
-      }
-      
-      if (amenitiesToggle) amenitiesToggle.dataset.active = "true";
-    } else {
-      amenitiesDropdownMenu.style.maxHeight = '0px';
-      amenitiesDropdownMenu.style.opacity = '0';
-      
-      // Reset rotasi chevron
-      if (amenitiesChevron) {
-        amenitiesChevron.style.transform = "rotate(0deg)";
-      }
-      
-      if (amenitiesToggle) amenitiesToggle.dataset.active = "false";
-    }
-  };
-  
-  // Event listener untuk toggle button
-  document.getElementById('toggleBtn').addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    window.toggleMainMenu();
-  });
-</script>
+  <!-- Dots -->
+  <div id="galDots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"></div>
+</div>
 
 <script type="importmap">
-  {
-    "imports": {
-      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-      "@mkkellogg/gaussian-splats-3d": "https://unpkg.com/@mkkellogg/gaussian-splats-3d/build/gaussian-splats-3d.module.js"
-    }
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three/build/three.module.js",
+    "@photo-sphere-viewer/core": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.module.js",
+    "@photo-sphere-viewer/markers-plugin": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin/index.module.js"
   }
+}
+</script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
   </script>
 
-<script type="module" src="./main.js"></script>
+  <script type="module" src="./main.js"></script>
+  <script>
+  // Render Lucide sekali setelah DOM siap
+  if (window.lucide) lucide.createIcons();
+
+  function setActiveSceneButton(sceneId) {
+  document.querySelectorAll('#menu [data-scene]').forEach((btn) => {
+    const isActive = btn.dataset.scene === sceneId;
+    btn.dataset.active = isActive ? 'true' : 'false';     // untuk Tailwind: data-[active=true]:...
+    btn.setAttribute('aria-current', isActive ? 'page' : 'false'); // aksesibilitas
+  });
+}
+
+  // ===== MENU TOGGLE =====
+  const toggleBtn = document.getElementById("toggleBtn");
+  const menu      = document.getElementById("menu");
+  const chev      = document.getElementById("chev");
+
+  let menuOpen = false;
+
+  function setMenuOpen(v) {
+    menuOpen = v;
+    if (v) {
+      menu.style.maxHeight = menu.scrollHeight + "px";
+      menu.style.opacity   = "1";
+      chev.style.transform = "rotate(180deg)"; // chevron-up
+    } else {
+      menu.style.maxHeight = "0px";
+      menu.style.opacity   = "0";
+      chev.style.transform = "rotate(0deg)";   // chevron-down
+    }
+  }
+
+  setTimeout(() => setMenuOpen(true), 300);
+
+  function closeMenu() { setMenuOpen(false); }
+
+  toggleBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setMenuOpen(!menuOpen);
+  });
+
+  // Jaga tinggi saat resize
+  window.addEventListener("resize", () => {
+    if (menuOpen) menu.style.maxHeight = menu.scrollHeight + "px";
+  });
+
+  // ===== SCENE BUTTONS (delegasi) =====
+  menu.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-scene]');
+    if (!btn) return;
+
+    e.preventDefault();
+    const sceneId = btn.dataset.scene; // "entrance" | "studyroom" | ...
+
+    if (typeof window.switchScene === 'function') {
+      window.switchScene(sceneId);
+      setActiveSceneButton(sceneId);
+      // closeMenu(); // opsional: tutup menu setelah pilih
+    } else {
+      console.warn('switchScene belum tersedia di window. Pastikan vtour.js meng-expose-nya: Object.assign(window, { switchScene })');
+    }
+  });
+</script>
 
 </body>
 </html>
