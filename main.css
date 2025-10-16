@@ -5,6 +5,7 @@
 }
 .psv-navbar {
   background-color: rgba(16,82,60,0.7) !important;
+  display: none;
 }
 
 .psv-panel-menu {
