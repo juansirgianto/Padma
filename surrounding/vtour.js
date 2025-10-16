@@ -58,7 +58,7 @@ const scenes = {
     markers: [
       { id:'to-gardenhouse',   to:'gardenhouse', img:'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-TAMAN-AMERTA.jpeg',   label:'Amerta Garden',   position:{ yaw:deg(-10),  pitch:deg(-40) } },
       { id:'to-lakeview', to:'lakeview',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-DANAU-2.jpg', label:'Lake View', position:{ yaw:deg(85),  pitch:deg(-55) } },
-      { id:'to-landmark', to:'landmark',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/03_LandmarkBunga.jpg', label:'Landmark', position:{ yaw:deg(110),  pitch:deg(-20) } },
+      { id:'to-landmark', to:'landmark',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/03_LandmarkBunga.jpg', label:'Padma Landmark', position:{ yaw:deg(110),  pitch:deg(-20) } },
       { id:'to-tamandoa', to:'tamandoa',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/TAMAN-DOA-OUR-LADY-OF-AKITA.jpeg', label:'Taman Doa Akita', position:{ yaw:deg(45),  pitch:deg(-20) } },
       { id:'to-rukan', to:'rukan',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/LAU-PA-SAT-1-e1760512333179.jpeg', label:'Rukan Lau Pa Sat', position:{ yaw:deg(65),  pitch:deg(-20) } },
       { id:'to-clubhouse', to:'clubhouse',   img:'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender12.jpeg', label:'Padma Club House', position:{ yaw:deg(115),  pitch:deg(-15) } },
@@ -69,13 +69,13 @@ const scenes = {
     info: {
       tag: 'Welcome',
       title: 'Aerial View',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      desc: 'Aerial view to explore the surroundings of Padma from above.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/compressed_AERIAL-PADMA-2.png',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
       // cta: { label: 'See Gallery' },
       // gallery: [
       //   '/vtour/ENTRANCE_.jpg',
@@ -93,13 +93,13 @@ const scenes = {
     info: {
       tag: 'Welcome',
       title: 'Amerta Garden',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      desc: 'Experience a new standard of luxury living at Taman Amerta, where modern architecture meets tropical serenity. Every residence is crafted with elegance and purpose — featuring sleek geometric lines, expansive glass panels, and warm natural textures that blend seamlessly into lush green surroundings.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-TAMAN-AMERTA.jpeg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
       cta: { label: 'See Gallery' },
       gallery: [
         'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-TAMAN-AMERTA.jpeg',
@@ -115,13 +115,13 @@ const scenes = {
     info: {
       tag: 'Welcome',
       title: 'Lake View',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      desc: 'The Lakeview area is designed as a serene waterfront environment where nature and modern living coexist. With its lush greenery, calm waters, and pedestrian-friendly promenade, the space creates a relaxing atmosphere for residents to enjoy both leisure and scenic beauty.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-DANAU-2.jpg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
       cta: { label: 'See Gallery' },
       gallery: [
         'https://designedbypelago.com/wp-content/uploads/2025/10/LANDSCAPE-DANAU-2.jpg',
@@ -137,14 +137,14 @@ const scenes = {
     ],
     info: {
       tag: 'Welcome',
-      title: 'Landmark',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      title: 'Padma Landmark',
+      desc: "Explore the Padma Landmarks - a central point that highlights the area's character and charm.",
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/03_LandmarkBunga.jpg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
       // cta: { label: 'See Gallery' },
       // gallery: [
       //   '/vtour/kitchenpatio.jpg',
@@ -162,13 +162,13 @@ const scenes = {
     info: {
       tag: 'Welcome',
       title: 'Taman Doa Akita',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      desc: 'A serene Japanese-inspired clubhouse complex featuring elegant traditional architecture, a tranquil koi pond, and lush landscaped gardens. Meandering pathways connect pavilions, shaded seating areas, and scenic water views, creating a perfect space for relaxation and community gatherings.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/TAMAN-DOA-OUR-LADY-OF-AKITA.jpeg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
       cta: { label: 'See Gallery' },
       gallery: [
         'https://designedbypelago.com/wp-content/uploads/2025/10/TAMAN-DOA-OUR-LADY-OF-AKITA.jpeg',
@@ -184,13 +184,13 @@ const scenes = {
     info: {
       tag: 'Welcome',
       title: 'Rukan Lau Pa Sat',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      desc: 'A vibrant market square surrounded by modern shop-houses, centered around a unique octagonal pavilion with a striking roof design. Wide pedestrian walkways, landscaped greenery, and easy road access create an inviting hub for commerce, community gatherings, and social activities.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/LAU-PA-SAT-1-e1760512333179.jpeg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
       cta: { label: 'See Gallery' },
       gallery: [
         'https://designedbypelago.com/wp-content/uploads/2025/10/LAU-PA-SAT-1-e1760512333179.jpeg',
@@ -206,13 +206,13 @@ const scenes = {
     info: {
       tag: 'Welcome',
       title: 'Padma Club House',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      desc: 'A luxurious clubhouse complex surrounded by lush greenery and a scenic lakeside view, featuring resort-style swimming pools, landscaped pathways, and vibrant leisure areas. Designed as a lifestyle hub, it offers premium facilities for relaxation, recreation, and community gatherings in an elegant, modern setting.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender12.jpeg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
       cta: { label: 'See Gallery' },
       gallery: [
         'https://designedbypelago.com/wp-content/uploads/2025/10/ClubhouseRender12.jpeg',
@@ -239,13 +239,13 @@ const scenes = {
     info: {
       tag: 'Welcome',
       title: 'Padma Roundabout',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      desc: 'Fountain centerpiece surrounded by curved stone tiles and garden pathways with lush greenery.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/09_Fountain.jpg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
       // cta: { label: 'See Gallery' },
       // gallery: [
       //   '/vtour/balcony.jpg',
@@ -262,13 +262,13 @@ const scenes = {
     info: {
       tag: 'Welcome',
       title: 'Padma Entrance',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      desc: 'The entrance gate of PADMA is designed as a welcoming landmark that blends modern architectural elements with natural landscaping. The concept emphasizes elegance, harmony with nature, and a strong brand identity through the prominent lotus symbol.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/GERBANG-KAWASAN-PADMA-09062025.jpeg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
       cta: { label: 'See Gallery' },
       gallery: [
         'https://designedbypelago.com/wp-content/uploads/2025/10/GERBANG-KAWASAN-PADMA-09062025.jpeg',
@@ -284,13 +284,13 @@ const scenes = {
     info: {
       tag: 'Welcome',
       title: 'St. Johannes Berchmans',
-      desc: 'Gerbang masuk utama menuju area hunian, dengan lanskap rapi dan akses langsung ke koridor utama.',
+      desc: 'St. Johannes Berchmans School is an educational institution dedicated to nurturing young minds with a strong foundation in academic excellence, discipline, and character formation. Inspired by the life and values of St. Johannes Berchmans, the school emphasizes integrity, respect, and responsibility as guiding principles for its students.',
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/ST.-JOHANNES-BERCHMANS.jpeg',
-      bullets: [
-        'Akses ke Study, Kitchen, dan Bedroom',
-        'Pencahayaan natural pagi',
-        'Lebar koridor 2.2 m'
-      ],
+      // bullets: [
+      //   'Akses ke Study, Kitchen, dan Bedroom',
+      //   'Pencahayaan natural pagi',
+      //   'Lebar koridor 2.2 m'
+      // ],
       cta: { label: 'See Gallery' },
       gallery: [
         'https://designedbypelago.com/wp-content/uploads/2025/10/ST.-JOHANNES-BERCHMANS.jpeg',
