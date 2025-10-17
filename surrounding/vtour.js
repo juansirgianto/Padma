@@ -138,7 +138,7 @@ const scenes = {
     info: {
       tag: 'Welcome',
       title: 'Padma Landmark',
-      desc: "Explore the Padma Landmarks - a central point that highlights the area's character and charm.",
+      desc: "Padma Landmark - a central point that highlights the area's character and charm.",
       img: 'https://designedbypelago.com/wp-content/uploads/2025/10/03_LandmarkBunga.jpg',
       // bullets: [
       //   'Akses ke Study, Kitchen, dan Bedroom',
